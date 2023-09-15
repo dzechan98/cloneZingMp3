@@ -10,7 +10,7 @@ const Search = () => {
             </div>
             <input
                 type="text"
-                className="py-[5px] bg-[transparent] flex-auto"
+                className="py-2 bg-[transparent] flex-auto"
                 placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
             />
         </div>
