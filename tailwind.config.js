@@ -3,6 +3,19 @@ module.exports = {
     content: ["./src/**/*.{html,js}"],
     theme: {
         extend: {
+            backgroundColor: {
+                sb: "#231b2e",
+                player: "#130c1c",
+                main: "#170f23",
+                at: "#3a3344",
+                modal: "#34224f",
+                bmodal: "#ffbd00",
+            },
+            colors: {
+                main: "#dadada",
+                at: "#fff",
+                "main-hv": "#c273ed",
+            },
             keyframes: {
                 "slide-right": {
                     "0%": {

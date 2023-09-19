@@ -18,14 +18,11 @@ const HomePage = () => {
     }, []);
 
     return (
-        <div className="overflow-y-auto w-full h-[100vh] px-[59px]">
-            <div className="h-[70px] flex items-center mb-5">
-                <Header />
-            </div>
+        //<div className="overflow-y-auto w-full h-[100vh] px-[59px]">
             <div className="w-full">
                 <BannerSlider />
             </div>
-        </div>
+        //</div>
     );
 };
 

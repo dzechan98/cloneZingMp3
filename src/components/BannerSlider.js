@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import icons from "../ultis/icons";
+import { setSongId } from "../features/playerSlice";
+import { useNavigate } from "react-router-dom";
 
 const { TfiArrowCircleLeft, TfiArrowCircleRight } = icons;
 const currentSlide = [0, 1, 2];
@@ -9,6 +11,8 @@ const slideSecond = ["animate-slide-left2", "order-2", "z-2"];
 const slideThird = ["animate-slide-right", "order-last", "z-20"];
 
 const BannerSlider = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { banner } = useSelector((state) => state.home);
     const [resetDelay, setResetDelay] = useState(false);
     const sliders = document.querySelectorAll(".slider-item");
@@ -62,6 +66,18 @@ const BannerSlider = () => {
         animationSlide();
         setResetDelay(!resetDelay);
     };
+
+    const handleClickBanner = (item) => {
+        //type=1 la bai hat
+
+        if (item?.type === 1) {
+            dispatch(setSongId(item?.encodeId));
+        } else {
+            navigate(`${item?.link.split(".")[0]}`);
+        }
+        console.log(item);
+    };
+
     useEffect(() => {
         const sliderId = setInterval(() => {
             animationSlide();
@@ -78,8 +94,9 @@ const BannerSlider = () => {
                 <img
                     key={index}
                     src={item.banner}
+                    onClick={() => handleClickBanner(item)}
                     alt=""
-                    className="slider-item flex-1 w-[32%] rounded-lg"
+                    className="cursor-pointer slider-item flex-1 w-[32%] rounded-lg"
                 />
             ))}
             <span
