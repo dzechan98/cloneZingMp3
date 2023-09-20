@@ -8,3 +8,8 @@ export { default as Category } from "./Category";
 export { default as ListSong } from "./ListSong";
 export { default as Song } from "./Song";
 export { default as Icons } from "./Icons";
+export { default as Button } from "./Button";
+export { default as NewRelease } from "./NewRelease";
+export { default as Section } from "./Section";
+export { default as SectionItem } from "./SectionItem";
+export { default as Heading } from "./Heading";

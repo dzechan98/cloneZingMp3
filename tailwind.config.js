@@ -10,6 +10,7 @@ module.exports = {
                 at: "#3a3344",
                 modal: "#34224f",
                 bmodal: "#ffbd00",
+                overlay: "rgba(0,0,0,0.5)",
             },
             colors: {
                 main: "#dadada",

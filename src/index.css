@@ -29,13 +29,13 @@ code {
     background: transparent;
 }
 
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 /* Handle */
 *::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 8px;
-}
-
-/* Handle on hover */
-*::-webkit-scrollbar-thumb:hover {
-    background: #555;
 }

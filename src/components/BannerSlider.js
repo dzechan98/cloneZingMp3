@@ -89,7 +89,7 @@ const BannerSlider = () => {
     }, [banner, resetDelay]);
 
     return (
-        <div className="w-full gap-[2%] flex overflow-hidden relative group">
+        <div className="w-full gap-[2%] flex overflow-hidden relative group mb-20">
             {banner?.map((item, index) => (
                 <img
                     key={index}

@@ -9,6 +9,7 @@ import {
     BsPlayCircle,
     BsPauseCircle,
     BsMusicNoteBeamed,
+    BsMusicNoteList,
 } from "react-icons/bs";
 import {
     AiOutlineSearch,
@@ -16,6 +17,8 @@ import {
     AiOutlineClose,
     AiOutlineHeart,
 } from "react-icons/ai";
+import { IoIosArrowForward } from "react-icons/io";
+import { FiVolume2 } from "react-icons/fi";
 import { BiShuffle, BiSkipPrevious, BiSkipNext } from "react-icons/bi";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { TfiArrowCircleRight, TfiArrowCircleLeft } from "react-icons/tfi";
@@ -41,6 +44,9 @@ const icons = {
     BsPauseCircle,
     PiRepeat,
     BsMusicNoteBeamed,
+    BsMusicNoteList,
+    FiVolume2,
+    IoIosArrowForward,
 };
 
 export default icons;

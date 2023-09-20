@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPlaying, setSongId, setListSong } from "../features/playerSlice";
 import PlayingIc from "../assets/icon-playing.gif";
@@ -10,6 +10,7 @@ const { BsMusicNoteBeamed, BsPlayCircle } = icons;
 
 const Song = ({ song, songs }) => {
     const dispatch = useDispatch();
+    const songRef = useRef(null);
     const { isPlaying, songId } = useSelector((state) => state.player);
     const [openModal, setOpenModal] = useState(false);
     const {
@@ -30,16 +31,23 @@ const Song = ({ song, songs }) => {
         if (id !== songId) {
             dispatch(setSongId(id));
             dispatch(setIsPlaying(true));
+            dispatch(setListSong(songs));
             return null;
         }
-        dispatch(setListSong(songs));
 
         isPlaying
             ? dispatch(setIsPlaying(false))
             : dispatch(setIsPlaying(true));
     };
+
+    useEffect(() => {
+        if (songId === encodeId) {
+            songRef.current.scrollIntoView();
+        }
+    }, [songId]);
     return (
         <div
+            ref={songRef}
             className={`relative flex items-center justify-between p-[10px] border-b border-[#393243] rounded-lg hover:bg-[#2f2739] group ${
                 songId === encodeId ? "bg-[#2f2739]" : ""
             }`}
@@ -82,7 +90,9 @@ const Song = ({ song, songs }) => {
                                     : "text-at"
                             }`}
                         >
-                            {title}
+                            {title.length > 30
+                                ? `${title.slice(0, 30)}...`
+                                : title}
                         </h2>
                         {streamingStatus === 2 && (
                             <Category className="bg-bmodal">PREMIUM</Category>

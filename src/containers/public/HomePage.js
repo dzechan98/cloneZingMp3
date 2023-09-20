@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getHome } from "../../features/homeSlice";
-import { Header, BannerSlider } from "../../components";
+import { BannerSlider, NewRelease, Section } from "../../components";
 import Zingmp3Api from "../../apis/Zingmp3Api";
 const HomePage = () => {
     const dispatch = useDispatch();
+    const {
+        hEditorTheme,
+        hEditorTheme2,
+        hEditorTheme3,
+        hEditorTheme4,
+        hArtistTheme,
+    } = useSelector((state) => state.home);
     useEffect(() => {
         const fetchDataHome = async () => {
             try {
                 const response = await Zingmp3Api.getHome();
+                console.log(response);
                 dispatch(getHome(response.data));
             } catch (error) {
                 console.log(error);
@@ -17,12 +25,19 @@ const HomePage = () => {
         fetchDataHome();
     }, []);
 
+    const cc = useSelector((state) => state.home);
+    console.log(cc);
+
     return (
-        //<div className="overflow-y-auto w-full h-[100vh] px-[59px]">
-            <div className="w-full">
-                <BannerSlider />
-            </div>
-        //</div>
+        <div className="w-full">
+            <BannerSlider />
+            <NewRelease />
+            <Section data={hEditorTheme} />
+            <Section data={hEditorTheme2} />
+            <Section data={hEditorTheme3} />
+            <Section data={hEditorTheme4} />
+            <Section data={hArtistTheme} />
+        </div>
     );
 };
 
