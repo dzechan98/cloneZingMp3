@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Button, Heading } from "./";
+import { Button, Heading, TogglePlaySong, SecondHeading } from "./";
 import icons from "../ultis/icons";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/vi";
-import PlayingIc from "../assets/icon-playing.gif";
 import { setIsPlaying, setSongId } from "../features/playerSlice";
 
-const { IoIosArrowForward, BsPlayCircle } = icons;
+const { IoIosArrowForward } = icons;
 const optionFilter = [
     {
         title: "TẤT CẢ",
@@ -27,19 +26,26 @@ const NewRelease = () => {
     const { newRelease } = useSelector((state) => state.home);
     const dispatch = useDispatch();
     const [region, setRegion] = useState("all");
-    console.log("new", newRelease);
 
-    const handleClick = (encodeId) => {
-        dispatch(setSongId(encodeId));
-        dispatch(setIsPlaying(true));
+    const handleClick = (item) => {
+        if (!isPlaying) {
+            if (item.streamingStatus === 1) {
+                dispatch(setIsPlaying(true));
+            } else {
+                dispatch(setIsPlaying(false));
+            }
+            dispatch(setSongId(item.encodeId));
+        } else {
+            dispatch(setIsPlaying(false));
+        }
     };
     const handleChangeRegion = (value) => {
         setRegion(value);
     };
     return (
         <div className="w-full mb-20">
-            <Heading>{newRelease?.title}</Heading>
-            <div className="flex items-center justify-between mb-10">
+            <Heading className="mb-5">{newRelease?.title}</Heading>
+            <SecondHeading>
                 <div className="flex items-center gap-5">
                     {optionFilter.map((item, index) => (
                         <Button
@@ -55,17 +61,12 @@ const NewRelease = () => {
                         </Button>
                     ))}
                 </div>
-                <div className="flex items-center hover:text-main-hv transition-all font-semibold gap-1 cursor-pointer">
-                    <Button className="!p-0">TẤT CẢ</Button>
-                    <span>
-                        <IoIosArrowForward size={20} />
-                    </span>
-                </div>
-            </div>
+            </SecondHeading>
             <div className="grid grid-cols-3 gap-x-3">
                 {newRelease &&
                     newRelease?.items?.[region]?.slice(0, 12).map((item) => (
                         <div
+                            key={item.encodeId}
                             className={`p-[10px] flex gap-2 transition-all rounded-lg group ${
                                 item.encodeId === songId
                                     ? "bg-at"
@@ -84,20 +85,17 @@ const NewRelease = () => {
                                             ? "flex"
                                             : "hidden group-hover:flex"
                                     }`}
-                                    onClick={() => handleClick(item.encodeId)}
+                                    onClick={() => handleClick(item)}
                                 >
-                                    {item.encodeId === songId && isPlaying ? (
-                                        <img
-                                            src={PlayingIc}
-                                            alt=""
-                                            className="w-4 h-4"
-                                        />
-                                    ) : (
-                                        <BsPlayCircle size={20} />
-                                    )}
+                                    <TogglePlaySong
+                                        size={25}
+                                        isPlaying={isPlaying}
+                                        p1={item.encodeId}
+                                        p2={songId}
+                                    />
                                 </span>
                             </div>
-                            <div className="text-[#ffffff80] flex flex-col">
+                            <div className="text-main-100 flex flex-col">
                                 <h2 className="text-at text-semibold">
                                     {item.title}
                                 </h2>

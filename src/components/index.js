@@ -13,3 +13,10 @@ export { default as NewRelease } from "./NewRelease";
 export { default as Section } from "./Section";
 export { default as SectionItem } from "./SectionItem";
 export { default as Heading } from "./Heading";
+export { default as PlaylistRecently } from "./PlaylistRecently";
+export { default as Image } from "./Image";
+export { default as TogglePlaySong } from "./TogglePlaySong";
+export { default as SecondHeading } from "./SecondHeading";
+export { default as ThirdHeading } from "./ThirdHeading";
+
+export { default as NewRankingReleased } from "./NewRankingReleased";

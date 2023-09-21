@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { SidebarLeft, Player, Header } from "../../components";
+import { SidebarLeft, Player, Header } from "../components";
 const Layout = () => {
     return (
-        <div className="w-full flex text-main">
+        <div className="flex text-main">
             <div className="w-[240px] flex-none relative bg-sb">
                 <SidebarLeft />
             </div>

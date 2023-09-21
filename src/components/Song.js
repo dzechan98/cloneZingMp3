@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPlaying, setSongId, setListSong } from "../features/playerSlice";
-import PlayingIc from "../assets/icon-playing.gif";
-import { Category, Modal, Icons } from "./";
+import { Category, Modal, Icons, TogglePlaySong, ThirdHeading } from "./";
 import icons from "../ultis/icons";
 import moment from "moment";
 
-const { BsMusicNoteBeamed, BsPlayCircle } = icons;
+const { BsMusicNoteBeamed } = icons;
 
 const Song = ({ song, songs }) => {
     const dispatch = useDispatch();
@@ -70,35 +69,21 @@ const Song = ({ song, songs }) => {
                         }`}
                         onClick={() => handleClick(encodeId, streamingStatus)}
                     >
-                        {songId === encodeId ? (
-                            isPlaying ? (
-                                <img src={PlayingIc} alt="" className="w-1/2" />
-                            ) : (
-                                <BsPlayCircle size={25} />
-                            )
-                        ) : (
-                            <BsPlayCircle size={25} />
-                        )}
+                        <TogglePlaySong
+                            size={25}
+                            isPlaying={isPlaying}
+                            p1={songId}
+                            p2={encodeId}
+                        />
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <div className="relative max-w-max">
-                        <h2
-                            className={`font-bold inline ${
-                                streamingStatus === 2
-                                    ? "text-[#ffffff80]"
-                                    : "text-at"
-                            }`}
-                        >
-                            {title.length > 30
-                                ? `${title.slice(0, 30)}...`
-                                : title}
-                        </h2>
-                        {streamingStatus === 2 && (
-                            <Category className="bg-bmodal">PREMIUM</Category>
-                        )}
-                    </div>
-                    <span className="text-[12px]">{artistsNames}</span>
+                    <ThirdHeading
+                        title={title}
+                        description={artistsNames}
+                        status={streamingStatus}
+                        fontSizeDesc="text-[12px]"
+                    />
                 </div>
             </div>
             <div className="w-[30%] text-[12px]">

@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Zingmp3Api from "../../apis/Zingmp3Api";
+import Zingmp3Api from "../apis/Zingmp3Api";
 import { useParams } from "react-router-dom";
-import { ListSong, Icons, Button } from "../../components";
+import { ListSong, Icons, Button } from "../components";
 import moment from "moment";
-import icons from "../../ultis/icons";
-import PlayingIc from "../../assets/icon-playing.gif";
+import icons from "../ultis/icons";
+import PlayingIc from "../assets/icon-playing.gif";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsPlaying, setSongId } from "../../features/playerSlice";
+import { setIsPlaying, setListSong, setSongId } from "../features/playerSlice";
+import {
+    addPlaylistRecently,
+    setIsAddRecentyly,
+} from "../features/playlistRecentlySlice";
 
 const { BsPlayCircle, BsPauseCircle } = icons;
 
@@ -14,6 +18,7 @@ const PlaylistPage = () => {
     const { playlistId } = useParams();
     const dispatch = useDispatch();
     const { songId, isPlaying } = useSelector((state) => state.player);
+    const { isAddRecently } = useSelector((state) => state.playlistRecently);
     const [playlist, setPlaylist] = useState({});
 
     //Kiểm tra xem bài hát hiện tại có nằm trong playlist
@@ -39,6 +44,7 @@ const PlaylistPage = () => {
 
         dispatch(setIsPlaying(isPlaying ? false : true));
     };
+
     useEffect(() => {
         const fecthDetailPlaylist = async () => {
             try {
@@ -52,8 +58,21 @@ const PlaylistPage = () => {
         };
         fecthDetailPlaylist();
     }, []);
+
+    //Xử lí khi click vào album => tự động phát bài hát đầu tiên trong album và thêm album vào danh sách phát gần đây
+    useEffect(() => {
+        if (isAddRecently && Object.keys(playlist).length > 0) {
+            dispatch(setIsPlaying(true));
+            dispatch(setSongId(playlist?.song?.items[0]?.encodeId));
+            dispatch(setListSong(playlist?.song?.items));
+            dispatch(addPlaylistRecently(playlist));
+            dispatch(setIsAddRecentyly(false));
+        }
+    }, [playlist]);
+    // console.log(playlist);
+
     return (
-        <div className="w-full mt-10 text-[#ffffff80] text-sm ">
+        <div className="w-full mt-10 text-main-100 text-sm ">
             <div className="flex gap-[5%]">
                 <div className="w-[300px] flex flex-col items-center">
                     <div className="relative overflow-hidden w-[300px] h-[300px] rounded-lg group cursor-pointer mb-4">
@@ -65,7 +84,9 @@ const PlaylistPage = () => {
                         {isPlaying && checkPlaylist && (
                             <span
                                 className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] rounded-full border border-at block p-3"
-                                onClick={() => {}}
+                                onClick={() => {
+                                    dispatch(setIsPlaying(false));
+                                }}
                             >
                                 <img
                                     src={PlayingIc}
@@ -82,9 +103,15 @@ const PlaylistPage = () => {
                             .unix(playlist?.contentLastUpdate)
                             .format("DD/MM/YYYY")}
                     </span>
-                    <span>{playlist?.artistsNames}</span>
+                    <span className="text-center">
+                        {playlist?.artistsNames}
+                    </span>
                     <span>
-                        {Math.round(playlist?.like / 1000)}K người yêu thích
+                        {playlist?.like > 1000
+                            ? `${Math.round(
+                                  playlist?.like / 1000
+                              )}K người yêu thích`
+                            : `${Math.round(playlist?.like)} người yêu thích`}
                     </span>
                     <Button
                         className="min-w-[180px] rounded-full bg-[#9b4de0] gap-1 my-5 text-[16px] text-at"
@@ -110,7 +137,7 @@ const PlaylistPage = () => {
                     <Icons bg="bg-at" />
                 </div>
                 <div className="flex-auto">
-                    <p className="text-[#ffffff80] mb-4">
+                    <p className="text-main-100 mb-4">
                         Lời tựa
                         <span className="text-at">
                             {" "}

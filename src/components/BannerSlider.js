@@ -78,6 +78,8 @@ const BannerSlider = () => {
         console.log(item);
     };
 
+    console.log(banner);
+
     useEffect(() => {
         const sliderId = setInterval(() => {
             animationSlide();

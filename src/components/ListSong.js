@@ -2,7 +2,7 @@ import { Song } from "./";
 
 const ListSong = ({ songs, totol, totolDuration }) => {
     return (
-        <div className="w-full text-[#ffffff80] text-[14px]">
+        <div className="w-full text-main-100 text-[14px]">
             <div className="flex items-center justify-between p-[10px] font-semibold">
                 <span className="w-[50%]">BÀI HÁT</span>
                 <span className="w-[30%]">ALBUM</span>
@@ -16,7 +16,7 @@ const ListSong = ({ songs, totol, totolDuration }) => {
             </div>
             <div className="pb-[200px] flex items-center gap-2 mt-5">
                 <div>{totol} bài hát</div>
-                <div className="h-[4px] w-[4px] bg-[#ffffff80] rounded-full"></div>
+                <div className="h-[4px] w-[4px] bg-main-100 rounded-full"></div>
             </div>
         </div>
     );

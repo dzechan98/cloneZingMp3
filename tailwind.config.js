@@ -15,6 +15,7 @@ module.exports = {
             colors: {
                 main: "#dadada",
                 at: "#fff",
+                "main-100": "#ffffff80",
                 "main-hv": "#c273ed",
             },
             keyframes: {

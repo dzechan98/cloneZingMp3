@@ -8,7 +8,7 @@ const Modal = ({ title, desc, titleButton, setOpenModal }) => {
                 <h3 className="text-lg text-at text-center mb-4 font-bold">
                     {title}
                 </h3>
-                <p className="text-sm text-[#ffffff80] text-center mb-4">
+                <p className="text-sm text-main-100 text-center mb-4">
                     {desc}
                 </p>
                 <span

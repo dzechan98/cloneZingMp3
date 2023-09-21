@@ -7,6 +7,7 @@ import {
     setSongId,
     setIsRepeating,
     setIsRandomSong,
+    set,
 } from "../features/playerSlice";
 import { Icons } from "./";
 import moment from "moment";
@@ -25,8 +26,13 @@ const {
 
 const Player = () => {
     const dispatch = useDispatch();
-    const { songId, isPlaying, listSong, isRandomSong, isRepeating } =
-        useSelector((state) => state.player);
+    const {
+        songId,
+        isPlaying,
+        listSong,
+        isRandomSong,
+        isRepeating,
+    } = useSelector((state) => state.player);
     const [msg, setMsg] = useState("");
     const [loading, setLoading] = useState(false);
     const [audio, setAudio] = useState(new Audio());
@@ -213,7 +219,7 @@ const Player = () => {
                 <div className="flex items-center gap-2">
                     <div className="text-sm">
                         <h2 className="text-main font-bold">{song?.title}</h2>
-                        <p className="text-[#ffffff80]">{song?.artistsNames}</p>
+                        <p className="text-main-100">{song?.artistsNames}</p>
                     </div>
                     <Icons />
                 </div>
@@ -266,7 +272,7 @@ const Player = () => {
                     </span>
                 </div>
                 <div className="flex items-center justify-center gap-2 w-full text-[12px] font-bold">
-                    <span className="text-[#ffffff80]">
+                    <span className="text-main-100">
                         {moment.utc(currentTime * 1000).format("mm:ss")}
                     </span>
                     <div
