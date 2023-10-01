@@ -45,9 +45,10 @@ const SidebarRight = () => {
     };
 
     useEffect(() => {
-        const index = listSong.findIndex(
-            (item) => item.encodeId === songData.encodeId
-        );
+        const index =
+            listSong?.findIndex(
+                (item) => item.encodeId === songData.encodeId
+            ) || -1;
         if (index !== -1) {
             const newArr = listSong
                 .slice(index)

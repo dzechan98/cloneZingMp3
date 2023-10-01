@@ -56,12 +56,12 @@ const Search = () => {
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                     className="py-2 bg-[transparent] flex-auto peer pr-12"
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
+                    // onFocus={handleFocus}
+                    // onBlur={handleBlur}
                     onKeyUp={handleSearch}
                     placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
                 />
-                <div className="absolute hidden peer-focus:block top-9 left-0 right-0 z-40 bg-[#34224f] text-[14px] px-[10px] py-[13px] text-at rounded-b-3xl">
+                {/* <div className="absolute hidden peer-focus:block top-9 left-0 right-0 z-40 bg-[#34224f] text-[14px] px-[10px] py-[13px] text-at rounded-b-3xl">
                     <h2 className="font-bold px-[10px] mb-2 pt-2">
                         Đề xuất cho bạn
                     </h2>
@@ -87,7 +87,7 @@ const Search = () => {
                             <a href="">tu noi toi sinh ra</a>
                         </li>
                     </ul>
-                </div>
+                </div> */}
             </div>
 
             {searchValue && (

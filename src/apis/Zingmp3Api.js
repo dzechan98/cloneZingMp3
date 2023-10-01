@@ -23,6 +23,12 @@ const Zingmp3Api = {
         return axiosClient.get(url, { params });
     },
 
+    getArtist: (name) => {
+        const url = "/artist";
+        const params = { name };
+        return axiosClient.get(url, { params });
+    },
+
     search: (keyword) => {
         const url = "/search";
         const params = { keyword };

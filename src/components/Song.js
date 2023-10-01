@@ -2,12 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPlaying, setSongId, setListSong } from "../features/playerSlice";
 import { Modal, Icons, TogglePlaySong, ThirdHeading } from "./";
-import icons from "../ultis/icons";
 import moment from "moment";
 
-const { BsMusicNoteBeamed } = icons;
-
-const Song = ({ song, songs }) => {
+const Song = ({
+    song,
+    songs,
+    showAlbum = true,
+    sizeDesc,
+    sizeTitle,
+    children,
+}) => {
     const dispatch = useDispatch();
     const songRef = useRef(null);
     const { isPlaying, songId } = useSelector((state) => state.player);
@@ -51,10 +55,12 @@ const Song = ({ song, songs }) => {
                 songId === encodeId ? "bg-[#2f2739]" : ""
             }`}
         >
-            <div className="w-[50%] flex items-center gap-2">
-                <span>
-                    <BsMusicNoteBeamed size={15} />
-                </span>
+            <div
+                className={`${
+                    showAlbum ? "w-[50%]" : "w-[70%]"
+                } flex items-center gap-2`}
+            >
+                {children}
                 <div className="relative">
                     <img
                         src={thumbnail}
@@ -80,19 +86,23 @@ const Song = ({ song, songs }) => {
                 <div className="flex flex-col">
                     <ThirdHeading
                         title={title}
+                        sizeTitle={sizeTitle}
+                        sizeDesc={sizeDesc}
                         description={artistsNames}
                         status={streamingStatus}
                         fontSizeDesc="text-[12px]"
                     />
                 </div>
             </div>
-            <div className="w-[30%] text-[12px]">
-                <span>
-                    {song.album?.title.length > 30
-                        ? `${song.album?.title.slice(0, 30)}...`
-                        : song.album?.title}
-                </span>
-            </div>
+            {showAlbum && (
+                <div className="w-[30%] text-[12px]">
+                    <span>
+                        {song.album?.title.length > 30
+                            ? `${song.album?.title.slice(0, 30)}...`
+                            : song.album?.title}
+                    </span>
+                </div>
+            )}
             <div className="w-[15%] flex justify-end">
                 <span className="group-hover:hidden">
                     {songId !== encodeId &&

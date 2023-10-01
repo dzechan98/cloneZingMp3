@@ -1,7 +1,16 @@
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { PlaylistPage, HomePage, Layout, SearchAll, SearchPage } from "./pages";
+import {
+    PlaylistPage,
+    HomePage,
+    Layout,
+    SearchAll,
+    SearchPage,
+    SearchSongs,
+    SearchPlaylists,
+    SearchArtist,
+} from "./pages";
 function App() {
     return (
         <>
@@ -25,15 +34,15 @@ function App() {
                             />
                             <Route
                                 path="/tim-kiem/bai-hat"
-                                element={<SearchAll />}
+                                element={<SearchSongs />}
                             />
                             <Route
                                 path="/tim-kiem/playlist"
-                                element={<SearchAll />}
+                                element={<SearchPlaylists />}
                             />
                             <Route
                                 path="/tim-kiem/artist"
-                                element={<SearchAll />}
+                                element={<SearchArtist />}
                             />
                         </Route>
                     </Route>

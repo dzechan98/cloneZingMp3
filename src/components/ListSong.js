@@ -1,5 +1,7 @@
 import { Song } from "./";
+import icons from "../ultis/icons";
 
+const { BsMusicNoteBeamed } = icons;
 const ListSong = ({ songs, totol, totolDuration }) => {
     return (
         <div className="w-full text-main-100 text-[14px]">
@@ -10,8 +12,12 @@ const ListSong = ({ songs, totol, totolDuration }) => {
             </div>
             <div className="overflow-y-scroll h-[350px]">
                 {songs?.length > 0 &&
-                    songs.map((song,index) => (
-                        <Song song={song} songs={songs} key={index} />
+                    songs.map((song, index) => (
+                        <Song song={song} songs={songs} key={index}>
+                            <span>
+                                <BsMusicNoteBeamed size={15} />
+                            </span>
+                        </Song>
                     ))}
             </div>
             <div className="pb-[200px] flex items-center gap-2 mt-5">
