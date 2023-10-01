@@ -16,7 +16,7 @@ const notActiveStyle =
 
 const SidebarLeft = () => {
     return (
-        <div className="max-h-[calc(100vh-80px)] w-[240px] fixed z-10">
+        <div className="max-h-[calc(100vh-80px)] w-[240px] fixed z-20">
             <div className="w-full h-[70px] py-[15px] px-[25px] flex items-center justify-start">
                 <NavLink to="/">
                     <img src={logo} alt="logo" className="w-[120px] h-[40px]" />

@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { Button, Heading, TogglePlaySong, SecondHeading } from "./";
-import icons from "../ultis/icons";
+import { Button, Heading, SecondHeading, SongItem } from "./";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import "moment/locale/vi";
 import { setIsPlaying, setSongId } from "../features/playerSlice";
 
-const { IoIosArrowForward } = icons;
 const optionFilter = [
     {
         title: "TẤT CẢ",
@@ -22,7 +18,7 @@ const optionFilter = [
     },
 ];
 const NewRelease = () => {
-    const { isPlaying, songId } = useSelector((state) => state.player);
+    const { isPlaying } = useSelector((state) => state.player);
     const { newRelease } = useSelector((state) => state.home);
     const dispatch = useDispatch();
     const [region, setRegion] = useState("all");
@@ -64,50 +60,20 @@ const NewRelease = () => {
             </SecondHeading>
             <div className="grid grid-cols-3 gap-x-3">
                 {newRelease &&
-                    newRelease?.items?.[region]?.slice(0, 12).map((item) => (
-                        <div
-                            key={item.encodeId}
-                            className={`p-[10px] flex gap-2 transition-all rounded-lg group ${
-                                item.encodeId === songId
-                                    ? "bg-at"
-                                    : "hover:bg-at"
-                            }`}
-                        >
-                            <div className="relative">
-                                <img
-                                    src={item.thumbnail}
-                                    alt=""
-                                    className="w-[60px] h-[60px] rounded-lg"
-                                />
-                                <span
-                                    className={`overlay rounded-lg bg-overlay absolute inset-0 items-center justify-center cursor-pointer ${
-                                        item.encodeId === songId
-                                            ? "flex"
-                                            : "hidden group-hover:flex"
-                                    }`}
-                                    onClick={() => handleClick(item)}
-                                >
-                                    <TogglePlaySong
-                                        size={25}
-                                        isPlaying={isPlaying}
-                                        p1={item.encodeId}
-                                        p2={songId}
-                                    />
-                                </span>
-                            </div>
-                            <div className="text-main-100 flex flex-col">
-                                <h2 className="text-at text-semibold">
-                                    {item.title}
-                                </h2>
-                                <span className="text-[12px]">
-                                    {item.artistsNames}
-                                </span>
-                                <span className="text-[12px]">
-                                    {moment(1000 * item.releaseDate).fromNow()}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
+                    newRelease?.items?.[region]
+                        ?.slice(0, 12)
+                        .map((item, index) => (
+                            <SongItem
+                                key={index}
+                                encodeId={item.encodeId}
+                                title={item.title}
+                                artistsNames={item.artistsNames}
+                                releaseDate={item.releaseDate}
+                                thumbnail={item.thumbnail}
+                                imgSize="w-[60px]"
+                                onClick={() => handleClick(item)}
+                            />
+                        ))}
             </div>
         </div>
     );

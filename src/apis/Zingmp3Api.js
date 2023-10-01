@@ -22,6 +22,12 @@ const Zingmp3Api = {
         const params = { id };
         return axiosClient.get(url, { params });
     },
+
+    search: (keyword) => {
+        const url = "/search";
+        const params = { keyword };
+        return axiosClient.get(url, { params });
+    },
 };
 
 export default Zingmp3Api;

@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { PlaylistPage, HomePage, Layout } from "./pages";
+import { PlaylistPage, HomePage, Layout, SearchAll, SearchPage } from "./pages";
 function App() {
     return (
         <>
@@ -17,6 +17,25 @@ function App() {
                             path="/album/:title/:playlistId"
                             element={<PlaylistPage />}
                         />
+
+                        <Route element={<SearchPage />}>
+                            <Route
+                                path="/tim-kiem/tat-ca"
+                                element={<SearchAll />}
+                            />
+                            <Route
+                                path="/tim-kiem/bai-hat"
+                                element={<SearchAll />}
+                            />
+                            <Route
+                                path="/tim-kiem/playlist"
+                                element={<SearchAll />}
+                            />
+                            <Route
+                                path="/tim-kiem/artist"
+                                element={<SearchAll />}
+                            />
+                        </Route>
                     </Route>
                 </Routes>
             </div>

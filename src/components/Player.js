@@ -7,12 +7,14 @@ import {
     setSongId,
     setIsRepeating,
     setIsRandomSong,
-    set,
+    setSongData,
 } from "../features/playerSlice";
 import { Icons } from "./";
 import moment from "moment";
 import { toast } from "react-toastify";
 import IconsLoading from "../assets/loading-gif.gif";
+import { setIsOpen } from "../features/sidebarRightSlice";
+import { setListSongRecently } from "../features/songRecentlySlice";
 const {
     BiShuffle,
     BiSkipPrevious,
@@ -26,13 +28,10 @@ const {
 
 const Player = () => {
     const dispatch = useDispatch();
-    const {
-        songId,
-        isPlaying,
-        listSong,
-        isRandomSong,
-        isRepeating,
-    } = useSelector((state) => state.player);
+    const { songId, isPlaying, listSong, isRandomSong, isRepeating } =
+        useSelector((state) => state.player);
+
+    const { isOpen } = useSelector((state) => state.sidebarRight);
     const [msg, setMsg] = useState("");
     const [loading, setLoading] = useState(false);
     const [audio, setAudio] = useState(new Audio());
@@ -135,6 +134,8 @@ const Player = () => {
                 setLoading(false);
                 if (res1?.err === 0) {
                     setSong(res1?.data);
+                    dispatch(setSongData(res1?.data));
+                    dispatch(setListSongRecently(res1?.data));
                 }
                 if (res2?.err === 0) {
                     audio.pause();
@@ -208,6 +209,7 @@ const Player = () => {
             isPlaying ? audio.play() : audio.pause();
         }
     }, [isPlaying, audio]);
+
     return (
         <div className="w-full h-full flex items-center px-[21px]">
             <div className="flex items-center gap-2 w-[30%]">
@@ -307,7 +309,12 @@ const Player = () => {
                             ></div>
                         </div>
                     </div>
-                    <div className="p-2 bg-at rounded-lg cursor-pointer">
+                    <div
+                        className={`p-2 rounded-lg cursor-pointer ${
+                            isOpen ? "bg-[#9b4de0]" : "bg-at"
+                        }`}
+                        onClick={() => dispatch(setIsOpen())}
+                    >
                         <BsMusicNoteList size={20} />
                     </div>
                 </div>

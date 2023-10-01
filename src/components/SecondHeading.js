@@ -1,13 +1,22 @@
 import React from "react";
 import { Button } from "./";
 import icons from "../ultis/icons";
+import { useNavigate } from "react-router-dom";
 const { IoIosArrowForward } = icons;
-const SecondHeading = ({ children }) => {
+const SecondHeading = ({ children, to }) => {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        if (to) {
+            navigate(to);
+        }
+    };
     return (
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex items-center justify-between mb-5">
             {children}
             <div className="flex items-center hover:text-main-hv transition-all font-semibold gap-1 cursor-pointer">
-                <Button className="!p-0">TẤT CẢ</Button>
+                <Button className="!p-0" onClick={handleClick}>
+                    TẤT CẢ
+                </Button>
                 <span>
                     <IoIosArrowForward size={20} />
                 </span>

@@ -1,8 +1,14 @@
 import React, { useRef, useState } from "react";
 import icons from "../ultis/icons";
+import Zingmp3Api from "../apis/Zingmp3Api";
+import { useDispatch } from "react-redux";
+import { setSearchData } from "../features/playerSlice";
+import { useNavigate, createSearchParams } from "react-router-dom";
 
 const { AiOutlineSearch, MdShowChart, AiOutlineClose } = icons;
 const Search = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState("");
     const searchRef = useRef(null);
     const inputRef = useRef(null);
@@ -15,6 +21,28 @@ const Search = () => {
         searchRef.current.style.borderRadius = "24px";
         searchRef.current.style.backgroundColor = "#2f2739";
     };
+
+    const handleSearch = async (e) => {
+        if (e.keyCode === 13) {
+            try {
+                const response = await Zingmp3Api.search(searchValue);
+                if (response?.err === 0) {
+                    dispatch(setSearchData(response?.data));
+                } else {
+                    dispatch(setSearchData([]));
+                }
+                navigate({
+                    pathname: `/tim-kiem/tat-ca`,
+                    search: createSearchParams({
+                        q: searchValue,
+                    }).toString(),
+                });
+            } catch (error) {
+                dispatch(setSearchData([]));
+            }
+        }
+    };
+
     return (
         <div
             className="bg-[#2f2739] w-full rounded-[999px] relative"
@@ -30,6 +58,7 @@ const Search = () => {
                     className="py-2 bg-[transparent] flex-auto peer pr-12"
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onKeyUp={handleSearch}
                     placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
                 />
                 <div className="absolute hidden peer-focus:block top-9 left-0 right-0 z-40 bg-[#34224f] text-[14px] px-[10px] py-[13px] text-at rounded-b-3xl">

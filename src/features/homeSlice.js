@@ -9,6 +9,8 @@ const initialState = {
     hEditorTheme4: {},
     hArtistTheme: {},
     hNewrelease: {},
+    h100: {},
+    hAlbum: {},
 };
 
 const homeSlice = createSlice({
@@ -39,6 +41,12 @@ const homeSlice = createSlice({
             );
             state.hNewrelease = action.payload?.items.find(
                 (item) => item.sectionId === "hNewrelease"
+            );
+            state.h100 = action.payload?.items.find(
+                (item) => item.sectionId === "h100"
+            );
+            state.hAlbum = action.payload?.items.find(
+                (item) => item.sectionId === "hAlbum"
             );
         },
     },

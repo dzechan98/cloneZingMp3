@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPlaying, setSongId, setListSong } from "../features/playerSlice";
-import { Category, Modal, Icons, TogglePlaySong, ThirdHeading } from "./";
+import { Modal, Icons, TogglePlaySong, ThirdHeading } from "./";
 import icons from "../ultis/icons";
 import moment from "moment";
 

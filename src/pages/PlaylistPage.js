@@ -11,13 +11,16 @@ import {
     addPlaylistRecently,
     setIsAddRecentyly,
 } from "../features/playlistRecentlySlice";
+import { toast } from "react-toastify";
 
 const { BsPlayCircle, BsPauseCircle } = icons;
 
 const PlaylistPage = () => {
     const { playlistId } = useParams();
     const dispatch = useDispatch();
-    const { songId, isPlaying } = useSelector((state) => state.player);
+    const { songId, isPlaying, songData } = useSelector(
+        (state) => state.player
+    );
     const { isAddRecently } = useSelector((state) => state.playlistRecently);
     const [playlist, setPlaylist] = useState({});
 
@@ -34,15 +37,21 @@ const PlaylistPage = () => {
             //Kiểm tra bài hát vừa mới random có nằm trong danh sách nhạc VIP
             if (playlist?.song?.items[index]?.streamingStatus === 1) {
                 dispatch(setIsPlaying(true));
+                dispatch(setSongId(playlist?.song?.items[index]?.encodeId));
             } else {
-                dispatch(setIsPlaying(false));
+                toast.warning("Bài hát chỉ dành cho tài khoản VIP, PRI");
             }
+            // else {
+            //     dispatch(setIsPlaying(false));
+            // }
 
-            dispatch(setSongId(playlist?.song?.items[index]?.encodeId));
+            // dispatch(setSongId(playlist?.song?.items[index]?.encodeId));
             return null;
         }
 
-        dispatch(setIsPlaying(isPlaying ? false : true));
+        if (songData.streamingStatus === 1) {
+            dispatch(setIsPlaying(isPlaying ? false : true));
+        }
     };
 
     useEffect(() => {
@@ -62,19 +71,21 @@ const PlaylistPage = () => {
     //Xử lí khi click vào album => tự động phát bài hát đầu tiên trong album và thêm album vào danh sách phát gần đây
     useEffect(() => {
         if (isAddRecently && Object.keys(playlist).length > 0) {
-            dispatch(setIsPlaying(true));
-            dispatch(setSongId(playlist?.song?.items[0]?.encodeId));
-            dispatch(setListSong(playlist?.song?.items));
-            dispatch(addPlaylistRecently(playlist));
-            dispatch(setIsAddRecentyly(false));
+            if (playlist?.song?.items[0].streamingStatus === 1) {
+                dispatch(setIsPlaying(true));
+                dispatch(setSongId(playlist?.song?.items[0]?.encodeId));
+                dispatch(setListSong(playlist?.song?.items));
+                dispatch(addPlaylistRecently(playlist));
+                dispatch(setIsAddRecentyly(false));
+            }
         }
     }, [playlist]);
     // console.log(playlist);
 
     return (
         <div className="w-full mt-10 text-main-100 text-sm ">
-            <div className="flex gap-[5%]">
-                <div className="w-[300px] flex flex-col items-center">
+            <div className="flex gap-[5%] ">
+                <div className="w-[300px] text-center flex flex-col items-center">
                     <div className="relative overflow-hidden w-[300px] h-[300px] rounded-lg group cursor-pointer mb-4">
                         <img
                             src={playlist?.thumbnailM}
@@ -103,9 +114,7 @@ const PlaylistPage = () => {
                             .unix(playlist?.contentLastUpdate)
                             .format("DD/MM/YYYY")}
                     </span>
-                    <span className="text-center">
-                        {playlist?.artistsNames}
-                    </span>
+                    <span>{playlist?.artistsNames}</span>
                     <span>
                         {playlist?.like > 1000
                             ? `${Math.round(

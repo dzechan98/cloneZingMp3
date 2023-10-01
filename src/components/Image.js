@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { TogglePlaySong } from "./";
 
 const Image = ({ data, onClick = () => {}, size = "20" }) => {
-    const { isPlaying } = useSelector((state) => state.player);
+    const { isPlaying, songId } = useSelector((state) => state.player);
 
     return (
         <div className="group w-full">
@@ -11,14 +11,20 @@ const Image = ({ data, onClick = () => {}, size = "20" }) => {
                 <img
                     src={data?.thumbnailM}
                     alt=""
-                    className="w-full rounded-lg group-hover:scale-110 transition-all"
+                    className="w-full object-cover rounded-lg group-hover:scale-110 transition-all"
                 />
                 <span
-                    className="rounded-lg bg-overlay hidden absolute inset-0 items-center justify-center cursor-pointer group-hover:flex"
+                    className={`rounded-lg bg-overlay absolute inset-0 items-center justify-center cursor-pointer 
+                    ${
+                        songId === data.encodeId && isPlaying
+                            ? "flex"
+                            : "hidden group-hover:flex"
+                    }`}
                     onClick={onClick}
                 >
                     <TogglePlaySong
                         isPlaying={isPlaying}
+                        p1={songId}
                         p2={data.encodeId}
                         size={size}
                     />

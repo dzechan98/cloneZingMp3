@@ -18,5 +18,8 @@ export { default as Image } from "./Image";
 export { default as TogglePlaySong } from "./TogglePlaySong";
 export { default as SecondHeading } from "./SecondHeading";
 export { default as ThirdHeading } from "./ThirdHeading";
-
 export { default as NewRankingReleased } from "./NewRankingReleased";
+export { default as SlideRanking } from "./SlideRanking";
+export { default as SidebarRight } from "./SidebarRight";
+export { default as SongItem } from "./SongItem";
+export { default as Footer } from "./Footer";

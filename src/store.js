@@ -4,11 +4,13 @@ import storage from "redux-persist/lib/storage";
 import homeReducer from "./features/homeSlice";
 import playerReducer from "./features/playerSlice";
 import playlistRecentlyReducer from "./features/playlistRecentlySlice";
+import sidebarRightReducer from "./features/sidebarRightSlice";
+import songRecentlyReducer from "./features/songRecentlySlice";
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["home", "playlistRecently"],
+    whitelist: ["home", "playlistRecently", "songRecently"],
 };
 
 const playerPersistConfig = {
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
     home: homeReducer,
     player: persistReducer(playerPersistConfig, playerReducer),
     playlistRecently: playlistRecentlyReducer,
+    sidebarRight: sidebarRightReducer,
+    songRecently: songRecentlyReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

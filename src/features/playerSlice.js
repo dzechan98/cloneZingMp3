@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     songId: "",
+    songData: {},
     isPlaying: false,
     isRepeating: false,
     isRandomSong: false,
     listSong: [],
+    searchData: {},
 };
 
 const playerSlice = createSlice({
@@ -27,6 +29,12 @@ const playerSlice = createSlice({
         setIsRandomSong: (state, action) => {
             state.isRandomSong = action.payload;
         },
+        setSongData: (state, action) => {
+            state.songData = action.payload;
+        },
+        setSearchData: (state, action) => {
+            state.searchData = action.payload;
+        },
     },
 });
 
@@ -36,5 +44,7 @@ export const {
     setListSong,
     setIsRepeating,
     setIsRandomSong,
+    setSongData,
+    setSearchData,
 } = playerSlice.actions;
 export default playerSlice.reducer;

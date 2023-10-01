@@ -1,7 +1,16 @@
 import React from "react";
 import { Heading, Image } from "./";
 import { useNavigate } from "react-router-dom";
+import Slider from "react-slick";
 const PlaylistRecently = ({ title, recently }) => {
+    const settings = {
+        dots: true,
+        infinite: false,
+        slidesToShow: 7,
+        slidesToScroll: 1,
+        speed: 500,
+        cssEase: "linear",
+    };
     const navigate = useNavigate();
     const handleClickPlaySong = (item) => {
         navigate(item?.link.split(".")[0]);
@@ -9,19 +18,18 @@ const PlaylistRecently = ({ title, recently }) => {
     return (
         <div className="w-full mb-20">
             <Heading className="mb-5">{title}</Heading>
-            <div className="grid grid-cols-7 gap-3">
+            <Slider {...settings}>
                 {recently.length > 0 &&
-                    recently
-                        .slice(0, 7)
-                        .map((item) => (
+                    recently?.map((item) => (
+                        <div className="p-[10px]" key={item.encodeId}>
                             <Image
                                 data={item}
-                                key={item.encodeId}
                                 size={40}
                                 onClick={() => handleClickPlaySong(item)}
                             />
-                        ))}
-            </div>
+                        </div>
+                    ))}
+            </Slider>
         </div>
     );
 };

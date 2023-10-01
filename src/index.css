@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @import "reset.css";
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
 
 body {
     margin: 0;
@@ -38,4 +40,14 @@ code {
 *::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 8px;
+}
+
+.slick-arrow.slick-prev {
+    left: 0;
+    z-index: 100;
+}
+
+.slick-arrow.slick-next {
+    right: 0;
+    z-index: 100;
 }

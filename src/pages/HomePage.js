@@ -7,6 +7,7 @@ import {
     Section,
     PlaylistRecently,
     NewRankingReleased,
+    Footer,
 } from "../components";
 import Zingmp3Api from "../apis/Zingmp3Api";
 const HomePage = () => {
@@ -20,6 +21,8 @@ const HomePage = () => {
         hEditorTheme4,
         hArtistTheme,
         hNewrelease,
+        h100,
+        hAlbum,
     } = useSelector((state) => state.home);
 
     useEffect(() => {
@@ -34,12 +37,10 @@ const HomePage = () => {
         };
         fetchDataHome();
     }, []);
-
-    // const cc = useSelector((state) => state.home);
-    // console.log(cc);
+    console.log(hAlbum);
 
     return (
-        <div className="w-full">
+        <div className="w-full mb-[200px]">
             <BannerSlider />
             {recently && recently.length > 0 && (
                 <PlaylistRecently title={title} recently={recently} />
@@ -51,6 +52,9 @@ const HomePage = () => {
             <Section data={hEditorTheme4} />
             <Section data={hArtistTheme} />
             <NewRankingReleased data={hNewrelease} />
+            <Section data={h100} artists secondHeading />
+            <Section data={hAlbum} hAlbum />
+            <Footer />
         </div>
     );
 };

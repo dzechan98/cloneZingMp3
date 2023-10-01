@@ -10,8 +10,8 @@ const ListSong = ({ songs, totol, totolDuration }) => {
             </div>
             <div className="overflow-y-scroll h-[350px]">
                 {songs?.length > 0 &&
-                    songs.map((song) => (
-                        <Song song={song} songs={songs} key={song?.encodeId} />
+                    songs.map((song,index) => (
+                        <Song song={song} songs={songs} key={index} />
                     ))}
             </div>
             <div className="pb-[200px] flex items-center gap-2 mt-5">
