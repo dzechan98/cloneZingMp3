@@ -1,6 +1,6 @@
 import React from "react";
 import { SectionItem, Heading, SecondHeading } from "./";
-const Section = ({ data, hAlbum, artists, secondHeading }) => {
+const Section = ({ data, hAlbum, artists, secondHeading, size = 5 }) => {
     return (
         <div className="w-full mb-10">
             {secondHeading ? (
@@ -12,7 +12,7 @@ const Section = ({ data, hAlbum, artists, secondHeading }) => {
             )}
 
             <div className="grid grid-cols-5 gap-4">
-                {data?.items?.slice(0, 5)?.map((item, index) => (
+                {data?.items?.slice(0, size)?.map((item, index) => (
                     <SectionItem
                         data={item}
                         key={index}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Zingmp3Api from "../apis/Zingmp3Api";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { ListSong, Icons, Button } from "../components";
 import moment from "moment";
 import icons from "../ultis/icons";
@@ -41,11 +41,6 @@ const PlaylistPage = () => {
             } else {
                 toast.warning("Bài hát chỉ dành cho tài khoản VIP, PRI");
             }
-            // else {
-            //     dispatch(setIsPlaying(false));
-            // }
-
-            // dispatch(setSongId(playlist?.song?.items[index]?.encodeId));
             return null;
         }
 
@@ -80,10 +75,9 @@ const PlaylistPage = () => {
             }
         }
     }, [playlist]);
-    // console.log(playlist);
 
     return (
-        <div className="w-full mt-10 text-main-100 text-sm ">
+        <div className="w-full mt-10 text-main-100 text-sm px-[59px]">
             <div className="flex gap-[5%] ">
                 <div className="w-[300px] text-center flex flex-col items-center">
                     <div className="relative overflow-hidden w-[300px] h-[300px] rounded-lg group cursor-pointer mb-4">
@@ -114,7 +108,19 @@ const PlaylistPage = () => {
                             .unix(playlist?.contentLastUpdate)
                             .format("DD/MM/YYYY")}
                     </span>
-                    <span>{playlist?.artistsNames}</span>
+                    <div className="w-full">
+                        {playlist?.artists?.map((item, index) => (
+                            <NavLink
+                                key={index}
+                                to={item.link}
+                                className="hover:underline hover:text-main-hv"
+                            >
+                                {playlist?.aritst?.length - 1 === index
+                                    ? item?.name
+                                    : `${item?.name}, `}
+                            </NavLink>
+                        ))}
+                    </div>
                     <span>
                         {playlist?.like > 1000
                             ? `${Math.round(

@@ -67,6 +67,7 @@ const NewRelease = () => {
                                 key={index}
                                 encodeId={item.encodeId}
                                 title={item.title}
+                                artists={item.artists}
                                 artistsNames={item.artistsNames}
                                 releaseDate={item.releaseDate}
                                 thumbnail={item.thumbnail}

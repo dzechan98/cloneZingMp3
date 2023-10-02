@@ -10,6 +10,7 @@ import {
     SearchSongs,
     SearchPlaylists,
     SearchArtist,
+    ArtistPage,
 } from "./pages";
 function App() {
     return (
@@ -45,6 +46,8 @@ function App() {
                                 element={<SearchArtist />}
                             />
                         </Route>
+                        <Route path="/:name" element={<ArtistPage />} />
+                        <Route path="/nghe-si/:name" element={<ArtistPage />} />
                     </Route>
                 </Routes>
             </div>

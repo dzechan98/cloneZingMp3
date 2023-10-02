@@ -6,12 +6,12 @@ const Image = ({ data, onClick = () => {}, size = "20" }) => {
     const { isPlaying, songId } = useSelector((state) => state.player);
 
     return (
-        <div className="group w-full">
-            <div className="relative w-full rounded-lg overflow-hidden">
+        <div className="group w-full h-full">
+            <div className="relative w-full h-full rounded-lg overflow-hidden">
                 <img
                     src={data?.thumbnailM}
                     alt=""
-                    className="w-full object-cover rounded-lg group-hover:scale-110 transition-all"
+                    className="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-all"
                 />
                 <span
                     className={`rounded-lg bg-overlay absolute inset-0 items-center justify-center cursor-pointer 

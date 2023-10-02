@@ -13,6 +13,7 @@ const SongItem = ({
     thumbnail,
     active,
     type,
+    artists,
     onClick = () => {},
     imgSize = "w-[40px]",
 }) => {
@@ -50,6 +51,7 @@ const SongItem = ({
                     description={artistsNames}
                     sizeDesc={20}
                     fontSizeDesc="text-[12px]"
+                    artists={artists}
                 />
                 {releaseDate && (
                     <span className="text-[12px]">

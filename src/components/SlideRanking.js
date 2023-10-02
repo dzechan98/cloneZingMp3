@@ -19,16 +19,17 @@ const SlideRanking = ({ item, index }) => {
     };
     return (
         <div className="flex gap-2 bg-at rounded-lg p-[10px] m-[10px]">
-            <div className="w-[40%]">
+            <div className="w-[40%] ">
                 <Image data={item} size={40} onClick={handleClick} />
             </div>
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-between gap-4">
                 <div className="w-full">
                     <ThirdHeading
                         title={item.title}
                         sizeTitle={20}
-                        sizeDesc={20}
+                        artists={item.artists}
                         description={item.artistsNames}
+                        height="h-10"
                     />
                 </div>
                 <div className="flex justify-between items-end">

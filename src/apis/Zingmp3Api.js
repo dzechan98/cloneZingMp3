@@ -29,6 +29,18 @@ const Zingmp3Api = {
         return axiosClient.get(url, { params });
     },
 
+    getListAritstSong: (id, page, count) => {
+        const url = "/listartistsong";
+        const params = { id, page, count };
+        return axiosClient.get(url, { params });
+    },
+
+    getArtist: (name) => {
+        const url = "/artist";
+        const params = { name };
+        return axiosClient.get(url, { params });
+    },
+
     search: (keyword) => {
         const url = "/search";
         const params = { keyword };

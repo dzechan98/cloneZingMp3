@@ -22,6 +22,7 @@ const Song = ({
         title,
         streamingStatus,
         artistsNames,
+        artists,
         duration,
     } = song;
 
@@ -89,6 +90,7 @@ const Song = ({
                         sizeTitle={sizeTitle}
                         sizeDesc={sizeDesc}
                         description={artistsNames}
+                        artists={artists}
                         status={streamingStatus}
                         fontSizeDesc="text-[12px]"
                     />

@@ -40,7 +40,7 @@ const HomePage = () => {
     console.log(hAlbum);
 
     return (
-        <div className="w-full mb-[200px]">
+        <div className="w-full mb-[200px]  px-[59px]">
             <BannerSlider />
             {recently && recently.length > 0 && (
                 <PlaylistRecently title={title} recently={recently} />

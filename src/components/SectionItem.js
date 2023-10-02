@@ -19,15 +19,17 @@ const SectionItem = ({ data, artists, hAlbum }) => {
             <Image data={data} onClick={handleClickPlaySong} size={40} />
             {artists ? (
                 <ThirdHeading
-                    title={data?.sortDescription}
+                    title={data?.sortDescription || data?.title}
                     description={listArtists}
                     sizeTitle={20}
                     sizeDesc={30}
+                    artists={data?.artists}
                 />
             ) : hAlbum ? (
                 <ThirdHeading
-                    description={data?.artistsNames}
+                    description={data?.sortDescription || data?.artistsNames}
                     title={data?.title}
+                    artists={data?.artists}
                 />
             ) : (
                 <ThirdHeading description={data?.sortDescription} />

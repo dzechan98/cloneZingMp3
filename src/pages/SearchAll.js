@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleNumber } from "../ultis/func";
+import { useSearchParams, createSearchParams, NavLink } from "react-router-dom";
 import {
     SecondHeading,
     SongItem,
@@ -8,11 +9,14 @@ import {
     Song,
     Button,
     Heading,
+    Artist,
 } from "../components";
 import { setIsPlaying, setSongId } from "../features/playerSlice";
 
 const SearchAll = () => {
     const dispatch = useDispatch();
+    const [searchParams] = useSearchParams();
+    const q = searchParams.get("q");
     const { searchData, isPlaying } = useSelector((state) => state.player);
 
     const handleClickPLaySong = (item) => {
@@ -27,85 +31,87 @@ const SearchAll = () => {
     };
     console.log(searchData);
     return (
-        <>
-            {Object.keys(searchData).length !== 2 ? (
-                <div className="w-full flex flex-col mb-10">
-                    <div className="flex flex-col">
-                        <h2 className="text-lg font-semibold mb-5">Nổi bật</h2>
-                        <div className="grid grid-cols-3 gap-6 mb-10">
-                            {searchData?.playlists?.length > 0 && (
-                                <div className="p-[10px] flex items-center gap-6 bg-at rounded-lg">
-                                    <div
-                                        className={`overflow-hidden rounded-full`}
-                                    >
-                                        <img
-                                            src={
-                                                searchData.playlists[0]
-                                                    .artists[0].thumbnail
-                                            }
-                                            alt=""
-                                            className="w-[84px] cursor-pointer transition-all rounded-full hover:scale-110"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col text-xs">
-                                        <span>Nghệ sĩ</span>
-                                        <h2 className="text-at text-sm font-bold mt-1">
-                                            {
-                                                searchData.playlists[0]
-                                                    .artists[0]?.name
-                                            }
-                                        </h2>
-                                        {searchData.playlists[0].artists[0]
-                                            ?.totalFollow && (
-                                            <span>
-                                                {`${handleNumber(
-                                                    searchData.playlists[0]
-                                                        .artists[0]?.totalFollow
-                                                )} quan tâm`}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-                            {searchData?.songs?.slice(0, 2).map((item) => (
-                                <SongItem
-                                    key={item.encodeId}
-                                    active
-                                    type="Bài hát"
-                                    encodeId={item.encodeId}
-                                    title={item.title}
-                                    artistsNames={item.artistsNames}
-                                    thumbnail={item.thumbnail}
-                                    imgSize="w-[84px]"
-                                    onClick={() => handleClickPLaySong(item)}
+        <div className="w-full flex flex-col mb-10">
+            <div className="flex flex-col">
+                <h2 className="text-lg font-semibold mb-5">Nổi bật</h2>
+                <div className="grid grid-cols-3 gap-6 mb-10">
+                    {searchData?.playlists?.length > 0 && (
+                        <div className="p-[10px] flex items-center gap-6 bg-at rounded-lg">
+                            <div className={`overflow-hidden rounded-full`}>
+                                <img
+                                    src={
+                                        searchData?.playlists[0].artists[0]
+                                            .thumbnail
+                                    }
+                                    alt=""
+                                    className="w-[84px] cursor-pointer transition-all rounded-full hover:scale-110"
                                 />
-                            ))}
+                            </div>
+                            <div className="flex flex-col text-xs">
+                                <span>Nghệ sĩ</span>
+                                <NavLink
+                                    className="text-at text-sm font-bold mt-1 hover:underline hover:text-main-hv"
+                                    to={searchData.playlists[0].artists[0].link}
+                                >
+                                    {searchData.playlists[0].artists[0]?.name}
+                                </NavLink>
+                                {searchData.playlists[0].artists[0]
+                                    ?.totalFollow && (
+                                    <span>
+                                        {`${handleNumber(
+                                            searchData.playlists[0].artists[0]
+                                                ?.totalFollow
+                                        )} quan tâm`}
+                                    </span>
+                                )}
+                            </div>
                         </div>
-                        <FeaturePlaylist searchData={searchData} />
-                        <ListSongSearch
-                            searchData={searchData}
-                            showAlbum={false}
+                    )}
+                    {searchData?.songs?.slice(0, 2).map((item) => (
+                        <SongItem
+                            key={item.encodeId}
+                            active
+                            type="Bài hát"
+                            encodeId={item.encodeId}
+                            title={item.title}
+                            artistsNames={item.artistsNames}
+                            thumbnail={item.thumbnail}
+                            imgSize="w-[84px]"
+                            artists={item.artists}
+                            onClick={() => handleClickPLaySong(item)}
                         />
-                        <PlaylistAlbum searchData={searchData} />
-                        <Artists searchData={searchData} />
-                    </div>
+                    ))}
                 </div>
-            ) : (
-                <div className="w-full h-[300px] bg-at flex items-center justify-center">
-                    <h2 className="text-center font-bold text-2xl text-main">
-                        Không có kết quả được tìm thấy
-                    </h2>
-                </div>
-            )}
-        </>
+                <FeaturePlaylist searchData={searchData} q={q} />
+                <ListSongSearch
+                    searchData={searchData}
+                    showAlbum={false}
+                    q={q}
+                />
+                <PlaylistAlbum searchData={searchData} q={q} />
+                <Artist data={searchData} q={q} link="/tim-kiem/artist" />
+            </div>
+        </div>
     );
 };
 
-const HeadingSearchComponent = ({ active = false, children }) => {
+export const HeadingSearchComponent = ({
+    active = false,
+    link,
+    q,
+    children,
+}) => {
     return (
         <>
             {!active ? (
-                <SecondHeading>
+                <SecondHeading
+                    to={{
+                        pathname: link,
+                        search: createSearchParams({
+                            q,
+                        }).toString(),
+                    }}
+                >
                     <h2 className="font-bold text-at text-xl">{children}</h2>
                 </SecondHeading>
             ) : (
@@ -115,14 +121,21 @@ const HeadingSearchComponent = ({ active = false, children }) => {
     );
 };
 
-export const FeaturePlaylist = ({ searchData }) => {
+export const FeaturePlaylist = ({ searchData, q }) => {
     const playlists = { items: searchData.playlists };
 
     return (
         <div className="w-full mb-10">
             {searchData?.artists?.length > 0 && (
                 <>
-                    <SecondHeading>
+                    <SecondHeading
+                        to={{
+                            pathname: "/tim-kiem/playlist",
+                            search: createSearchParams({
+                                q,
+                            }).toString(),
+                        }}
+                    >
                         <div className="flex items-center gap-2">
                             <div className="w-[50px] overflow-hidden rounded-lg">
                                 <img
@@ -139,7 +152,7 @@ export const FeaturePlaylist = ({ searchData }) => {
                             </div>
                         </div>
                     </SecondHeading>
-                    <Section data={playlists} />
+                    <Section data={playlists} hAlbum />
                 </>
             )}
         </div>
@@ -152,22 +165,30 @@ export const ListSongSearch = ({
     showAlbum = true,
     active = false,
     col = "grid-cols-2",
+    q,
+    songs,
 }) => {
+    const items = songs?.slice(0, size) || searchData?.songs.slice(0, size);
     return (
         <div className="w-full mb-10">
-            <HeadingSearchComponent active={active}>
+            <HeadingSearchComponent
+                active={active}
+                link="/tim-kiem/bai-hat"
+                q={q}
+            >
                 Bài hát
             </HeadingSearchComponent>
-            {searchData?.songs && (
+            {items.length > 0 && (
                 <div className={`grid ${col} gap-5`}>
-                    {searchData.songs.slice(0, size).map((item) => (
+                    {items.map((item) => (
                         <Song
                             key={item.encodeId}
                             song={item}
+                            artists={item.artists}
                             showAlbum={showAlbum}
-                            sizeDesc={70}
-                            sizeTitle={70}
-                            songs={searchData.songs}
+                            sizeDesc={40}
+                            sizeTitle={35}
+                            songs={items}
                         />
                     ))}
                 </div>
@@ -176,52 +197,18 @@ export const ListSongSearch = ({
     );
 };
 
-export const PlaylistAlbum = ({ searchData, active = false }) => {
+export const PlaylistAlbum = ({ searchData, active = false, q, size = 5 }) => {
     const playlists = { items: searchData.playlists };
     return (
         <div className="w-full mb-10">
-            <HeadingSearchComponent active={active}>
+            <HeadingSearchComponent
+                active={active}
+                link="/tim-kiem/playlist"
+                q={q}
+            >
                 Playlist/Album
             </HeadingSearchComponent>
-            <Section data={playlists} />
-        </div>
-    );
-};
-
-export const Artists = ({ searchData, active = false }) => {
-    return (
-        <div className="w-full mb-10">
-            <HeadingSearchComponent active={active}>
-                Nghệ Sĩ/OA
-            </HeadingSearchComponent>
-            <div className="w-full grid grid-cols-5 gap-6">
-                {searchData.artists.length > 0 &&
-                    searchData.artists.slice(0, 5).map((item) => (
-                        <div
-                            className="flex items-center flex-col"
-                            key={item.encodeId}
-                        >
-                            <div className="w-full overflow-hidden cursor-pointer rounded-full mb-5">
-                                <img
-                                    src={item.thumbnail}
-                                    alt=""
-                                    className="w-full rounded-full transition-all hover:scale-110"
-                                />
-                            </div>
-                            <h2 className="text-main font-bold text-sm">
-                                {item.name}
-                            </h2>
-                            <span className="text-[#fffff80] font-semibold text-[12px] mb-2">
-                                {`${handleNumber(
-                                    Number(item.totalFollow)
-                                )} quan tâm`}
-                            </span>
-                            <Button className="bg-[#ffffff1a] rounded-full border border-main">
-                                QUAN TÂM
-                            </Button>
-                        </div>
-                    ))}
-            </div>
+            <Section data={playlists} hAlbum size={size} />
         </div>
     );
 };

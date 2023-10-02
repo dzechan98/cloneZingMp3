@@ -96,6 +96,7 @@ const SidebarRight = () => {
                                 bg="bg-[#9b4de0]"
                                 thumbnail={thumbnail}
                                 title={title}
+                                artists={songData.artists}
                                 artistsNames={artistsNames}
                                 encodeId={encodeId}
                                 onClick={handleClick}
@@ -127,6 +128,7 @@ const SidebarRight = () => {
                                     key={index}
                                     thumbnail={item.thumbnail}
                                     title={item.title}
+                                    artists={item.artists}
                                     artistsNames={item.artistsNames}
                                     encodeId={item.encodeId}
                                     onClick={() => handlePlaySong(item)}

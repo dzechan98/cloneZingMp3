@@ -1,5 +1,6 @@
 import React from "react";
 import { Category } from "./";
+import { NavLink } from "react-router-dom";
 const ThirdHeading = ({
     title,
     description,
@@ -7,6 +8,8 @@ const ThirdHeading = ({
     sizeTitle = 25,
     sizeDesc = 40,
     fontSizeDesc = "text-sm",
+    height,
+    artists,
 }) => {
     return (
         <>
@@ -26,7 +29,19 @@ const ThirdHeading = ({
                 <p
                     className={`w-full text-left font-semibold ${fontSizeDesc} text-main-100`}
                 >
-                    {description.length > sizeDesc
+                    {artists?.length > 0
+                        ? artists.map((item, index) => (
+                              <NavLink
+                                  className="hover:underline hover:text-main-hv"
+                                  key={index}
+                                  to={item?.link}
+                              >
+                                  {index === artists?.length - 1
+                                      ? item?.name
+                                      : `${item?.name}, `}
+                              </NavLink>
+                          ))
+                        : description.length > sizeDesc
                         ? `${description.slice(0, sizeDesc)}...`
                         : description}
                 </p>

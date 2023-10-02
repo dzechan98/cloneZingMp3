@@ -9,7 +9,7 @@ import {
     setIsRandomSong,
     setSongData,
 } from "../features/playerSlice";
-import { Icons } from "./";
+import { Icons, ThirdHeading } from "./";
 import moment from "moment";
 import { toast } from "react-toastify";
 import IconsLoading from "../assets/loading-gif.gif";
@@ -220,8 +220,11 @@ const Player = () => {
                 />
                 <div className="flex items-center gap-2">
                     <div className="text-sm">
-                        <h2 className="text-main font-bold">{song?.title}</h2>
-                        <p className="text-main-100">{song?.artistsNames}</p>
+                        <ThirdHeading
+                            title={song?.title}
+                            artists={song?.artists}
+                            description={song?.artistsNames}
+                        />
                     </div>
                     <Icons />
                 </div>

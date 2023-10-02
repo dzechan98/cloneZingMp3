@@ -1,8 +1,8 @@
 import React from "react";
 
-const Heading = ({ className = "", children }) => {
+const Heading = ({ className = "", text = "text-[20px]", children }) => {
     return (
-        <h2 className={`text-at text-[20px] font-semibold ${className}`}>
+        <h2 className={`text-at ${text} font-semibold ${className}`}>
             {children}
         </h2>
     );
