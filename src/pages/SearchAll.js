@@ -29,7 +29,6 @@ const SearchAll = () => {
             }
         }
     };
-    console.log(searchData);
     return (
         <div className="w-full flex flex-col mb-10">
             <div className="flex flex-col">
@@ -86,9 +85,14 @@ const SearchAll = () => {
                 <ListSongSearch
                     searchData={searchData}
                     showAlbum={false}
+                    link="/tim-kiem/bai-hat"
                     q={q}
                 />
-                <PlaylistAlbum searchData={searchData} q={q} />
+                <PlaylistAlbum
+                    searchData={searchData}
+                    q={q}
+                    link="/tim-kiem/playlist"
+                />
                 <Artist data={searchData} q={q} link="/tim-kiem/artist" />
             </div>
         </div>
@@ -105,12 +109,16 @@ export const HeadingSearchComponent = ({
         <>
             {!active ? (
                 <SecondHeading
-                    to={{
-                        pathname: link,
-                        search: createSearchParams({
-                            q,
-                        }).toString(),
-                    }}
+                    to={
+                        q
+                            ? {
+                                  pathname: link,
+                                  search: createSearchParams({
+                                      q,
+                                  }).toString(),
+                              }
+                            : link
+                    }
                 >
                     <h2 className="font-bold text-at text-xl">{children}</h2>
                 </SecondHeading>
@@ -146,9 +154,12 @@ export const FeaturePlaylist = ({ searchData, q }) => {
                             </div>
                             <div className="flex flex-col text-main text-lg font-medium">
                                 <h2>PLAYLIST NỔI BẬT</h2>
-                                <h2 className="text-at font-bold">
+                                <NavLink
+                                    className="text-at font-bold hover:text-main-hv"
+                                    to={searchData.artists[0].link}
+                                >
                                     {searchData.artists[0].name}
-                                </h2>
+                                </NavLink>
                             </div>
                         </div>
                     </SecondHeading>
@@ -166,19 +177,17 @@ export const ListSongSearch = ({
     active = false,
     col = "grid-cols-2",
     q,
+    link,
     songs,
+    title = "Bài hát",
 }) => {
     const items = songs?.slice(0, size) || searchData?.songs.slice(0, size);
     return (
         <div className="w-full mb-10">
-            <HeadingSearchComponent
-                active={active}
-                link="/tim-kiem/bai-hat"
-                q={q}
-            >
-                Bài hát
+            <HeadingSearchComponent active={active} link={link} q={q}>
+                {title}
             </HeadingSearchComponent>
-            {items.length > 0 && (
+            {items?.length > 0 && (
                 <div className={`grid ${col} gap-5`}>
                     {items.map((item) => (
                         <Song
@@ -197,15 +206,17 @@ export const ListSongSearch = ({
     );
 };
 
-export const PlaylistAlbum = ({ searchData, active = false, q, size = 5 }) => {
+export const PlaylistAlbum = ({
+    searchData,
+    active = false,
+    q,
+    size = 5,
+    link,
+}) => {
     const playlists = { items: searchData.playlists };
     return (
         <div className="w-full mb-10">
-            <HeadingSearchComponent
-                active={active}
-                link="/tim-kiem/playlist"
-                q={q}
-            >
+            <HeadingSearchComponent active={active} link={link} q={q}>
                 Playlist/Album
             </HeadingSearchComponent>
             <Section data={playlists} hAlbum size={size} />

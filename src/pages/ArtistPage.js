@@ -1,36 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Zingmp3Api from "../apis/Zingmp3Api";
+import React from "react";
 import { Artist, Button, Heading, Section } from "../components";
-import { Artists, ListSongSearch } from "./SearchAll";
+import { ListSongSearch } from "./SearchAll";
+import useFecthInfoArtist from "../hooks/useFecthInfoArtist";
 
 const ArtistPage = () => {
-    const { name } = useParams();
-    const [infoArtist, setInfoArtist] = useState();
-    console.log(infoArtist);
-    useEffect(() => {
-        const fecthArtist = async () => {
-            try {
-                const res = await Zingmp3Api.getArtist(name);
-                console.log(res);
-                if (res.err === 0) {
-                    setInfoArtist(res.data);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fecthArtist();
-    }, [name]);
-
-    const dataSection = infoArtist?.sections.filter(
-        (item) => item.sectionType === "playlist"
-    );
-    const dataArtist = infoArtist?.sections.find(
-        (item) => item.sectionType === "artist"
-    );
-    console.log(dataSection);
+    const { dataSection, dataSongs, dataArtist, infoArtist } =
+        useFecthInfoArtist();
     return (
         <>
             {infoArtist && (
@@ -62,16 +37,19 @@ const ArtistPage = () => {
                     <div className="w-full px-[59px]">
                         <div className="w-full mb-10">
                             <ListSongSearch
-                                songs={infoArtist?.sections[0].items}
+                                title={dataSongs?.title}
+                                link={dataSongs?.link}
+                                songs={dataSongs?.items}
                             />
                         </div>
-                        {dataSection.length > 0 &&
+                        {dataSection?.length > 0 &&
                             dataSection.map((data, index) => (
                                 <Section
                                     key={index}
                                     data={data}
-                                    secondHeading
-                                    artists={data.items[0].artists}
+                                    secondHeading={index === 0 ? true : false}
+                                    artists
+                                    link={data.link}
                                 />
                             ))}
                         {dataArtist && (

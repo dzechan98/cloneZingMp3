@@ -9,6 +9,7 @@ const SectionItem = ({ data, artists, hAlbum }) => {
     const dispatch = useDispatch();
 
     const handleClickPlaySong = () => {
+        console.log("data", data);
         dispatch(setIsAddRecentyly(true));
         navigate(data?.link.split(".")[0]);
     };
@@ -21,15 +22,16 @@ const SectionItem = ({ data, artists, hAlbum }) => {
                 <ThirdHeading
                     title={data?.sortDescription || data?.title}
                     description={listArtists}
-                    sizeTitle={20}
-                    sizeDesc={30}
+                    height="h-10"
                     artists={data?.artists}
+                    onClick={handleClickPlaySong}
                 />
             ) : hAlbum ? (
                 <ThirdHeading
                     description={data?.sortDescription || data?.artistsNames}
                     title={data?.title}
                     artists={data?.artists}
+                    onClick={handleClickPlaySong}
                 />
             ) : (
                 <ThirdHeading description={data?.sortDescription} />

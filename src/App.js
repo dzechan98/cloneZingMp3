@@ -11,6 +11,8 @@ import {
     SearchPlaylists,
     SearchArtist,
     ArtistPage,
+    ArtistSongPage,
+    ArtistPlaylistPage,
 } from "./pages";
 function App() {
     return (
@@ -48,6 +50,22 @@ function App() {
                         </Route>
                         <Route path="/:name" element={<ArtistPage />} />
                         <Route path="/nghe-si/:name" element={<ArtistPage />} />
+                        <Route
+                            path="/:name/bai-hat"
+                            element={<ArtistSongPage />}
+                        />
+                        <Route
+                            path="/nghe-si/:name/bai-hat"
+                            element={<ArtistSongPage />}
+                        />
+                        <Route
+                            path="/:name/single"
+                            element={<ArtistPlaylistPage />}
+                        />
+                        <Route
+                            path="/nghe-si/:name/single"
+                            element={<ArtistPlaylistPage />}
+                        />
                     </Route>
                 </Routes>
             </div>
