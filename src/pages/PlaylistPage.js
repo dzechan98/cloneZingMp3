@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Zingmp3Api from "../apis/Zingmp3Api";
 import { NavLink, useParams } from "react-router-dom";
-import { ListSong, Icons, Button } from "../components";
+import { ListSong, Icons, Button, Artist } from "../components";
 import moment from "moment";
 import icons from "../ultis/icons";
 import PlayingIc from "../assets/icon-playing.gif";
@@ -75,10 +75,11 @@ const PlaylistPage = () => {
             }
         }
     }, [playlist]);
+    console.log(playlist);
 
     return (
-        <div className="w-full mt-10 text-main-100 text-sm px-[59px]">
-            <div className="flex gap-[5%] ">
+        <div className="w-full mt-10 text-main-100 text-sm">
+            <div className="flex gap-[5%] mb-10">
                 <div className="w-[300px] text-center flex flex-col items-center">
                     <div className="relative overflow-hidden w-[300px] h-[300px] rounded-lg group cursor-pointer mb-4">
                         <img
@@ -161,11 +162,14 @@ const PlaylistPage = () => {
                     </p>
                     <ListSong
                         songs={playlist?.song?.items}
-                        totol={playlist?.song?.total}
-                        totolDuration={playlist?.song?.totalDuration}
+                        total={playlist?.song?.total}
+                        totalDuration={playlist?.song?.totalDuration}
                     />
                 </div>
             </div>
+            {playlist?.artists && (
+                <Artist title="Nghệ Sĩ Tham Gia" data={playlist} active />
+            )}
         </div>
     );
 };

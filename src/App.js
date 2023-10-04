@@ -13,6 +13,11 @@ import {
     ArtistPage,
     ArtistSongPage,
     ArtistPlaylistPage,
+    NewReleasePage,
+    Top100Page,
+    NewReleaseRankingPage,
+    NewRankingReleasedPage,
+    RecentlyPage,
 } from "./pages";
 function App() {
     return (
@@ -66,6 +71,20 @@ function App() {
                             path="/nghe-si/:name/single"
                             element={<ArtistPlaylistPage />}
                         />
+                        <Route
+                            path="/new-release/song"
+                            element={<NewReleasePage />}
+                        />
+                        <Route path="/top100" element={<Top100Page />} />
+                        <Route
+                            path="/moi-phat-hanh"
+                            element={<NewRankingReleasedPage />}
+                        />
+                        <Route
+                            path="/mymusic/history"
+                            element={<RecentlyPage />}
+                        />
+                        <Route path="*" element={<HomePage />} />
                     </Route>
                 </Routes>
             </div>

@@ -9,7 +9,9 @@ const Song = ({
     songs,
     showAlbum = true,
     sizeDesc,
+    sizeAlbum = 30,
     sizeTitle,
+    showDate = false,
     children,
 }) => {
     const dispatch = useDispatch();
@@ -99,8 +101,10 @@ const Song = ({
             {showAlbum && (
                 <div className="w-[30%] text-[12px]">
                     <span>
-                        {song.album?.title.length > 30
-                            ? `${song.album?.title.slice(0, 30)}...`
+                        {showDate
+                            ? moment(1000 * song?.releaseDate).fromNow()
+                            : song.album?.title.length > sizeAlbum
+                            ? `${song.album?.title.slice(0, sizeAlbum)}...`
                             : song.album?.title}
                     </span>
                 </div>

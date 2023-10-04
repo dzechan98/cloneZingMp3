@@ -37,10 +37,9 @@ const HomePage = () => {
         };
         fetchDataHome();
     }, []);
-    console.log(hAlbum);
 
     return (
-        <div className="w-full mb-[200px]  px-[59px]">
+        <div className="w-full mb-[200px]">
             <BannerSlider />
             {recently && recently.length > 0 && (
                 <PlaylistRecently title={title} recently={recently} />
@@ -51,7 +50,7 @@ const HomePage = () => {
             <Section data={hEditorTheme3} />
             <Section data={hEditorTheme4} />
             <Section data={hArtistTheme} />
-            <NewRankingReleased data={hNewrelease} />
+            <NewRankingReleased data={hNewrelease} secondHeading />
             <Section data={h100} artists secondHeading />
             <Section data={hAlbum} hAlbum />
             <Footer />

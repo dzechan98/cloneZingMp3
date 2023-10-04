@@ -18,24 +18,28 @@ const SectionItem = ({ data, artists, hAlbum }) => {
     return (
         <div className="w-full flex flex-col gap-2">
             <Image data={data} onClick={handleClickPlaySong} size={40} />
-            {artists ? (
-                <ThirdHeading
-                    title={data?.sortDescription || data?.title}
-                    description={listArtists}
-                    height="h-10"
-                    artists={data?.artists}
-                    onClick={handleClickPlaySong}
-                />
-            ) : hAlbum ? (
-                <ThirdHeading
-                    description={data?.sortDescription || data?.artistsNames}
-                    title={data?.title}
-                    artists={data?.artists}
-                    onClick={handleClickPlaySong}
-                />
-            ) : (
-                <ThirdHeading description={data?.sortDescription} />
-            )}
+            <div className="w-full">
+                {artists ? (
+                    <ThirdHeading
+                        title={data?.sortDescription || data?.title}
+                        description={listArtists}
+                        height="h-10"
+                        artists={data?.artists}
+                        onClick={handleClickPlaySong}
+                    />
+                ) : hAlbum ? (
+                    <ThirdHeading
+                        description={
+                            data?.sortDescription || data?.artistsNames
+                        }
+                        title={data?.title}
+                        artists={data?.artists}
+                        onClick={handleClickPlaySong}
+                    />
+                ) : (
+                    <ThirdHeading description={data?.sortDescription} />
+                )}
+            </div>
         </div>
     );
 };

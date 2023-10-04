@@ -24,4 +24,5 @@ export { default as SidebarRight } from "./SidebarRight";
 export { default as SongItem } from "./SongItem";
 export { default as Footer } from "./Footer";
 export { default as Artist } from "./Artist";
-
+export { default as FilterNewRelease } from "./FilterNewRelease";
+export { default as Top } from "./Top";

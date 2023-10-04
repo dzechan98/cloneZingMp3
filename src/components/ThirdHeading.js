@@ -34,7 +34,7 @@ const ThirdHeading = ({
             )}
             {description && (
                 <p
-                    className={`w-full text-left font-semibold ${fontSizeDesc} text-main-100 ${height}`}
+                    className={`w-full text-left ${fontSizeDesc} text-main-100 ${height}`}
                 >
                     {artists?.length > 0
                         ? artists.map((item, index) => {

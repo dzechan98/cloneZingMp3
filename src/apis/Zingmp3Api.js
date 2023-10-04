@@ -46,6 +46,21 @@ const Zingmp3Api = {
         const params = { keyword };
         return axiosClient.get(url, { params });
     },
+
+    getTop100: () => {
+        const url = "/top100";
+        return axiosClient.get(url);
+    },
+
+    getChart: () => {
+        const url = "/chart";
+        return axiosClient.get(url);
+    },
+
+    getNewReleaseChart: () => {
+        const url = "/newreleasechart";
+        return axiosClient.get(url);
+    },
 };
 
 export default Zingmp3Api;

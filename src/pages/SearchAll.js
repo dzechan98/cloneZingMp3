@@ -7,7 +7,6 @@ import {
     SongItem,
     Section,
     Song,
-    Button,
     Heading,
     Artist,
 } from "../components";
@@ -196,7 +195,8 @@ export const ListSongSearch = ({
                             artists={item.artists}
                             showAlbum={showAlbum}
                             sizeDesc={40}
-                            sizeTitle={35}
+                            sizeAlbum={15}
+                            sizeTitle={15}
                             songs={items}
                         />
                     ))}

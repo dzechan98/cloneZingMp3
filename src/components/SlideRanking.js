@@ -4,6 +4,7 @@ import moment from "moment";
 import Image from "./Image";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPlaying, setSongId } from "../features/playerSlice";
+import Top from "./Top";
 
 const SlideRanking = ({ item, index }) => {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const SlideRanking = ({ item, index }) => {
             <div className="w-[40%] ">
                 <Image data={item} size={40} onClick={handleClick} />
             </div>
-            <div className="flex flex-col justify-between gap-4">
+            <div className="w-full flex flex-col justify-between gap-4">
                 <div className="w-full">
                     <ThirdHeading
                         title={item.title}
@@ -32,19 +33,8 @@ const SlideRanking = ({ item, index }) => {
                         height="h-10"
                     />
                 </div>
-                <div className="flex justify-between items-end">
-                    <span
-                        style={{
-                            opacity: 0.4,
-                            WebkitTextStroke: "1px #fff",
-                            lineHeight: 1,
-                            fontSize: "40px",
-                            fontWeight: 900,
-                            color: "transparent",
-                        }}
-                    >
-                        #{index + 1}
-                    </span>
+                <div className="w-full flex justify-between items-end">
+                    <Top index={index} show />
                     <span className="text-main-100">
                         {moment(item?.releaseDate * 1000).format("DD.MM.YYYY")}
                     </span>

@@ -30,12 +30,12 @@ const Artist = ({ data, q, link, title = " Nghệ Sĩ/OA", active }) => {
                             >
                                 {item.name}
                             </NavLink>
-                            <span className="text-[#fffff80] font-semibold text-[12px] mb-2">
+                            <span className="text-[#fffff80] text-[12px] mb-2">
                                 {`${handleNumber(
                                     Number(item.totalFollow)
                                 )} quan tâm`}
                             </span>
-                            <Button className="bg-[#ffffff1a] rounded-full border border-main">
+                            <Button className="bg-[#9b4de0] text-at rounded-full border border-main">
                                 QUAN TÂM
                             </Button>
                         </div>

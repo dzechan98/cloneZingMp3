@@ -4,10 +4,13 @@ import useFecthInfoArtist from "../hooks/useFecthInfoArtist";
 const ArtistSongPage = () => {
     const { dataSongs, infoArtist } = useFecthInfoArtist();
     return (
-        <div className="w-full px-[59px]">
+        <div className="w-full">
             {infoArtist && (
                 <>
-                    <Heading className="text-2xl">{`${infoArtist?.name} - Tất Cả Bài Hát`}</Heading>
+                    <Heading
+                        className="mb-5"
+                        text="text-2xl"
+                    >{`${infoArtist?.name} - Tất Cả Bài Hát`}</Heading>
                     <div className="w-full">
                         {dataSongs?.items?.length > 0 &&
                             dataSongs.items.map((item) => (

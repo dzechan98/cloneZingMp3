@@ -27,7 +27,7 @@ const Layout = () => {
                 >
                     <Header />
                 </div>
-                <div className="w-full mt-[70px] mb-[120px]">
+                <div className="w-full mt-[70px] mb-[120px] px-[59px]">
                     <Outlet></Outlet>
                 </div>
             </div>

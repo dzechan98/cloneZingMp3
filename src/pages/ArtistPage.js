@@ -10,8 +10,38 @@ const ArtistPage = () => {
         <>
             {infoArtist && (
                 <div className="w-full mb-10">
-                    <div className="banner w-full h-[300px] bg-main-hv flex items-center mb-10">
-                        <div className="flex items-center gap-5 px-[59px]">
+                    <div
+                        className="relative w-full h-[300px] flex items-center mb-10"
+                        style={{
+                            backgroundImage: `url(${infoArtist.cover})`,
+                        }}
+                    >
+                        <div className="overlay absolute inset-0 bg-overlay">
+                            <div className="w-full h-full flex items-center gap-5">
+                                <div className="rounded-full overflow-hidden w-[160px]">
+                                    <img
+                                        src={infoArtist.thumbnail}
+                                        alt=""
+                                        className="w-full rounded-full hover:scale-110 transition-all"
+                                    />
+                                </div>
+                                <div className="w-full">
+                                    <Heading text="text-5xl mb-2">
+                                        {infoArtist.name}
+                                    </Heading>
+                                    <div className="flex items-center gap-3">
+                                        <span>
+                                            {infoArtist.totalFollow} người quan
+                                            tâm
+                                        </span>
+                                        <Button className="bg-[#9b4de0] text-at rounded-full border border-main">
+                                            QUAN TÂM
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* <div className="flex items-center gap-5 px-[59px]">
                             <div className="rounded-full overflow-hidden w-[160px]">
                                 <img
                                     src={infoArtist.thumbnail}
@@ -32,7 +62,7 @@ const ArtistPage = () => {
                                     </Button>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="w-full px-[59px]">
                         <div className="w-full mb-10">

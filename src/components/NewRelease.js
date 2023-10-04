@@ -1,22 +1,8 @@
 import React, { useState } from "react";
-import { Button, Heading, SecondHeading, SongItem } from "./";
+import { FilterNewRelease, Heading, SecondHeading, SongItem } from "./";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPlaying, setSongId } from "../features/playerSlice";
 
-const optionFilter = [
-    {
-        title: "TẤT CẢ",
-        region: "all",
-    },
-    {
-        title: " VIỆT NAM",
-        region: "vPop",
-    },
-    {
-        title: "QUỐC TẾ",
-        region: "others",
-    },
-];
 const NewRelease = () => {
     const { isPlaying } = useSelector((state) => state.player);
     const { newRelease } = useSelector((state) => state.home);
@@ -35,27 +21,12 @@ const NewRelease = () => {
             dispatch(setIsPlaying(false));
         }
     };
-    const handleChangeRegion = (value) => {
-        setRegion(value);
-    };
     return (
         <div className="w-full mb-20">
             <Heading className="mb-5">{newRelease?.title}</Heading>
-            <SecondHeading>
+            <SecondHeading to={`${newRelease?.link}`}>
                 <div className="flex items-center gap-5">
-                    {optionFilter.map((item, index) => (
-                        <Button
-                            key={index}
-                            className={`min-w-[100px] border transition-all text-at rounded-full font-semibold ${
-                                region === item.region
-                                    ? "bg-[#9b4de0] border-[#9b4de0]"
-                                    : "bg-transparent border-main"
-                            }`}
-                            onClick={() => handleChangeRegion(item.region)}
-                        >
-                            {item.title}
-                        </Button>
-                    ))}
+                    <FilterNewRelease region={region} setRegion={setRegion} />
                 </div>
             </SecondHeading>
             <div className="grid grid-cols-3 gap-x-3">

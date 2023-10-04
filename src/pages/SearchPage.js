@@ -34,7 +34,7 @@ const SearchPage = () => {
     const q = searchParams.get("q");
     const { searchData } = useSelector((state) => state.player);
     return (
-        <div className="w-full px-[59px]">
+        <div className="w-full">
             <div className="flex pb-4 mb-10 items-center gap-5 h-[50px] text-sm border-b border-[#ffffff80]">
                 <h2 className="text-[18px] font-semibold">Kết Quả Tìm Kiếm</h2>
                 <div className="flex items-center gap-8 text-[18px]">

@@ -10,9 +10,9 @@ import icons from "../ultis/icons";
 const { FaRegPlayCircle, AiFillPlusCircle } = icons;
 
 const activeStyle =
-    "relative px-[21px] py-3 flex items-center gap-x-4 text-at text-[14px] font-semibold bg-at before:w-[3px] before:h-full before:bg-[#9b4de0] before:absolute before:left-[0]";
+    "relative px-[21px] py-3 flex items-center gap-x-4 text-at text-[14px] font-medium bg-at before:w-[3px] before:h-full before:bg-[#9b4de0] before:absolute before:left-[0]";
 const notActiveStyle =
-    "relative px-[21px] py-3 flex items-center gap-x-4 text-main text-[14px] font-semibold hover:text-at group";
+    "relative px-[21px] py-3 flex items-center gap-x-4 text-main text-[14px] font-medium hover:text-at group";
 
 const SidebarLeft = () => {
     return (

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    songId: "",
+    songId: "ZOACFBBU",
     songData: {},
     isPlaying: false,
     isRepeating: false,

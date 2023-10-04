@@ -12,7 +12,7 @@ const NewRankingReleased = ({ data }) => {
     };
     return (
         <div className="w-full mb-10">
-            <SecondHeading>
+            <SecondHeading to="/moi-phat-hanh">
                 <Heading>{data?.title}</Heading>
             </SecondHeading>
             <Slider {...settings}>

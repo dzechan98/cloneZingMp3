@@ -9,3 +9,7 @@ export { default as SearchArtist } from "./SearchArtist";
 export { default as ArtistPage } from "./ArtistPage";
 export { default as ArtistSongPage } from "./ArtistSongPage";
 export { default as ArtistPlaylistPage } from "./ArtistPlaylistPage";
+export { default as NewReleasePage } from "./NewReleasePage";
+export { default as Top100Page } from "./Top100Page";
+export { default as NewRankingReleasedPage } from "./NewRankingReleasedPage";
+export { default as RecentlyPage } from "./RecentlyPage";
