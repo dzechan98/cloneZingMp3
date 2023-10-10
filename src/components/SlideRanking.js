@@ -8,6 +8,7 @@ import Top from "./Top";
 
 const SlideRanking = ({ item, index }) => {
     const dispatch = useDispatch();
+    const { width } = useSelector((state) => state.width);
     const { isPlaying } = useSelector((state) => state.player);
 
     const handleClick = () => {
@@ -29,6 +30,7 @@ const SlideRanking = ({ item, index }) => {
                         title={item.title}
                         sizeTitle={20}
                         artists={item.artists}
+                        sizeDesc={20}
                         description={item.artistsNames}
                         height="h-10"
                     />

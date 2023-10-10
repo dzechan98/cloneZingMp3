@@ -1,6 +1,10 @@
 import React from "react";
 
-const Heading = ({ className = "", text = "text-[20px]", children }) => {
+const Heading = ({
+    className = "",
+    text = "sm:text-[20px] text-sm",
+    children,
+}) => {
     return (
         <h2
             className={`text-dark dark:text-light ${text} font-semibold ${className}`}

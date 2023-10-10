@@ -12,23 +12,25 @@ import icons from "../ultis/icons";
 const { FaRegPlayCircle, AiFillPlusCircle, IoIosArrowForward, IoIosArrowBack } =
     icons;
 
-const activeStyle =
-    "relative px-[21px] py-3 flex items-center gap-x-4 text-main-100 dark:text-light text-[14px] font-medium bg-b-active dark:bg-b-active-dark before:w-[3px] before:h-full before:bg-b-button dark:before:bg-b-button-dark before:absolute before:left-[0]";
-const notActiveStyle =
-    "relative px-[21px] py-3 flex items-center gap-x-4 text-main dark:text-main-dark text-[14px] font-medium hover:text-main-100 dark:hover:text-light group";
-
 const SidebarLeft = ({ open, setOpen, width }) => {
+    const activeStyle = `relative lg:px-[21px] py-3 flex items-center ${
+        open ? "justify-stretch px-[21px]" : "justify-center"
+    } lg:justify-stretch gap-x-4 text-main-100 dark:text-light text-[14px] font-medium bg-b-active dark:bg-b-active-dark before:w-[3px] before:h-full before:bg-b-button dark:before:bg-b-button-dark before:absolute before:left-[0]`;
+    const notActiveStyle = `relative lg:px-[21px] py-3 flex items-center ${
+        open ? "justify-stretch px-[21px]" : "justify-center"
+    } lg:justify-stretch gap-x-4 text-main dark:text-main-dark text-[14px] font-medium hover:text-main-100 dark:hover:text-light group`;
+
     const handleClickOpenSidebar = () => {
         setOpen(!open);
     };
     return (
         <div
-            className={`bg-sb dark:bg-sb-dark max-h-[calc(100vh-80px)] transition-all duration-500 lg:w-[240px] fixed z-[100005] ${
-                !open ? "w-[70px]" : "w-[240px]"
+            className={`bg-sb dark:bg-sb-dark min-h-[calc(100vh-80px)] transition-all duration-500 lg:w-[240px] fixed z-[10001] shadow-2xl ${
+                !open ? "w-[60px]" : "w-[240px]"
             }`}
         >
             <div
-                className={`w-full h-[70px] flex items-center ${
+                className={`w-full h-[60px] flex items-center ${
                     width > 1023 || open
                         ? "justify-start py-[15px] px-[25px]"
                         : "justify-center"

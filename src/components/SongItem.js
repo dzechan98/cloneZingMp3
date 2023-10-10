@@ -17,6 +17,8 @@ const SongItem = ({
     artists,
     onClick = () => {},
     imgSize = "w-[40px]",
+    // height = "h-10",
+    width,
 }) => {
     const { songId, isPlaying } = useSelector((state) => state.player);
     return (
@@ -29,11 +31,11 @@ const SongItem = ({
                     : `hover:${bg} dark:hover:${bgDark}`
             }`}
         >
-            <div className="relative">
+            <div className={`relative`}>
                 <img
                     src={thumbnail}
                     alt=""
-                    className={`${imgSize} rounded-lg`}
+                    className={`${imgSize} object-cover rounded-lg`}
                 />
                 <span
                     className={`overlay rounded-lg bg-overlay absolute inset-0 items-center justify-center cursor-pointer ${
@@ -53,8 +55,18 @@ const SongItem = ({
                 {type && <span>{type}</span>}
                 <ThirdHeading
                     title={title}
+                    sizeTitle={
+                        width < 320
+                            ? 15
+                            : width <= 520
+                            ? 25
+                            : width > 768 && width < 1023
+                            ? 15
+                            : 20
+                    }
                     description={artistsNames}
                     sizeDesc={20}
+                    fontSizeTitle="lg:text-sm text-[12px]"
                     fontSizeDesc="text-[12px]"
                     artists={artists}
                 />

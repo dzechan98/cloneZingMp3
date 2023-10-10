@@ -26,7 +26,7 @@ const {
     BsMusicNoteList,
 } = icons;
 
-const Player = () => {
+const Player = ({ width }) => {
     const dispatch = useDispatch();
     const { songId, isPlaying, listSong, isRandomSong, isRepeating } =
         useSelector((state) => state.player);
@@ -209,27 +209,34 @@ const Player = () => {
             isPlaying ? audio.play() : audio.pause();
         }
     }, [isPlaying, audio]);
-    console.log(song);
     return (
         <div className="w-full h-full flex items-center px-[21px]">
-            <div className="flex items-center gap-2 w-[30%]">
-                <img
-                    src={song?.thumbnail}
-                    alt=""
-                    className="h-16 w-16 rounded-lg"
-                />
-                <div className="flex items-center gap-2">
-                    <div className="text-sm">
-                        <ThirdHeading
-                            title={song?.title}
-                            artists={song?.artists}
-                            description={song?.artistsNames}
-                        />
+            {width > 520 && (
+                <div className={`flex items-center gap-2 w-[30%]`}>
+                    <img
+                        src={song?.thumbnail}
+                        alt=""
+                        className={`rounded-lg ${
+                            width > 768 ? "h-12 w-12" : "h-10 w-10"
+                        }`}
+                    />
+                    <div className="flex items-center gap-2">
+                        <div className="text-sm">
+                            <ThirdHeading
+                                title={song?.title}
+                                artists={song?.artists}
+                                description={song?.artistsNames}
+                            />
+                        </div>
+                        {width > 768 && <Icons song={song} />}
                     </div>
-                    <Icons song={song} />
                 </div>
-            </div>
-            <div className="w-[40%] flex flex-col items-center justify-center gap-2">
+            )}
+            <div
+                className={`flex flex-col items-center justify-center ${
+                    width <= 520 ? "w-full" : "w-[60%] lg:w-[40%]"
+                }`}
+            >
                 <div className="w-full flex items-center justify-center gap-2">
                     <span
                         onClick={handleRandomSong}
@@ -258,9 +265,9 @@ const Player = () => {
                                 className="w-4 h-4"
                             />
                         ) : !isPlaying ? (
-                            <BsPlayCircle size={30} />
+                            <BsPlayCircle size={width > 768 ? 30 : 25} />
                         ) : (
-                            <BsPauseCircle size={30} />
+                            <BsPauseCircle size={width > 768 ? 30 : 25} />
                         )}
                     </span>
                     <span
@@ -298,36 +305,48 @@ const Player = () => {
                         {moment.utc(song?.duration * 1000).format("mm:ss")}
                     </span>
                 </div>
+                {width <= 520 && (
+                    <h2 className="text-sm font-bold dark:text-main-hv-dark text-main-hv">
+                        {song?.title?.length > 45
+                            ? `${song?.title.slice(0, 45)}...`
+                            : song?.title}
+                    </h2>
+                )}
             </div>
-            <div className="w-[30%] flex items-center justify-end">
-                <div className="w-1/2 flex justify-center gap-[16px]">
-                    <div className="w-full flex items-center gap-2">
-                        <span className="cursor-pointer peer">
-                            <FiVolume2 size={20} />
-                        </span>
+            {width > 520 && (
+                <div className="w-[10%] lg:w-[30%] flex items-center justify-end">
+                    <div className="lg:w-1/2 flex justify-center gap-[16px]">
+                        {width > 1023 && (
+                            <div className="w-full flex items-center gap-2">
+                                <span className="cursor-pointer peer">
+                                    <FiVolume2 size={20} />
+                                </span>
+                                <div
+                                    className="progress w-[100px] relative h-[3px] bg-b-active dark:bg-b-active-dark rounded-lg overflow-hidden cursor-pointer hover:h-[6px] peer-hover:h-[6px] group"
+                                    ref={volumeTrackRef}
+                                    onClick={handleChangeVolume}
+                                >
+                                    <div
+                                        className={`absolute bottom-0 top-0 left-0 right-0 bg-dark dark:bg-light`}
+                                        ref={volumeThumbRef}
+                                    ></div>
+                                </div>
+                            </div>
+                        )}
+
                         <div
-                            className="progress w-[100px] relative h-[3px] bg-b-active dark:bg-b-active-dark rounded-lg overflow-hidden cursor-pointer hover:h-[6px] peer-hover:h-[6px] group"
-                            ref={volumeTrackRef}
-                            onClick={handleChangeVolume}
+                            className={`p-2 rounded-lg cursor-pointer ${
+                                isOpen
+                                    ? "bg-b-button dark:bg-b-button-dark"
+                                    : "bg-b-active dark:bg-b-active-dark"
+                            }`}
+                            onClick={() => dispatch(setIsOpen())}
                         >
-                            <div
-                                className={`absolute bottom-0 top-0 left-0 right-0 bg-dark dark:bg-light`}
-                                ref={volumeThumbRef}
-                            ></div>
+                            <BsMusicNoteList size={20} />
                         </div>
                     </div>
-                    <div
-                        className={`p-2 rounded-lg cursor-pointer ${
-                            isOpen
-                                ? "bg-b-button dark:bg-b-button-dark"
-                                : "bg-b-active dark:bg-b-active-dark"
-                        }`}
-                        onClick={() => dispatch(setIsOpen())}
-                    >
-                        <BsMusicNoteList size={20} />
-                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

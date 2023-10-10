@@ -9,9 +9,10 @@ const Song = ({
     songs,
     showAlbum = true,
     sizeDesc,
-    sizeAlbum = 30,
+    sizeAlbum = 25,
     sizeTitle,
     showDate = false,
+    width,
     children,
 }) => {
     const dispatch = useDispatch();
@@ -60,7 +61,7 @@ const Song = ({
         >
             <div
                 className={`${
-                    showAlbum ? "w-[50%]" : "w-[70%]"
+                    width > 640 ? (showAlbum ? "w-[50%]" : "w-[70%]") : "w-full"
                 } flex items-center gap-2`}
             >
                 {children}
@@ -98,7 +99,7 @@ const Song = ({
                     />
                 </div>
             </div>
-            {showAlbum && (
+            {width > 640 && showAlbum && (
                 <div className="w-[30%] text-[12px]">
                     <span>
                         {showDate
@@ -109,17 +110,19 @@ const Song = ({
                     </span>
                 </div>
             )}
-            <div className="w-[15%] flex justify-end">
-                <span className="group-hover:hidden">
-                    {songId !== encodeId &&
-                        moment.utc(duration * 1000).format("HH:mm:ss")}
-                </span>
-                <Icons
-                    song={song}
-                    className="hidden group-hover:flex transition-all"
-                    bgHover="bg-red-100"
-                />
-            </div>
+            {width > 468 && (
+                <div className="w-[15%] flex justify-end">
+                    <span className="group-hover:hidden">
+                        {songId !== encodeId &&
+                            moment.utc(duration * 1000).format("HH:mm:ss")}
+                    </span>
+                    <Icons
+                        song={song}
+                        className="hidden group-hover:flex transition-all"
+                        bgHover="bg-red-100"
+                    />
+                </div>
+            )}
             {openModal && (
                 <Modal
                     setOpenModal={setOpenModal}

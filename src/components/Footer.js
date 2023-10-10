@@ -41,10 +41,10 @@ const Footer = () => {
             <h2 className="text-center font-bold text-main-100 dark:text-main-dark mb-10">
                 ĐỐI TÁC ÂM NHẠC
             </h2>
-            <div className="px-10 w-full grid grid-cols-8 gap-x-5 gap-y-8">
+            <div className="sm:px-10 w-full grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-x-5 sm:gap-y-8">
                 {Images.map((img, index) => (
                     <div
-                        className="rounded-lg p-1 w-[100px] h-[60px] bg-light flex items-center justify-center"
+                        className="rounded-lg p-1 w-full h-[60px] bg-light flex items-center justify-center"
                         key={index}
                     >
                         <img

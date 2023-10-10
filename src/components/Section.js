@@ -20,7 +20,7 @@ const Section = ({
             ) : (
                 <Heading className="mb-5">{data?.title}</Heading>
             )}
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid sm:grid-cols-4 md:grid-cols-5 gap-4 grid-cols-2">
                 {data?.items?.slice(0, size)?.map((item, index) => (
                     <SectionItem
                         data={item}

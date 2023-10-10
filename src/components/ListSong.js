@@ -1,6 +1,7 @@
 import { Song, Top } from "./";
 import icons from "../ultis/icons";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 const { BsMusicNoteBeamed } = icons;
 const ListSong = ({
@@ -13,16 +14,25 @@ const ListSong = ({
     showTop,
     categoryCenter = "ALBUM",
 }) => {
+    const { width } = useSelector((state) => state.width);
     const time = moment.duration(totalDuration * 1000);
     const hours = time.hours();
     const minutes = time.minutes();
     return (
-        <div className="w-full text-main-100 dark:text-main-100-dark text-[14px]">
+        <div className="w-full text-main-100 dark:text-main-100-dark text-[12px] lg:text-sm">
             {showCategory && (
                 <div className="flex items-center justify-between p-[10px] font-semibold">
-                    <span className="w-[50%]">BÀI HÁT</span>
-                    <span className="w-[30%]">{categoryCenter}</span>
-                    <span className="w-[15%] flex justify-end">THỜI GIAN</span>
+                    <span className={`${width > 640 ? "w-[50%]" : "w-[70%]"}`}>
+                        BÀI HÁT
+                    </span>
+                    {width > 640 && (
+                        <span className="w-[30%]">{categoryCenter}</span>
+                    )}
+                    {width > 468 && (
+                        <span className="w-[30%] sm:w-[15%] flex justify-end">
+                            THỜI GIAN
+                        </span>
+                    )}
                 </div>
             )}
             <div
@@ -36,11 +46,12 @@ const ListSong = ({
                             song={song}
                             songs={songs}
                             key={index}
-                            sizeDesc={40}
-                            sizeTitle={25}
+                            sizeDesc={width > 768 ? 20 : width > 640 ? 25 : 20}
+                            sizeTitle={width > 768 ? 20 : width > 640 ? 25 : 20}
                             showDate={showDate}
+                            width={width}
                         >
-                            {showTop ? (
+                            {showTop && width > 368 ? (
                                 <Top
                                     index={index}
                                     size="32px"
@@ -56,10 +67,12 @@ const ListSong = ({
                                             : "#fff"
                                     }
                                 />
-                            ) : (
+                            ) : width > 640 ? (
                                 <span>
                                     <BsMusicNoteBeamed size={15} />
                                 </span>
+                            ) : (
+                                ""
                             )}
                         </Song>
                     ))}

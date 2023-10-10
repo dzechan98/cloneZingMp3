@@ -1,15 +1,14 @@
 import React from "react";
-import { Category } from "./";
 import { NavLink } from "react-router-dom";
 const ThirdHeading = ({
     title,
     description,
-    status,
     sizeTitle = 20,
     sizeDesc = 20,
-    fontSizeDesc = "text-sm",
+    fontSizeDesc = "text-[12px] lg:text-sm ",
     height,
     artists,
+    fontSizeTitle = "lg:text-sm text-[12px]",
     onClick = () => {},
 }) => {
     let length = 0;
@@ -18,7 +17,7 @@ const ThirdHeading = ({
             {title && (
                 <div className="text-left max-w-max relative">
                     <h2
-                        className={`text-left font-bold inline text-sm text-dark dark:text-light ${
+                        className={`${fontSizeTitle} text-left font-bold inline text-dark dark:text-light ${
                             onClick
                                 ? "hover:text-main-hv dark:hover:text-main-hv-dark cursor-pointer"
                                 : ""
@@ -29,9 +28,6 @@ const ThirdHeading = ({
                             ? `${title.slice(0, sizeTitle)}...`
                             : title}
                     </h2>
-                    {status === 2 && (
-                        <Category className="bg-bmodal">PREMIUM</Category>
-                    )}
                 </div>
             )}
             {description && (

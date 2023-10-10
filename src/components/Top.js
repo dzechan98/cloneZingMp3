@@ -3,19 +3,18 @@ import React from "react";
 const Top = ({
     index,
     color = "#fff",
-    size = "40px",
     show = false,
+    size,
     opacity = 0.4,
     className = "",
 }) => {
     return (
         <span
-            className={className}
+            className={`text-xl sm:text-[30px] ${className}`}
             style={{
                 opacity: opacity,
                 WebkitTextStroke: `1px ${color}`,
                 lineHeight: 1,
-                fontSize: size,
                 fontWeight: 900,
                 color: "transparent",
             }}

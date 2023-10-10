@@ -106,6 +106,7 @@ function App() {
                         <Route path="/zing-chart" element={<HomePage />} />
                         <Route path="/radio" element={<HomePage />} />
                         <Route path="/mymusic" element={<HomePage />} />
+                        <Route path="/hub" element={<HomePage />} />
                         <Route path="*" element={<HomePage />} />
                     </Route>
                 </Routes>

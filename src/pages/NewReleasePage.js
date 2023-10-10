@@ -8,10 +8,13 @@ const NewReleasePage = () => {
         <div className="w-full">
             {newRelease && (
                 <>
-                    <Heading className="mt-[80px] mb-10" text="text-4xl">
+                    <Heading
+                        className="mt-10 lg:mt-[60px] mb-10"
+                        text="text-xl sm:text-2xl lg:text-4xl"
+                    >
                         {newRelease.title}
                     </Heading>
-                    <div className="w-full flex gap-5 mb-10">
+                    <div className="w-full flex flex-wrap gap-1 sm:gap-5 mb-5">
                         <FilterNewRelease
                             region={region}
                             setRegion={setRegion}

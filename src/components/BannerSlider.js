@@ -18,6 +18,47 @@ const BannerSlider = () => {
         speed: 500,
         autoplaySpeed: 2000,
         cssEase: "linear",
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true,
+                    autoplay: true,
+                    speed: 500,
+                    autoplaySpeed: 2000,
+                    cssEase: "linear",
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true,
+                    autoplay: true,
+                    speed: 500,
+                    autoplaySpeed: 2000,
+                    cssEase: "linear",
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true,
+                    autoplay: true,
+                    speed: 500,
+                    autoplaySpeed: 2000,
+                    cssEase: "linear",
+                },
+            },
+        ],
     };
     const handleClickBanner = (item) => {
         //type=1 la bai hat

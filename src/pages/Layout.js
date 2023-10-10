@@ -8,21 +8,21 @@ const Layout = () => {
     const headerRef = useRef(null);
 
     return (
-        <div className="flex text-main">
+        <div className="flex text-main w-full">
             <SidebarLeft open={open} setOpen={setOpen} width={width} />
-            <div className="relative left-[70px] lg:left-[240px] lg:w-[calc(100%-240px)] w-[calc(100%-70px)] bg-b-main dark:bg-b-main-dark min-h-screen transition-all">
+            <div className="relative left-[60px] lg:left-[240px] lg:w-[calc(100%-240px)] w-[calc(100%-60px)] bg-b-main dark:bg-b-main-dark min-h-screen transition-all">
                 <div
-                    className="px-[20px] md:px-[40px] lg:px-[59px] transition-all h-[70px] flex items-center mb-5 fixed z-[9997] bg-[#c1ccd5] dark:bg-[#191226] lg:w-[calc(100%-240px)] lg:left-[240px] w-[calc(100%-70px)] left-[70px]"
+                    className="px-[10px] md:px-[40px] lg:px-[59px] transition-all h-[70px] flex items-center mb-5 fixed z-[9997] bg-[#c1ccd5] dark:bg-[#191226] lg:w-[calc(100%-240px)] lg:left-[240px] w-[calc(100%-60px)] left-[60px]"
                     ref={headerRef}
                 >
-                    <Header />
+                    <Header width={width} />
                 </div>
-                <div className="w-full mt-[70px] mb-[120px] transition-all px-[20px] md:px-[40px] lg:px-[59px]">
+                <div className="w-full mt-[70px] mb-[120px] transition-all px-[10px] md:px-[40px] lg:px-[59px] overflow-hidden">
                     <Outlet></Outlet>
                 </div>
             </div>
             <div className="h-[80px] w-screen fixed bottom-0 bg-player dark:bg-player-dark z-[10003]">
-                <Player />
+                <Player width={width} />
             </div>
             <SidebarRight />
         </div>

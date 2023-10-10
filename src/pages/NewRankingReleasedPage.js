@@ -22,7 +22,10 @@ const NewRankingReleasedPage = () => {
         <div className="w-full">
             {data && (
                 <>
-                    <Heading className="mb-5" text="text-4xl">
+                    <Heading
+                        className="mb-5"
+                        text="text-xl sm:text-2xl lg:text-4xl"
+                    >
                         {data.title}
                     </Heading>
                     <ListSong

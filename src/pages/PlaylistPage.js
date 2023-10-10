@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 const { BsPlayCircle, BsPauseCircle } = icons;
 
 const PlaylistPage = () => {
+    const { width } = useSelector((state) => state.width);
     const { playlistId } = useParams();
     const dispatch = useDispatch();
     const { songId, isPlaying, songData } = useSelector(
@@ -75,13 +76,20 @@ const PlaylistPage = () => {
             }
         }
     }, [playlist]);
-    console.log(playlist);
 
     return (
-        <div className="w-full mt-10 text-main-100 dark:text-main-100-dark text-sm">
-            <div className="flex gap-[5%] mb-10">
-                <div className="w-[300px] text-center flex flex-col items-center">
-                    <div className="relative overflow-hidden w-[300px] h-[300px] rounded-lg group cursor-pointer mb-4">
+        <div className="w-full mt-10 text-main-100 dark:text-main-100-dark text-[12px] lg:text-sm">
+            <div className="flex gap-5 mb-10 flex-col md:flex-row">
+                <div className="w-full md:w-[30%] lg:w-[300px] text-center flex flex-col items-center">
+                    <div
+                        className={`relative overflow-hidden h-auto rounded-lg group cursor-pointer mb-4 ${
+                            width > 468 && width <= 768
+                                ? "w-[300px]"
+                                : width < 1200
+                                ? "w-[160px]"
+                                : "w-[300px]"
+                        }`}
+                    >
                         <img
                             src={playlist?.thumbnailM}
                             alt=""
@@ -132,7 +140,7 @@ const PlaylistPage = () => {
                             : `${Math.round(playlist?.like)} người yêu thích`}
                     </span>
                     <Button
-                        className="min-w-[180px] rounded-full bg-b-button dark:bg-b-button-dark gap-1 my-5 text-[16px] text-dark dark:text-light"
+                        className="lg:min-w-[180px] rounded-full bg-b-button dark:bg-b-button-dark gap-1 my-5 text-[10px] lg:text-[16px] text-dark dark:text-light"
                         onClick={handleClickButton}
                     >
                         {!checkPlaylist ? (
@@ -152,10 +160,9 @@ const PlaylistPage = () => {
                             </>
                         )}
                     </Button>
-                    <Icons bg="bg-at" />
                 </div>
                 <div className="flex-auto">
-                    <p className="text-main-100 dark:text-main-100-dark mb-4">
+                    <p className="text-main-100 dark:text-main-100-dark text-sm mb-4">
                         Lời tựa
                         <span className="text-dark dark:text-light">
                             {" "}

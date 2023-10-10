@@ -20,7 +20,7 @@ const Top100Page = () => {
     console.log(data);
     return (
         <div className="w-full">
-            <div className="banner flex items-center justify-center mb-10">
+            <div className="banner flex items-center justify-center my-10">
                 <svg width="625" height="166" viewBox="0 0 625 166">
                     <defs>
                         <linearGradient

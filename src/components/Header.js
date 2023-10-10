@@ -4,7 +4,7 @@ import { Search } from "./";
 
 const { BsArrowRight, BsArrowLeft } = icons;
 
-const Header = () => {
+const Header = ({ width }) => {
     const [theme, setTheme] = useState("dark");
     const handleToggleTheme = () => {
         setTheme(theme === "dark" ? "light" : "dark");
@@ -18,20 +18,29 @@ const Header = () => {
         }
     }, [theme]);
     return (
-        <div className="w-full flex items-center justify-between">
-            <div className="flex items-center gap-6 w-full">
-                <div className="flex items-center gap-4">
-                    <span>
-                        <BsArrowLeft size={24} />
-                    </span>
-                    <span>
-                        <BsArrowRight size={24} />
-                    </span>
+        <div
+            className={`w-full flex items-center ${
+                width <= 360 ? "justify-center" : "justify-between"
+            }`}
+        >
+            {width > 360 && (
+                <div className="flex items-center gap-1 md:gap-6 w-full">
+                    {width > 520 && (
+                        <div className="flex items-center gap-1 md:gap-2">
+                            <span>
+                                <BsArrowLeft size={20} />
+                            </span>
+                            <span>
+                                <BsArrowRight size={20} />
+                            </span>
+                        </div>
+                    )}
+                    <div className="w-[80%] lg:w-1/2">
+                        <Search />
+                    </div>
                 </div>
-                <div className="w-[80%] lg:w-1/2">
-                    <Search />
-                </div>
-            </div>
+            )}
+
             <div className="text-dark dark:text-light">
                 <span
                     onClick={handleToggleTheme}
@@ -39,7 +48,7 @@ const Header = () => {
                 >
                     {theme === "light" ? (
                         <svg
-                            className="swap-on fill-current w-8 h-8"
+                            className="swap-on fill-current w-6 h-6"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                         >
@@ -47,7 +56,7 @@ const Header = () => {
                         </svg>
                     ) : (
                         <svg
-                            className="swap-off fill-current w-8 h-8"
+                            className="swap-off fill-current w-6 h-6"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                         >

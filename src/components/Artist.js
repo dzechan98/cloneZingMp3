@@ -3,14 +3,20 @@ import { NavLink } from "react-router-dom";
 import { HeadingSearchComponent } from "../pages/SearchAll";
 import { handleNumber } from "../ultis/func";
 import Button from "./Button";
+import { useSelector } from "react-redux";
 
 const Artist = ({ data, q, link, title = " Nghệ Sĩ/OA", active }) => {
+    const { width } = useSelector((state) => state.width);
     return (
         <div className="w-full mb-10">
             <HeadingSearchComponent active={active} link={link} q={q}>
                 {title}
             </HeadingSearchComponent>
-            <div className="w-full grid grid-cols-5 gap-6">
+            <div
+                className={`w-full grid sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-6 ${
+                    width > 368 && width < 640 ? "grid-cols-2" : "grid-cols-1"
+                }`}
+            >
                 {data?.artists?.length > 0 &&
                     data?.artists.slice(0, 5).map((item) => (
                         <div
@@ -30,12 +36,12 @@ const Artist = ({ data, q, link, title = " Nghệ Sĩ/OA", active }) => {
                             >
                                 {item.name}
                             </NavLink>
-                            <span className="text-main-100 dark:text-main-100 text-[12px] mb-2">
+                            <span className="text-main-100 dark:text-main-100-dark text-[12px] mb-2">
                                 {`${handleNumber(
                                     Number(item.totalFollow)
                                 )} quan tâm`}
                             </span>
-                            <Button className="bg-b-button dark:bg-b-button text-at rounded-full border border-t-border">
+                            <Button className="bg-b-button dark:bg-b-button-dark text-at rounded-full border border-t-border">
                                 QUAN TÂM
                             </Button>
                         </div>

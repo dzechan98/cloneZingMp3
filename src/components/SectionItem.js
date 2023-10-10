@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Image, ThirdHeading } from "./";
 import { setIsAddRecentyly } from "../features/playlistRecentlySlice";
 
 const SectionItem = ({ data, artists, hAlbum }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { width } = useSelector((state) => state.width);
 
     const handleClickPlaySong = () => {
         console.log("data", data);
@@ -22,6 +23,7 @@ const SectionItem = ({ data, artists, hAlbum }) => {
                 {artists ? (
                     <ThirdHeading
                         title={data?.sortDescription || data?.title}
+                        sizeTitle={width > 768 ? 20 : 25}
                         description={listArtists}
                         height="h-10"
                         artists={data?.artists}
@@ -33,11 +35,15 @@ const SectionItem = ({ data, artists, hAlbum }) => {
                             data?.sortDescription || data?.artistsNames
                         }
                         title={data?.title}
+                        sizeTitle={width > 768 ? 20 : 25}
                         artists={data?.artists}
                         onClick={handleClickPlaySong}
                     />
                 ) : (
-                    <ThirdHeading description={data?.sortDescription} />
+                    <ThirdHeading
+                        description={data?.sortDescription}
+                        sizeTitle={width > 768 ? 20 : 25}
+                    />
                 )}
             </div>
         </div>

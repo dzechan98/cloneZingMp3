@@ -10,6 +10,38 @@ const PlaylistRecently = ({ title, recently }) => {
         slidesToScroll: 1,
         speed: 500,
         cssEase: "linear",
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 7,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: true,
+                    cssEase: "linear",
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: true,
+                    cssEase: "linear",
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: true,
+                    cssEase: "linear",
+                },
+            },
+        ],
     };
     const navigate = useNavigate();
     const handleClickPlaySong = (item) => {
@@ -17,7 +49,7 @@ const PlaylistRecently = ({ title, recently }) => {
     };
     return (
         <div className="w-full mb-20">
-            <Heading className="mb-5">{title}</Heading>
+            <Heading className="md:mb-5 mb-2">{title}</Heading>
             <Slider {...settings}>
                 {recently.length > 0 &&
                     recently?.map((item) => (

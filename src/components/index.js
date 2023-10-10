@@ -4,7 +4,6 @@ export { default as Search } from "./Search";
 export { default as BannerSlider } from "./BannerSlider";
 export { default as Player } from "./Player";
 export { default as Modal } from "./Modal";
-export { default as Category } from "./Category";
 export { default as ListSong } from "./ListSong";
 export { default as Song } from "./Song";
 export { default as Icons } from "./Icons";

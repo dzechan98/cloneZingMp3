@@ -39,21 +39,21 @@ const Search = () => {
             className="bg-search dark:bg-search-dark w-full rounded-[999px] relative"
             ref={searchRef}
         >
-            <div className="flex items-center">
-                <AiOutlineSearch size={30} className="mx-2" />
+            <div className="flex items-center px-2">
+                <AiOutlineSearch size={25} className="mx-1 md:mx-2" />
                 <input
                     type="text"
                     ref={inputRef}
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    className="py-2 bg-[transparent] flex-auto peer pr-12"
+                    className="py-2 bg-[transparent] flex-auto peer sm:pr-12 text-sm"
                     onKeyUp={handleSearch}
                     placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
                 />
             </div>
             {searchValue && (
                 <span
-                    className="absolute right-5 top-1/2 translate-y-[-50%] cursor-pointer"
+                    className="absolute right-1 sm:right-5 top-1/2 translate-y-[-50%] cursor-pointer"
                     onClick={() => {
                         setSearchValue("");
                         inputRef.current.focus();
