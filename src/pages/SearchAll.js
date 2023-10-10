@@ -34,7 +34,7 @@ const SearchAll = () => {
                 <h2 className="text-lg font-semibold mb-5">Nổi bật</h2>
                 <div className="grid grid-cols-3 gap-6 mb-10">
                     {searchData?.playlists?.length > 0 && (
-                        <div className="p-[10px] flex items-center gap-6 bg-at rounded-lg">
+                        <div className="p-[10px] flex items-center gap-6 bg-b-active dark:bg-b-active-dark rounded-lg">
                             <div className={`overflow-hidden rounded-full`}>
                                 <img
                                     src={
@@ -48,7 +48,7 @@ const SearchAll = () => {
                             <div className="flex flex-col text-xs">
                                 <span>Nghệ sĩ</span>
                                 <NavLink
-                                    className="text-at text-sm font-bold mt-1 hover:underline hover:text-main-hv"
+                                    className="text-dark dark:text-light text-sm font-bold mt-1 hover:underline hover:text-main-hv dark:hover:text-main-hv-dark"
                                     to={searchData.playlists[0].artists[0].link}
                                 >
                                     {searchData.playlists[0].artists[0]?.name}
@@ -119,7 +119,9 @@ export const HeadingSearchComponent = ({
                             : link
                     }
                 >
-                    <h2 className="font-bold text-at text-xl">{children}</h2>
+                    <h2 className="font-bold text-dark dark:text-light text-xl">
+                        {children}
+                    </h2>
                 </SecondHeading>
             ) : (
                 <Heading className="mb-5">{children}</Heading>
@@ -154,7 +156,7 @@ export const FeaturePlaylist = ({ searchData, q }) => {
                             <div className="flex flex-col text-main text-lg font-medium">
                                 <h2>PLAYLIST NỔI BẬT</h2>
                                 <NavLink
-                                    className="text-at font-bold hover:text-main-hv"
+                                    className="text-dark dark:text-light font-bold hover:text-main-hv dark:hover:text-main-hv-dark"
                                     to={searchData.artists[0].link}
                                 >
                                     {searchData.artists[0].name}

@@ -60,19 +60,20 @@ const SidebarRight = () => {
     const { thumbnail, title, artistsNames, encodeId } = songData;
     return (
         <div
-            className={`w-[320px] fixed transition-all duration-500 overflow-y-scroll h-screen  z-[999] bg-sbr ${
+            className={`w-[320px] fixed transition-all duration-500 overflow-y-scroll h-screen z-[10001] bg-sbr dark:bg-sbr-dark ${
                 isOpen ? "right-0" : "right-[-120%]"
             }`}
         >
             <div className="w-full h-full flex flex-col">
                 <div className="h-[70px] flex items-center p-2">
-                    <div className="w-max rounded-full p-1 flex items-center bg-at">
+                    <div className="w-max rounded-full p-1 flex items-center bg-b-active dark:bg-b-active-dark">
                         <Button
                             className={`rounded-full !p-2 font-semibold transition-all ${
                                 playlistActive
-                                    ? "bg-[#6a6474] text-at"
-                                    : "hover:text-at"
+                                    ? "text-dark bg-main dark:bg-[#6a6474] dark:text-light"
+                                    : "hover:text-dark dark:hover:text-light"
                             }`}
+                            text="text-[12px]"
                             onClick={() => setPlaylistActive(true)}
                         >
                             Danh sách phát
@@ -80,9 +81,10 @@ const SidebarRight = () => {
                         <Button
                             className={`rounded-full !p-2 font-semibold transition-all ${
                                 !playlistActive
-                                    ? "bg-[#6a6474] text-at"
-                                    : "hover:text-at"
+                                    ? "text-dark bg-main dark:bg-[#6a6474] dark:text-light"
+                                    : "hover:text-dark dark:hover:text-light"
                             }`}
+                            text="text-[12px]"
                             onClick={() => setPlaylistActive(false)}
                         >
                             Nghe gần đây
@@ -93,7 +95,8 @@ const SidebarRight = () => {
                     {playlistActive && (
                         <>
                             <SongItem
-                                bg="bg-[#9b4de0]"
+                                bg="bg-b-button"
+                                bgDark="bg-b-button-dark"
                                 thumbnail={thumbnail}
                                 title={title}
                                 artists={songData.artists}
@@ -105,9 +108,9 @@ const SidebarRight = () => {
                                 <h2 className="font-semibold mb-2">
                                     Tiếp theo
                                 </h2>
-                                <p className="text-[#fffff80] font-meidum">
+                                <p className="text-main-100 dark:text-main-100-dark font-meidum">
                                     Từ playlist{" "}
-                                    <span className="text-[#c273ed]">
+                                    <span className="text-main-hv dark:text-main-hv-dark">
                                         #zingchart
                                     </span>
                                 </p>
@@ -116,7 +119,7 @@ const SidebarRight = () => {
                     )}
                 </div>
 
-                <div className="overflow-y-scroll h-[calc(100%-150px)] w-full p-2 text-[14px]">
+                <div className="overflow-y-scroll h-[calc(100%-150px)] w-full p-2 text-sm">
                     {playlistActive &&
                         newListSong
                             .filter(

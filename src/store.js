@@ -6,11 +6,12 @@ import playerReducer from "./features/playerSlice";
 import playlistRecentlyReducer from "./features/playlistRecentlySlice";
 import sidebarRightReducer from "./features/sidebarRightSlice";
 import songRecentlyReducer from "./features/songRecentlySlice";
-
+import songFavouriteReducer from "./features/songFavouriteSlice";
+import widthReducer from "./features/widthSlide";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["home", "playlistRecently", "songRecently"],
+    whitelist: ["home", "playlistRecently", "songRecently", "songFavourite"],
 };
 
 const playerPersistConfig = {
@@ -25,6 +26,8 @@ const rootReducer = combineReducers({
     playlistRecently: playlistRecentlyReducer,
     sidebarRight: sidebarRightReducer,
     songRecently: songRecentlyReducer,
+    songFavourite: songFavouriteReducer,
+    width: widthReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -34,37 +34,15 @@ const ArtistPage = () => {
                                             {infoArtist.totalFollow} người quan
                                             tâm
                                         </span>
-                                        <Button className="bg-[#9b4de0] text-at rounded-full border border-main">
+                                        <Button className="bg-b-button text-dark dark:text-light rounded-full border border-t-border">
                                             QUAN TÂM
                                         </Button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="flex items-center gap-5 px-[59px]">
-                            <div className="rounded-full overflow-hidden w-[160px]">
-                                <img
-                                    src={infoArtist.thumbnail}
-                                    alt=""
-                                    className="w-full rounded-full hover:scale-110 transition-all"
-                                />
-                            </div>
-                            <div className="w-full">
-                                <Heading text="text-5xl mb-2">
-                                    {infoArtist.name}
-                                </Heading>
-                                <div className="flex items-center gap-3">
-                                    <span>
-                                        {infoArtist.totalFollow} người quan tâm
-                                    </span>
-                                    <Button className="bg-[#ffffff1a] !text-[12px] rounded-full border border-main">
-                                        QUAN TÂM
-                                    </Button>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
-                    <div className="w-full px-[59px]">
+                    <div className="w-full">
                         <div className="w-full mb-10">
                             <ListSongSearch
                                 title={dataSongs?.title}
@@ -100,11 +78,11 @@ const ArtistPage = () => {
                                     alt=""
                                     className="w-[40%] rounded-lg"
                                 />
-                                <div className="w-[40%] text-main-100">
+                                <div className="w-[40%] text-main-100 dark:text-main-100">
                                     <p className="text-sm mb-5">
                                         {infoArtist.biography}
                                     </p>
-                                    <h2 className="text-at text-xl font-bold">
+                                    <h2 className="text-dark dark:text-light text-xl font-bold">
                                         {infoArtist.totalFollow}
                                     </h2>
                                     <span>Người quan tâm</span>

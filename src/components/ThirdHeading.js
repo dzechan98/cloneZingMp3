@@ -18,8 +18,10 @@ const ThirdHeading = ({
             {title && (
                 <div className="text-left max-w-max relative">
                     <h2
-                        className={`text-left font-bold inline text-sm text-at ${
-                            onClick ? "hover:text-main-hv cursor-pointer" : ""
+                        className={`text-left font-bold inline text-sm text-dark dark:text-light ${
+                            onClick
+                                ? "hover:text-main-hv dark:hover:text-main-hv-dark cursor-pointer"
+                                : ""
                         }`}
                         onClick={onClick}
                     >
@@ -34,7 +36,7 @@ const ThirdHeading = ({
             )}
             {description && (
                 <p
-                    className={`w-full text-left ${fontSizeDesc} text-main-100 ${height}`}
+                    className={`w-full text-left ${fontSizeDesc} text-main dark:text-main-100-dark ${height}`}
                 >
                     {artists?.length > 0
                         ? artists.map((item, index) => {
@@ -43,7 +45,7 @@ const ThirdHeading = ({
                                       length += item.name.length;
                                       return (
                                           <NavLink
-                                              className="hover:underline hover:text-main-hv"
+                                              className="hover:underline hover:text-main-hv dark:hover:text-main-hv-dark"
                                               key={index}
                                               to={item?.link}
                                           >
@@ -52,9 +54,21 @@ const ThirdHeading = ({
                                       );
                                   }
                                   length += item.name.length + 2;
+                                  if (index === artists.length - 1) {
+                                      length -= 2;
+                                      return (
+                                          <NavLink
+                                              className="hover:underline hover:text-main-hv dark:hover:text-main-hv-dark"
+                                              key={index}
+                                              to={item?.link}
+                                          >
+                                              {`${item.name}`}
+                                          </NavLink>
+                                      );
+                                  }
                                   return (
                                       <NavLink
-                                          className="hover:underline hover:text-main-hv"
+                                          className="hover:underline hover:text-main-hv dark:hover:text-main-hv-dark"
                                           key={index}
                                           to={item?.link}
                                       >
@@ -66,7 +80,7 @@ const ThirdHeading = ({
                                   length += item.name.length;
                                   return (
                                       <NavLink
-                                          className="hover:underline hover:text-main-hv"
+                                          className="hover:underline hover:text-main-hv dark:hover:text-main-hv-dark"
                                           key={index}
                                           to={item?.link}
                                       >

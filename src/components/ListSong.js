@@ -17,7 +17,7 @@ const ListSong = ({
     const hours = time.hours();
     const minutes = time.minutes();
     return (
-        <div className="w-full text-main-100 text-[14px]">
+        <div className="w-full text-main-100 dark:text-main-100-dark text-[14px]">
             {showCategory && (
                 <div className="flex items-center justify-between p-[10px] font-semibold">
                     <span className="w-[50%]">BÀI HÁT</span>
@@ -67,7 +67,7 @@ const ListSong = ({
             {total && totalDuration && (
                 <div className="flex items-center gap-2 mt-5">
                     <div>{total} bài hát</div>
-                    <div className="h-[4px] w-[4px] bg-main-100 rounded-full"></div>
+                    <div className="h-[4px] w-[4px] bg-main-100 dark:bg-main-100-dark rounded-full"></div>
                     <div>{`${hours} giờ ${minutes} phút`}</div>
                 </div>
             )}

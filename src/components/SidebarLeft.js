@@ -1,25 +1,49 @@
 import React from "react";
 import logo from "../assets/logo.svg";
 import { NavLink } from "react-router-dom";
+import logo2 from "../assets/logo192.png";
 import {
     sidebarMenu,
     sidebarSecondaryMenu,
     sidebarThirdaryMenu,
 } from "../ultis/menu";
 import icons from "../ultis/icons";
-const { FaRegPlayCircle, AiFillPlusCircle } = icons;
+
+const { FaRegPlayCircle, AiFillPlusCircle, IoIosArrowForward, IoIosArrowBack } =
+    icons;
 
 const activeStyle =
-    "relative px-[21px] py-3 flex items-center gap-x-4 text-at text-[14px] font-medium bg-at before:w-[3px] before:h-full before:bg-[#9b4de0] before:absolute before:left-[0]";
+    "relative px-[21px] py-3 flex items-center gap-x-4 text-main-100 dark:text-light text-[14px] font-medium bg-b-active dark:bg-b-active-dark before:w-[3px] before:h-full before:bg-b-button dark:before:bg-b-button-dark before:absolute before:left-[0]";
 const notActiveStyle =
-    "relative px-[21px] py-3 flex items-center gap-x-4 text-main text-[14px] font-medium hover:text-at group";
+    "relative px-[21px] py-3 flex items-center gap-x-4 text-main dark:text-main-dark text-[14px] font-medium hover:text-main-100 dark:hover:text-light group";
 
-const SidebarLeft = () => {
+const SidebarLeft = ({ open, setOpen, width }) => {
+    const handleClickOpenSidebar = () => {
+        setOpen(!open);
+    };
     return (
-        <div className="max-h-[calc(100vh-80px)] w-[240px] fixed z-20">
-            <div className="w-full h-[70px] py-[15px] px-[25px] flex items-center justify-start">
+        <div
+            className={`bg-sb dark:bg-sb-dark max-h-[calc(100vh-80px)] transition-all duration-500 lg:w-[240px] fixed z-[100005] ${
+                !open ? "w-[70px]" : "w-[240px]"
+            }`}
+        >
+            <div
+                className={`w-full h-[70px] flex items-center ${
+                    width > 1023 || open
+                        ? "justify-start py-[15px] px-[25px]"
+                        : "justify-center"
+                }`}
+            >
                 <NavLink to="/">
-                    <img src={logo} alt="logo" className="w-[120px] h-[40px]" />
+                    <img
+                        src={width > 1023 || open ? logo : logo2}
+                        alt="logo"
+                        className={`transition-all ${
+                            width > 1023 || open
+                                ? "w-[120px] h-[40px]"
+                                : "w-10 h-10 object-cover"
+                        }`}
+                    />
                 </NavLink>
             </div>
             <div>
@@ -33,16 +57,20 @@ const SidebarLeft = () => {
                         }
                     >
                         {item.icons}
-                        <span>{item.title}</span>
-                        <FaRegPlayCircle
-                            size={20}
-                            className="absolute opacity-0 right-[21px] group-hover:opacity-100 transition-all"
-                        />
+                        {(width > 1023 || open) && (
+                            <>
+                                <span>{item.title}</span>
+                                <FaRegPlayCircle
+                                    size={20}
+                                    className="absolute opacity-0 right-[21px] group-hover:opacity-100 transition-all"
+                                />
+                            </>
+                        )}
                     </NavLink>
                 ))}
             </div>
             <div className="w-full py-4 px-[21px]">
-                <div className="w-full h-[1px] bg-[#393243]"></div>
+                <div className="w-full h-[1px] bg-t-border"></div>
             </div>
             <div className="w-full h-[240px] overflow-y-scroll pb-2">
                 {sidebarSecondaryMenu.map((item, index) => (
@@ -55,23 +83,29 @@ const SidebarLeft = () => {
                         }
                     >
                         {item.icons}
-                        <span>{item.title}</span>
-                        <FaRegPlayCircle
-                            size={20}
-                            className="absolute opacity-0 right-[21px] group-hover:opacity-100 transition-all"
-                        />
+                        {(width > 1023 || open) && (
+                            <>
+                                <span>{item.title}</span>
+                                <FaRegPlayCircle
+                                    size={20}
+                                    className="absolute opacity-0 right-[21px] group-hover:opacity-100 transition-all"
+                                />
+                            </>
+                        )}
                     </NavLink>
                 ))}
-                <div className="my-5 px-[21px]">
-                    <div className="p-3 bg-gradient-to-r from-[#614de6] to-[#ba60d7] rounded-lg flex items-center flex-col gap-3">
-                        <p className="text-center text-at text-[12px] font-bold">
-                            Nghe nhạc không quảng cáo cùng kho nhạc PREMIUM
-                        </p>
-                        <button className="text-[#32323d] px-3 py-[6px] bg-modal text-[12px] font-bold rounded-[999px]">
-                            NÂNG CẤP TÀI KHOẢN
-                        </button>
+                {width > 1023 && (
+                    <div className="my-5 px-[21px]">
+                        <div className="p-3 bg-gradient-to-r from-[#614de6] to-[#ba60d7] rounded-lg flex items-center flex-col gap-3">
+                            <p className="text-center text-dark text-[12px] font-bold">
+                                Nghe nhạc không quảng cáo cùng kho nhạc PREMIUM
+                            </p>
+                            <button className="text-dark px-3 py-[6px] bg-bmodal text-[12px] font-bold rounded-[999px]">
+                                NÂNG CẤP TÀI KHOẢN
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
                 {sidebarThirdaryMenu.map((item, index) => (
                     <NavLink
                         to={item.path}
@@ -80,22 +114,44 @@ const SidebarLeft = () => {
                         className={notActiveStyle}
                     >
                         {item.icons}
-                        <span>{item.title}</span>
-                        {item.isHoverIcons && (
-                            <FaRegPlayCircle
-                                size={20}
-                                className="absolute opacity-0 right-[21px] group-hover:opacity-100 transition-all"
-                            />
+                        {(width > 1023 || open) && (
+                            <>
+                                <span>{item.title}</span>
+                                {item.isHoverIcons && (
+                                    <FaRegPlayCircle
+                                        size={20}
+                                        className="absolute opacity-0 right-[21px] group-hover:opacity-100 transition-all"
+                                    />
+                                )}
+                            </>
                         )}
                     </NavLink>
                 ))}
             </div>
-            <div className="border-t border-[#393243] px-[21px] py-3 cursor-pointer">
-                <div className="flex items-center gap-3">
-                    <AiFillPlusCircle size={25} />
-                    <span className="text-[14px] font-bold">
-                        Tạo playlist mới
-                    </span>
+
+            <div
+                className={`h-full border-t-border p-2 lg:px-[21px] lg:py-3 cursor-pointer ${
+                    width > 1023 || open ? "border-t" : ""
+                }`}
+            >
+                <div className="h-full flex items-center justify-center gap-2">
+                    {(width > 1023 || open) && (
+                        <>
+                            <AiFillPlusCircle size={25} />
+                            <span className="text-[14px] font-bold">
+                                Tạo playlist mới
+                            </span>
+                        </>
+                    )}
+                    {width <= 1023 && (
+                        <span
+                            className="bg-light dark:bg-b-button-dark p-[2px] rounded-full text-dark dark:text-light"
+                            onClick={handleClickOpenSidebar}
+                        >
+                            {open && <IoIosArrowBack size={20} />}
+                            {!open && <IoIosArrowForward size={20} />}
+                        </span>
+                    )}
                 </div>
             </div>
         </div>

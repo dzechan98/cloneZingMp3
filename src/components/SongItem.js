@@ -5,7 +5,8 @@ import moment from "moment";
 import "moment/locale/vi";
 
 const SongItem = ({
-    bg = "bg-at",
+    bg = "bg-b-active",
+    bgDark = "bg-b-active-dark",
     title,
     encodeId,
     releaseDate,
@@ -21,7 +22,11 @@ const SongItem = ({
     return (
         <div
             className={`w-full p-[10px] flex gap-2 transition-all rounded-lg group ${
-                active ? bg : encodeId === songId ? bg : `hover:${bg}`
+                active
+                    ? bg
+                    : encodeId === songId
+                    ? `${bg} dark:${bgDark}`
+                    : `hover:${bg} dark:hover:${bgDark}`
             }`}
         >
             <div className="relative">
@@ -44,8 +49,8 @@ const SongItem = ({
                     />
                 </span>
             </div>
-            <div className="text-main-100 flex flex-col">
-                {type && <span className="text-[12px]">{type}</span>}
+            <div className="text-main dark:text-main-100-dark flex flex-col text-[12px]">
+                {type && <span>{type}</span>}
                 <ThirdHeading
                     title={title}
                     description={artistsNames}
@@ -54,9 +59,7 @@ const SongItem = ({
                     artists={artists}
                 />
                 {releaseDate && (
-                    <span className="text-[12px]">
-                        {moment(1000 * releaseDate).fromNow()}
-                    </span>
+                    <span>{moment(1000 * releaseDate).fromNow()}</span>
                 )}
             </div>
         </div>

@@ -5,10 +5,11 @@ const Button = ({
     className,
     type = "button",
     to,
+    text = "text-sm",
     onClick = () => {},
     children,
 }) => {
-    const style = `px-4 py-2 font-medium text-sm cursor-pointer flex items-center justify-center ${className}`;
+    const style = `px-4 py-2 font-medium ${text} cursor-pointer flex items-center justify-center ${className}`;
 
     if (to) {
         return (

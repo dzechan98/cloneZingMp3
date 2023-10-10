@@ -1,37 +1,27 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { SidebarLeft, Player, Header, SidebarRight } from "../components";
+import { useSelector } from "react-redux";
 const Layout = () => {
+    const [open, setOpen] = useState(false);
+    const { width } = useSelector((state) => state.width);
     const headerRef = useRef(null);
-    useEffect(() => {
-        const handleScroll = () => {
-            if (document.body.scrollTop > 100) {
-                headerRef.current.style.backgroundColor = "#191226";
-            } else {
-                headerRef.current.style.backgroundColor = "#170f23";
-            }
-        };
-        window.addEventListener("scroll", handleScroll);
 
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
     return (
         <div className="flex text-main">
-            <div className="w-[240px] flex-none relative bg-sb">
-                <SidebarLeft />
-            </div>
-            <div className="w-[calc(100%-240px)] bg-main min-h-screen">
+            <SidebarLeft open={open} setOpen={setOpen} width={width} />
+            <div className="relative left-[70px] lg:left-[240px] lg:w-[calc(100%-240px)] w-[calc(100%-70px)] bg-b-main dark:bg-b-main-dark min-h-screen transition-all">
                 <div
-                    className="px-[59px] h-[70px] flex items-center mb-5 transition-all fixed w-[calc(100%-240px)] left-[240px] z-[9997]"
+                    className="px-[20px] md:px-[40px] lg:px-[59px] transition-all h-[70px] flex items-center mb-5 fixed z-[9997] bg-[#c1ccd5] dark:bg-[#191226] lg:w-[calc(100%-240px)] lg:left-[240px] w-[calc(100%-70px)] left-[70px]"
                     ref={headerRef}
                 >
                     <Header />
                 </div>
-                <div className="w-full mt-[70px] mb-[120px] px-[59px]">
+                <div className="w-full mt-[70px] mb-[120px] transition-all px-[20px] md:px-[40px] lg:px-[59px]">
                     <Outlet></Outlet>
                 </div>
             </div>
-            <div className="h-[80px] w-screen fixed bottom-0 bg-player z-[9999]">
+            <div className="h-[80px] w-screen fixed bottom-0 bg-player dark:bg-player-dark z-[10003]">
                 <Player />
             </div>
             <SidebarRight />

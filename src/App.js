@@ -15,11 +15,26 @@ import {
     ArtistPlaylistPage,
     NewReleasePage,
     Top100Page,
-    NewReleaseRankingPage,
     NewRankingReleasedPage,
     RecentlyPage,
+    SongFavouritePage,
 } from "./pages";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setWidth } from "./features/widthSlide";
 function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const handleResize = () => {
+            dispatch(setWidth(window.innerWidth));
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     return (
         <>
             <div className="App">
@@ -81,9 +96,16 @@ function App() {
                             element={<NewRankingReleasedPage />}
                         />
                         <Route
-                            path="/mymusic/history"
+                            path="/mymusic/history/:category"
                             element={<RecentlyPage />}
                         />
+                        <Route
+                            path="/mymusic/song/favorite"
+                            element={<SongFavouritePage />}
+                        />
+                        <Route path="/zing-chart" element={<HomePage />} />
+                        <Route path="/radio" element={<HomePage />} />
+                        <Route path="/mymusic" element={<HomePage />} />
                         <Route path="*" element={<HomePage />} />
                     </Route>
                 </Routes>

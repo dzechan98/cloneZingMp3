@@ -24,10 +24,10 @@ const FilterNewRelease = ({ region, setRegion }) => {
             {optionFilter.map((item, index) => (
                 <Button
                     key={index}
-                    className={`min-w-[100px] border transition-all text-at rounded-full font-semibold ${
+                    className={`min-w-[100px] border transition-all text-dark dark:text-light rounded-full font-semibold ${
                         region === item.region
-                            ? "bg-[#9b4de0] border-[#9b4de0]"
-                            : "bg-transparent border-main"
+                            ? "bg-b-button dark:bg-b-button-dark border-transparent"
+                            : "bg-transparent border-main dark:border-main-dark"
                     }`}
                     onClick={() => handleChangeRegion(item.region)}
                 >

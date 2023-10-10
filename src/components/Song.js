@@ -54,8 +54,8 @@ const Song = ({
     return (
         <div
             ref={songRef}
-            className={`relative flex items-center justify-between p-[10px] border-b border-[#393243] rounded-lg hover:bg-[#2f2739] group ${
-                songId === encodeId ? "bg-[#2f2739]" : ""
+            className={`relative flex items-center justify-between p-[10px] border-b border-t-border rounded-lg hover:bg-b-active dark:hover:bg-b-active-dark group ${
+                songId === encodeId ? "bg-b-active dark:bg-b-active-dark" : ""
             }`}
         >
             <div
@@ -71,7 +71,7 @@ const Song = ({
                         className="w-10 h-10 rounded-lg"
                     />
                     <div
-                        className={`text-at overlay rounded-lg transition-all items-center justify-center absolute inset-0 bg-[rgba(0,0,0,0.5)] cursor-pointer ${
+                        className={`text-dark dark:text-light overlay rounded-lg transition-all items-center justify-center absolute inset-0 bg-overlay cursor-pointer ${
                             songId === encodeId
                                 ? "flex"
                                 : "hidden group-hover:flex"
@@ -115,6 +115,7 @@ const Song = ({
                         moment.utc(duration * 1000).format("HH:mm:ss")}
                 </span>
                 <Icons
+                    song={song}
                     className="hidden group-hover:flex transition-all"
                     bgHover="bg-red-100"
                 />

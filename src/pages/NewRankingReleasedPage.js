@@ -18,7 +18,6 @@ const NewRankingReleasedPage = () => {
         fetchData();
     }, []);
 
-    console.log(data);
     return (
         <div className="w-full">
             {data && (

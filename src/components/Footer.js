@@ -38,13 +38,13 @@ const Images = [
 const Footer = () => {
     return (
         <div className="w-full">
-            <h2 className="text-center font-bold text-main-100 mb-10">
+            <h2 className="text-center font-bold text-main-100 dark:text-main-dark mb-10">
                 ĐỐI TÁC ÂM NHẠC
             </h2>
             <div className="px-10 w-full grid grid-cols-8 gap-x-5 gap-y-8">
                 {Images.map((img, index) => (
                     <div
-                        className="rounded-lg p-1 w-[100px] h-[60px] bg-[#fff] flex items-center justify-center"
+                        className="rounded-lg p-1 w-[100px] h-[60px] bg-light flex items-center justify-center"
                         key={index}
                     >
                         <img

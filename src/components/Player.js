@@ -209,7 +209,7 @@ const Player = () => {
             isPlaying ? audio.play() : audio.pause();
         }
     }, [isPlaying, audio]);
-
+    console.log(song);
     return (
         <div className="w-full h-full flex items-center px-[21px]">
             <div className="flex items-center gap-2 w-[30%]">
@@ -226,7 +226,7 @@ const Player = () => {
                             description={song?.artistsNames}
                         />
                     </div>
-                    <Icons />
+                    <Icons song={song} />
                 </div>
             </div>
             <div className="w-[40%] flex flex-col items-center justify-center gap-2">
@@ -234,19 +234,21 @@ const Player = () => {
                     <span
                         onClick={handleRandomSong}
                         className={`p-2 cursor-pointer rounded-full transition-all ${
-                            isRandomSong ? "text-main-hv" : "hover:bg-at "
+                            isRandomSong
+                                ? "text-main-hv dark:text-main-hv-dark"
+                                : "hover:bg-b-active dark:hover:bg-b-active-dark"
                         }`}
                     >
                         <BiShuffle size={15} />
                     </span>
                     <span
-                        className="p-2 cursor-pointer hover:bg-at rounded-full"
+                        className="p-2 cursor-pointer hover:bg-b-active dark:hover:bg-b-active-dark rounded-full"
                         onClick={() => handlePrevSong(songId)}
                     >
                         <BiSkipPrevious size={15} />
                     </span>
                     <span
-                        className="cursor-pointer hover:text-main-hv rounded-full"
+                        className="cursor-pointer hover:text-main-hv dark:hover:text-main-hv-dark rounded-full"
                         onClick={handleTogglePlayMusic}
                     >
                         {loading ? (
@@ -263,34 +265,36 @@ const Player = () => {
                     </span>
                     <span
                         onClick={() => handleNextSong(songId)}
-                        className="p-2 hover:bg-at rounded-full cursor-pointer"
+                        className="p-2 hover:bg-b-active dark:hover:bg-b-active-dark rounded-full cursor-pointer"
                     >
                         <BiSkipNext size={15} />
                     </span>
                     <span
                         onClick={handleRepeatSong}
                         className={`p-2 cursor-pointer rounded-full transition-all ${
-                            isRepeating ? "text-main-hv" : "hover:bg-at"
+                            isRepeating
+                                ? "text-main-hv dark:text-main-hv-dark"
+                                : "hover:bg-b-active dark:hover:bg-b-active-dark"
                         }`}
                     >
                         <PiRepeat size={15} />
                     </span>
                 </div>
-                <div className="flex items-center justify-center gap-2 w-full text-[12px] font-bold">
-                    <span className="text-main-100">
+                <div className="flex items-center justify-center gap-2 w-full text-[12px] font-bold text-main-100 dark:text-main-100-dark">
+                    <span className="">
                         {moment.utc(currentTime * 1000).format("mm:ss")}
                     </span>
                     <div
-                        className="progress relative w-[70%] h-[3px] bg-at rounded-lg overflow-hidden cursor-pointer hover:h-[6px] group"
+                        className="progress relative w-[70%] h-[3px] bg-b-active dark:bg-b-active-dark rounded-lg overflow-hidden cursor-pointer hover:h-[6px] group"
                         onClick={handleChangeProgress}
                         ref={trackRef}
                     >
                         <div
                             ref={thumbRef}
-                            className={`absolute bottom-0 top-0 left-0 bg-[#fff]`}
+                            className={`absolute bottom-0 top-0 left-0 bg-dark dark:bg-light`}
                         ></div>
                     </div>
-                    <span className="text-at">
+                    <span className="">
                         {moment.utc(song?.duration * 1000).format("mm:ss")}
                     </span>
                 </div>
@@ -302,19 +306,21 @@ const Player = () => {
                             <FiVolume2 size={20} />
                         </span>
                         <div
-                            className="progress w-[100px] relative h-[3px] bg-at rounded-lg overflow-hidden cursor-pointer hover:h-[6px] peer-hover:h-[6px] group"
+                            className="progress w-[100px] relative h-[3px] bg-b-active dark:bg-b-active-dark rounded-lg overflow-hidden cursor-pointer hover:h-[6px] peer-hover:h-[6px] group"
                             ref={volumeTrackRef}
                             onClick={handleChangeVolume}
                         >
                             <div
-                                className={`absolute bottom-0 top-0 left-0 right-0 bg-[#fff]`}
+                                className={`absolute bottom-0 top-0 left-0 right-0 bg-dark dark:bg-light`}
                                 ref={volumeThumbRef}
                             ></div>
                         </div>
                     </div>
                     <div
                         className={`p-2 rounded-lg cursor-pointer ${
-                            isOpen ? "bg-[#9b4de0]" : "bg-at"
+                            isOpen
+                                ? "bg-b-button dark:bg-b-button-dark"
+                                : "bg-b-active dark:bg-b-active-dark"
                         }`}
                         onClick={() => dispatch(setIsOpen())}
                     >

@@ -13,3 +13,5 @@ export { default as NewReleasePage } from "./NewReleasePage";
 export { default as Top100Page } from "./Top100Page";
 export { default as NewRankingReleasedPage } from "./NewRankingReleasedPage";
 export { default as RecentlyPage } from "./RecentlyPage";
+export { default as Filter } from "./Filter";
+export { default as SongFavouritePage } from "./SongFavouritePage";

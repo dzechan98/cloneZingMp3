@@ -78,7 +78,7 @@ const PlaylistPage = () => {
     console.log(playlist);
 
     return (
-        <div className="w-full mt-10 text-main-100 text-sm">
+        <div className="w-full mt-10 text-main-100 dark:text-main-100-dark text-sm">
             <div className="flex gap-[5%] mb-10">
                 <div className="w-[300px] text-center flex flex-col items-center">
                     <div className="relative overflow-hidden w-[300px] h-[300px] rounded-lg group cursor-pointer mb-4">
@@ -89,7 +89,7 @@ const PlaylistPage = () => {
                         />
                         {isPlaying && checkPlaylist && (
                             <span
-                                className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] rounded-full border border-at block p-3"
+                                className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] rounded-full border border-t-border dark:border-light block p-3"
                                 onClick={() => {
                                     dispatch(setIsPlaying(false));
                                 }}
@@ -102,7 +102,9 @@ const PlaylistPage = () => {
                             </span>
                         )}
                     </div>
-                    <h2 className="text-lg text-at mb-2 ">{playlist?.title}</h2>
+                    <h2 className="text-lg text-dark dark:text-light mb-2 ">
+                        {playlist?.title}
+                    </h2>
                     <span>
                         Cập nhật:{" "}
                         {moment
@@ -114,7 +116,7 @@ const PlaylistPage = () => {
                             <NavLink
                                 key={index}
                                 to={item.link}
-                                className="hover:underline hover:text-main-hv"
+                                className="hover:underline hover:text-main-hv dark:hover:text-main-hv-dark"
                             >
                                 {playlist?.aritst?.length - 1 === index
                                     ? item?.name
@@ -130,7 +132,7 @@ const PlaylistPage = () => {
                             : `${Math.round(playlist?.like)} người yêu thích`}
                     </span>
                     <Button
-                        className="min-w-[180px] rounded-full bg-[#9b4de0] gap-1 my-5 text-[16px] text-at"
+                        className="min-w-[180px] rounded-full bg-b-button dark:bg-b-button-dark gap-1 my-5 text-[16px] text-dark dark:text-light"
                         onClick={handleClickButton}
                     >
                         {!checkPlaylist ? (
@@ -153,9 +155,9 @@ const PlaylistPage = () => {
                     <Icons bg="bg-at" />
                 </div>
                 <div className="flex-auto">
-                    <p className="text-main-100 mb-4">
+                    <p className="text-main-100 dark:text-main-100-dark mb-4">
                         Lời tựa
-                        <span className="text-at">
+                        <span className="text-dark dark:text-light">
                             {" "}
                             {playlist?.description}
                         </span>

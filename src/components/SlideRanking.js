@@ -19,7 +19,7 @@ const SlideRanking = ({ item, index }) => {
         dispatch(setIsPlaying(true));
     };
     return (
-        <div className="flex gap-2 bg-at rounded-lg p-[10px] m-[10px]">
+        <div className="flex gap-2 bg-b-active dark:bg-b-active-dark rounded-lg p-[10px] m-[10px]">
             <div className="w-[40%] ">
                 <Image data={item} size={40} onClick={handleClick} />
             </div>
@@ -35,7 +35,7 @@ const SlideRanking = ({ item, index }) => {
                 </div>
                 <div className="w-full flex justify-between items-end">
                     <Top index={index} show />
-                    <span className="text-main-100">
+                    <span className="text-main-100 dark:text-main-100-dark">
                         {moment(item?.releaseDate * 1000).format("DD.MM.YYYY")}
                     </span>
                 </div>

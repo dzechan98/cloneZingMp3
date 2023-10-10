@@ -13,7 +13,7 @@ const SecondHeading = ({ children, to }) => {
     return (
         <div className="flex items-center justify-between mb-5">
             {children}
-            <div className="flex items-center hover:text-main-hv transition-all font-semibold gap-1 cursor-pointer">
+            <div className="flex items-center hover:text-main-hv dark:hover:text-main-hv-dark transition-all font-semibold gap-1 cursor-pointer">
                 <Button className="!p-0" onClick={handleClick}>
                     TẤT CẢ
                 </Button>

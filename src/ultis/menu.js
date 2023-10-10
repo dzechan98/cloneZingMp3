@@ -142,7 +142,7 @@ export const sidebarSecondaryMenu = [
 
 export const sidebarThirdaryMenu = [
     {
-        path: "mymusic/history",
+        path: "mymusic/history/song",
         title: "Nghe gần đây",
         icons: (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

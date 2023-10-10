@@ -1,8 +1,4 @@
-import {
-    MdLibraryMusic,
-    MdShowChart,
-    MdOutlineMoreHoriz,
-} from "react-icons/md";
+import { MdLibraryMusic, MdOutlineMoreHoriz } from "react-icons/md";
 import {
     BsArrowLeft,
     BsArrowRight,
@@ -17,7 +13,7 @@ import {
     AiOutlineClose,
     AiOutlineHeart,
 } from "react-icons/ai";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { FiVolume2 } from "react-icons/fi";
 import { BiShuffle, BiSkipPrevious, BiSkipNext } from "react-icons/bi";
 import { FaRegPlayCircle } from "react-icons/fa";
@@ -31,7 +27,6 @@ const icons = {
     AiOutlineSearch,
     FaRegPlayCircle,
     AiFillPlusCircle,
-    MdShowChart,
     AiOutlineClose,
     TfiArrowCircleLeft,
     TfiArrowCircleRight,
@@ -47,6 +42,7 @@ const icons = {
     BsMusicNoteList,
     FiVolume2,
     IoIosArrowForward,
+    IoIosArrowBack,
 };
 
 export default icons;
