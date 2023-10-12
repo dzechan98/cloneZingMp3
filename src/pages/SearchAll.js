@@ -9,11 +9,13 @@ import {
     Song,
     Heading,
     Artist,
+    Loading,
 } from "../components";
 import { setIsPlaying, setSongId } from "../features/playerSlice";
 
 const SearchAll = () => {
     const dispatch = useDispatch();
+    const { loadingComponents } = useSelector((state) => state.loading);
     const [searchParams] = useSearchParams();
     const q = searchParams.get("q");
     const { searchData, isPlaying } = useSelector((state) => state.player);
@@ -29,72 +31,93 @@ const SearchAll = () => {
         }
     };
     return (
-        <div className="w-full flex flex-col mb-10">
-            <div className="flex flex-col">
-                <h2 className="text-lg font-semibold mb-5">Nổi bật</h2>
-                <div className="grid grid-cols-3 gap-6 mb-10">
-                    {searchData?.playlists?.length > 0 && (
-                        <div className="p-[10px] flex items-center gap-6 bg-b-active dark:bg-b-active-dark rounded-lg">
-                            <div className={`overflow-hidden rounded-full`}>
-                                <img
-                                    src={
-                                        searchData?.playlists[0].artists[0]
-                                            .thumbnail
-                                    }
-                                    alt=""
-                                    className="w-[84px] cursor-pointer transition-all rounded-full hover:scale-110"
+        <>
+            {!loadingComponents && (
+                <div className="w-full flex flex-col mb-10">
+                    <div className="flex flex-col">
+                        <h2 className="dark:text-light text-dark text-[16px] sm:text-lg font-semibold mb-5">
+                            Nổi bật
+                        </h2>
+                        <div
+                            className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 lg:gap-4 mb-10`}
+                        >
+                            {searchData?.playlists?.length > 0 && (
+                                <div className="p-[10px] flex items-center gap-2 lg:gap-4 bg-b-active dark:bg-b-active-dark rounded-lg">
+                                    <div
+                                        className={`overflow-hidden rounded-full`}
+                                    >
+                                        <img
+                                            src={
+                                                searchData?.playlists[0]
+                                                    .artists[0].thumbnail
+                                            }
+                                            alt=""
+                                            className={`w-14 sm:w-[84px] cursor-pointer transition-all rounded-full hover:scale-110`}
+                                        />
+                                    </div>
+                                    <div className="flex flex-col text-xs">
+                                        <span>Nghệ sĩ</span>
+                                        <NavLink
+                                            className="text-dark dark:text-light text-sm font-bold lg:mt-1 hover:underline hover:text-main-hv dark:hover:text-main-hv-dark"
+                                            to={
+                                                searchData.playlists[0]
+                                                    .artists[0].link
+                                            }
+                                        >
+                                            {
+                                                searchData.playlists[0]
+                                                    .artists[0]?.name
+                                            }
+                                        </NavLink>
+                                        {searchData.playlists[0].artists[0]
+                                            ?.totalFollow && (
+                                            <span>
+                                                {`${handleNumber(
+                                                    searchData.playlists[0]
+                                                        .artists[0]?.totalFollow
+                                                )} quan tâm`}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                            {searchData?.songs?.slice(0, 2).map((item) => (
+                                <SongItem
+                                    key={item.encodeId}
+                                    active
+                                    type="Bài hát"
+                                    encodeId={item.encodeId}
+                                    title={item.title}
+                                    artistsNames={item.artistsNames}
+                                    thumbnail={item.thumbnail}
+                                    imgSize="w-14 sm:w-[84px]"
+                                    artists={item.artists}
+                                    onClick={() => handleClickPLaySong(item)}
                                 />
-                            </div>
-                            <div className="flex flex-col text-xs">
-                                <span>Nghệ sĩ</span>
-                                <NavLink
-                                    className="text-dark dark:text-light text-sm font-bold mt-1 hover:underline hover:text-main-hv dark:hover:text-main-hv-dark"
-                                    to={searchData.playlists[0].artists[0].link}
-                                >
-                                    {searchData.playlists[0].artists[0]?.name}
-                                </NavLink>
-                                {searchData.playlists[0].artists[0]
-                                    ?.totalFollow && (
-                                    <span>
-                                        {`${handleNumber(
-                                            searchData.playlists[0].artists[0]
-                                                ?.totalFollow
-                                        )} quan tâm`}
-                                    </span>
-                                )}
-                            </div>
+                            ))}
                         </div>
-                    )}
-                    {searchData?.songs?.slice(0, 2).map((item) => (
-                        <SongItem
-                            key={item.encodeId}
-                            active
-                            type="Bài hát"
-                            encodeId={item.encodeId}
-                            title={item.title}
-                            artistsNames={item.artistsNames}
-                            thumbnail={item.thumbnail}
-                            imgSize="w-[84px]"
-                            artists={item.artists}
-                            onClick={() => handleClickPLaySong(item)}
+                        <FeaturePlaylist searchData={searchData} q={q} />
+                        <ListSongSearch
+                            searchData={searchData}
+                            showAlbum={false}
+                            link="/tim-kiem/bai-hat"
+                            q={q}
                         />
-                    ))}
+                        <PlaylistAlbum
+                            searchData={searchData}
+                            q={q}
+                            link="/tim-kiem/playlist"
+                        />
+                        <Artist
+                            data={searchData}
+                            q={q}
+                            link="/tim-kiem/artist"
+                        />
+                    </div>
                 </div>
-                <FeaturePlaylist searchData={searchData} q={q} />
-                <ListSongSearch
-                    searchData={searchData}
-                    showAlbum={false}
-                    link="/tim-kiem/bai-hat"
-                    q={q}
-                />
-                <PlaylistAlbum
-                    searchData={searchData}
-                    q={q}
-                    link="/tim-kiem/playlist"
-                />
-                <Artist data={searchData} q={q} link="/tim-kiem/artist" />
-            </div>
-        </div>
+            )}
+            {loadingComponents && <Loading />}
+        </>
     );
 };
 
@@ -119,7 +142,7 @@ export const HeadingSearchComponent = ({
                             : link
                     }
                 >
-                    <h2 className="font-bold text-dark dark:text-light text-xl">
+                    <h2 className="font-bold text-dark dark:text-light text-[16px] lg:text-xl">
                         {children}
                     </h2>
                 </SecondHeading>
@@ -132,9 +155,9 @@ export const HeadingSearchComponent = ({
 
 export const FeaturePlaylist = ({ searchData, q }) => {
     const playlists = { items: searchData.playlists };
-
+    const { width } = useSelector((state) => state.width);
     return (
-        <div className="w-full mb-10">
+        <div className={`${width < 320 ? "hidden" : "block"} w-full mb-10`}>
             {searchData?.artists?.length > 0 && (
                 <>
                     <SecondHeading
@@ -153,7 +176,7 @@ export const FeaturePlaylist = ({ searchData, q }) => {
                                     className="rounded-lg w-full hover:scale-110 transition-all"
                                 />
                             </div>
-                            <div className="flex flex-col text-main text-lg font-medium">
+                            <div className="flex flex-col text-main text-sm lg:text-lg font-medium">
                                 <h2>PLAYLIST NỔI BẬT</h2>
                                 <NavLink
                                     className="text-dark dark:text-light font-bold hover:text-main-hv dark:hover:text-main-hv-dark"
@@ -182,6 +205,7 @@ export const ListSongSearch = ({
     songs,
     title = "Bài hát",
 }) => {
+    const { width } = useSelector((state) => state.width);
     const items = songs?.slice(0, size) || searchData?.songs.slice(0, size);
     return (
         <div className="w-full mb-10">
@@ -189,16 +213,20 @@ export const ListSongSearch = ({
                 {title}
             </HeadingSearchComponent>
             {items?.length > 0 && (
-                <div className={`grid ${col} gap-5`}>
+                <div
+                    className={`grid gap-5 ${
+                        width < 640 ? "grid-cols-1" : col
+                    }`}
+                >
                     {items.map((item) => (
                         <Song
                             key={item.encodeId}
                             song={item}
                             artists={item.artists}
                             showAlbum={showAlbum}
-                            sizeDesc={40}
+                            sizeDesc={width > 468 ? 35 : width > 368 ? 25 : 15}
                             sizeAlbum={15}
-                            sizeTitle={15}
+                            sizeTitle={width > 468 ? 35 : width > 368 ? 25 : 15}
                             songs={items}
                         />
                     ))}

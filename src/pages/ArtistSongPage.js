@@ -1,11 +1,13 @@
 import React from "react";
-import { Heading, Song } from "../components";
+import { Heading, Loading, Song } from "../components";
 import useFecthInfoArtist from "../hooks/useFecthInfoArtist";
+import { useSelector } from "react-redux";
 const ArtistSongPage = () => {
     const { dataSongs, infoArtist } = useFecthInfoArtist();
+    const { loadingComponents } = useSelector((state) => state.loading);
     return (
         <div className="w-full">
-            {infoArtist && (
+            {!loadingComponents && infoArtist && (
                 <>
                     <Heading
                         className="mb-5"
@@ -24,6 +26,7 @@ const ArtistSongPage = () => {
                     </div>
                 </>
             )}
+            {loadingComponents && <Loading />}
         </div>
     );
 };

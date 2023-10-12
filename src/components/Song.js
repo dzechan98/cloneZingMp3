@@ -7,10 +7,10 @@ import moment from "moment";
 const Song = ({
     song,
     songs,
-    showAlbum = true,
-    sizeDesc,
-    sizeAlbum = 25,
     sizeTitle,
+    sizeDesc,
+    showAlbum = true,
+    sizeAlbum = 25,
     showDate = false,
     width,
     children,
@@ -90,8 +90,24 @@ const Song = ({
                 <div className="flex flex-col">
                     <ThirdHeading
                         title={title}
-                        sizeTitle={sizeTitle}
-                        sizeDesc={sizeDesc}
+                        sizeTitle={
+                            sizeTitle
+                                ? sizeTitle
+                                : width > 468
+                                ? 35
+                                : width > 368
+                                ? 25
+                                : 15
+                        }
+                        sizeDesc={
+                            sizeDesc
+                                ? sizeDesc
+                                : width > 468
+                                ? 35
+                                : width > 368
+                                ? 25
+                                : 15
+                        }
                         description={artistsNames}
                         artists={artists}
                         status={streamingStatus}

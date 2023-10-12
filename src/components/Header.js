@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import icons from "../ultis/icons";
+import React, { useEffect } from "react";
 import { Search } from "./";
-
-const { BsArrowRight, BsArrowLeft } = icons;
+import { useDispatch, useSelector } from "react-redux";
+import { setTheme } from "../features/themeSlice";
 
 const Header = ({ width }) => {
-    const [theme, setTheme] = useState("dark");
+    const dispatch = useDispatch();
+    const { theme } = useSelector((state) => state.theme);
     const handleToggleTheme = () => {
-        setTheme(theme === "dark" ? "light" : "dark");
+        dispatch(setTheme(theme === "dark" ? "light" : "dark"));
     };
 
     useEffect(() => {
@@ -20,27 +20,18 @@ const Header = ({ width }) => {
     return (
         <div
             className={`w-full flex items-center ${
-                width <= 360 ? "justify-center" : "justify-between"
+                width <= 360
+                    ? "flex-col-reverse gap-2 justify-center"
+                    : "flex-row justify-between"
             }`}
         >
-            {width > 360 && (
-                <div className="flex items-center gap-1 md:gap-6 w-full">
-                    {width > 520 && (
-                        <div className="flex items-center gap-1 md:gap-2">
-                            <span>
-                                <BsArrowLeft size={20} />
-                            </span>
-                            <span>
-                                <BsArrowRight size={20} />
-                            </span>
-                        </div>
-                    )}
-                    <div className="w-[80%] lg:w-1/2">
-                        <Search />
-                    </div>
-                </div>
-            )}
-
+            <div
+                className={`flex items-center ${
+                    width <= 360 ? "justify-center w-full" : "w-[80%] lg:w-1/2"
+                }`}
+            >
+                <Search />
+            </div>
             <div className="text-dark dark:text-light">
                 <span
                     onClick={handleToggleTheme}

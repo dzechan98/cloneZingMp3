@@ -17,25 +17,24 @@ const SongItem = ({
     artists,
     onClick = () => {},
     imgSize = "w-[40px]",
-    // height = "h-10",
-    width,
 }) => {
     const { songId, isPlaying } = useSelector((state) => state.player);
+    const { width } = useSelector((state) => state.width);
     return (
         <div
             className={`w-full p-[10px] flex gap-2 transition-all rounded-lg group ${
                 active
-                    ? bg
+                    ? `${bg} dark:${bgDark}`
                     : encodeId === songId
                     ? `${bg} dark:${bgDark}`
                     : `hover:${bg} dark:hover:${bgDark}`
             }`}
         >
-            <div className={`relative`}>
+            <div className={`relative h-full`}>
                 <img
                     src={thumbnail}
                     alt=""
-                    className={`${imgSize} object-cover rounded-lg`}
+                    className={`${imgSize} h-full object-cover rounded-lg`}
                 />
                 <span
                     className={`overlay rounded-lg bg-overlay absolute inset-0 items-center justify-center cursor-pointer ${
@@ -57,7 +56,7 @@ const SongItem = ({
                     title={title}
                     sizeTitle={
                         width < 320
-                            ? 15
+                            ? 12
                             : width <= 520
                             ? 25
                             : width > 768 && width < 1023

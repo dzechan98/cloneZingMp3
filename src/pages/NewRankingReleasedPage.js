@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Zingmp3Api from "../apis/Zingmp3Api";
-import { Heading, ListSong } from "../components";
+import { Heading, ListSong, Loading } from "../components";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../features/loadingSlice";
 
 const NewRankingReleasedPage = () => {
+    const dispatch = useDispatch();
+    const { loadingComponents } = useSelector((state) => state.loading);
     const [data, setData] = useState({});
     useEffect(() => {
         const fetchData = async () => {
             try {
+                dispatch(setLoading(true));
                 const res = await Zingmp3Api.getNewReleaseChart();
                 if (res.err === 0) {
                     setData(res.data);
                 }
+                dispatch(setLoading(false));
             } catch (error) {
                 console.log(error);
             }
@@ -20,7 +26,7 @@ const NewRankingReleasedPage = () => {
 
     return (
         <div className="w-full">
-            {data && (
+            {!loadingComponents && data && (
                 <>
                     <Heading
                         className="mb-5"
@@ -36,6 +42,7 @@ const NewRankingReleasedPage = () => {
                     />
                 </>
             )}
+            {loadingComponents && <Loading />}
         </div>
     );
 };

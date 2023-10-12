@@ -52,8 +52,8 @@ const PlaylistRecently = ({ title, recently }) => {
             <Heading className="md:mb-5 mb-2">{title}</Heading>
             <Slider {...settings}>
                 {recently.length > 0 &&
-                    recently?.map((item) => (
-                        <div className="p-[10px]" key={item.encodeId}>
+                    recently?.map((item, index) => (
+                        <div className="p-[10px]" key={index}>
                             <Image
                                 data={item}
                                 size={40}

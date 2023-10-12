@@ -8,10 +8,18 @@ import sidebarRightReducer from "./features/sidebarRightSlice";
 import songRecentlyReducer from "./features/songRecentlySlice";
 import songFavouriteReducer from "./features/songFavouriteSlice";
 import widthReducer from "./features/widthSlide";
+import loadingReducer from "./features/loadingSlice";
+import themeReducer from "./features/themeSlice";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["home", "playlistRecently", "songRecently", "songFavourite"],
+    whitelist: [
+        "home",
+        "playlistRecently",
+        "songRecently",
+        "songFavourite",
+        "theme",
+    ],
 };
 
 const playerPersistConfig = {
@@ -28,6 +36,8 @@ const rootReducer = combineReducers({
     songRecently: songRecentlyReducer,
     songFavourite: songFavouriteReducer,
     width: widthReducer,
+    loading: loadingReducer,
+    theme: themeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

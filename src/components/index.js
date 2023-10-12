@@ -25,3 +25,4 @@ export { default as Footer } from "./Footer";
 export { default as Artist } from "./Artist";
 export { default as FilterNewRelease } from "./FilterNewRelease";
 export { default as Top } from "./Top";
+export { default as Loading } from "./Loading";

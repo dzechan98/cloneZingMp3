@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import Zingmp3Api from "../apis/Zingmp3Api";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../features/loadingSlice";
 
 const useFecthInfoArtist = () => {
     const { name } = useParams();
+    const dispatch = useDispatch();
     const [infoArtist, setInfoArtist] = useState({});
     useEffect(() => {
         const fecthArtist = async () => {
             try {
+                dispatch(setLoading(true));
                 const res = await Zingmp3Api.getArtist(name);
-                console.log(res);
                 if (res.err === 0) {
                     setInfoArtist(res.data);
                 }
+                dispatch(setLoading(false));
             } catch (error) {
                 console.log(error);
             }

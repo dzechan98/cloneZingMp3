@@ -9,8 +9,20 @@ const SectionItem = ({ data, artists, hAlbum }) => {
     const dispatch = useDispatch();
     const { width } = useSelector((state) => state.width);
 
+    const sizeTitle =
+        width < 468 || (width > 1023 && width < 1140)
+            ? 13
+            : width >= 468 && width <= 640
+            ? 25
+            : 16;
+    const sizeDesc =
+        width < 468 || (width > 1023 && width < 1140)
+            ? 13
+            : width >= 468 && width <= 640
+            ? 25
+            : 16;
+    const hideArtist = width < 320 ? true : false;
     const handleClickPlaySong = () => {
-        console.log("data", data);
         dispatch(setIsAddRecentyly(true));
         navigate(data?.link.split(".")[0]);
     };
@@ -23,8 +35,10 @@ const SectionItem = ({ data, artists, hAlbum }) => {
                 {artists ? (
                     <ThirdHeading
                         title={data?.sortDescription || data?.title}
-                        sizeTitle={width > 768 ? 20 : 25}
+                        sizeTitle={sizeTitle}
+                        sizeDesc={sizeDesc}
                         description={listArtists}
+                        hideArtist={hideArtist}
                         height="h-10"
                         artists={data?.artists}
                         onClick={handleClickPlaySong}
@@ -35,14 +49,18 @@ const SectionItem = ({ data, artists, hAlbum }) => {
                             data?.sortDescription || data?.artistsNames
                         }
                         title={data?.title}
-                        sizeTitle={width > 768 ? 20 : 25}
+                        sizeTitle={sizeTitle}
+                        hideArtist={hideArtist}
+                        sizeDesc={sizeDesc}
                         artists={data?.artists}
                         onClick={handleClickPlaySong}
                     />
                 ) : (
                     <ThirdHeading
                         description={data?.sortDescription}
-                        sizeTitle={width > 768 ? 20 : 25}
+                        sizeTitle={sizeTitle}
+                        sizeDesc={sizeDesc}
+                        hideArtist={hideArtist}
                     />
                 )}
             </div>

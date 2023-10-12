@@ -9,17 +9,21 @@ const ListSong = ({
     total,
     showDate,
     showCategory = true,
+    sizeTitle,
+    sizeDesc,
     totalDuration,
     scroll = true,
     showTop,
     categoryCenter = "ALBUM",
 }) => {
     const { width } = useSelector((state) => state.width);
+    const { theme } = useSelector((state) => state.theme);
+
     const time = moment.duration(totalDuration * 1000);
     const hours = time.hours();
     const minutes = time.minutes();
     return (
-        <div className="w-full text-main-100 dark:text-main-100-dark text-[12px] lg:text-sm">
+        <div className="w-full text-dark dark:text-main-100-dark text-[12px] lg:text-sm">
             {showCategory && (
                 <div className="flex items-center justify-between p-[10px] font-semibold">
                     <span className={`${width > 640 ? "w-[50%]" : "w-[70%]"}`}>
@@ -46,8 +50,8 @@ const ListSong = ({
                             song={song}
                             songs={songs}
                             key={index}
-                            sizeDesc={width > 768 ? 20 : width > 640 ? 25 : 20}
-                            sizeTitle={width > 768 ? 20 : width > 640 ? 25 : 20}
+                            sizeDesc={sizeDesc}
+                            sizeTitle={sizeTitle}
                             showDate={showDate}
                             width={width}
                         >
@@ -64,7 +68,9 @@ const ListSong = ({
                                             ? "#50e3c2"
                                             : index === 2
                                             ? "#e35050"
-                                            : "#fff"
+                                            : theme === "dark"
+                                            ? "#fff"
+                                            : "#6b3483"
                                     }
                                 />
                             ) : width > 640 ? (

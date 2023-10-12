@@ -11,10 +11,10 @@ const NewRankingReleased = ({ data }) => {
         slidesToScroll: 3,
         responsive: [
             {
-                breakpoint: 1024,
+                breakpoint: 1240,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
+                    slidesToScroll: 1,
                     infinite: true,
                     dots: true,
                     cssEase: "linear",

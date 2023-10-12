@@ -8,6 +8,7 @@ const ThirdHeading = ({
     fontSizeDesc = "text-[12px] lg:text-sm ",
     height,
     artists,
+    hideArtist = false,
     fontSizeTitle = "lg:text-sm text-[12px]",
     onClick = () => {},
 }) => {
@@ -17,7 +18,7 @@ const ThirdHeading = ({
             {title && (
                 <div className="text-left max-w-max relative">
                     <h2
-                        className={`${fontSizeTitle} text-left font-bold inline text-dark dark:text-light ${
+                        className={`${fontSizeTitle}  text-left font-bold inline-block text-dark dark:text-light ${
                             onClick
                                 ? "hover:text-main-hv dark:hover:text-main-hv-dark cursor-pointer"
                                 : ""
@@ -30,7 +31,7 @@ const ThirdHeading = ({
                     </h2>
                 </div>
             )}
-            {description && (
+            {!hideArtist && description && (
                 <p
                     className={`w-full text-left ${fontSizeDesc} text-main dark:text-main-100-dark ${height}`}
                 >

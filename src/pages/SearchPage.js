@@ -12,11 +12,11 @@ const searchFilter = [
         path: "/tim-kiem/bai-hat",
     },
     {
-        title: "PLAYLIST/ALBUM",
+        title: "PLAYLIST",
         path: "/tim-kiem/playlist",
     },
     {
-        title: "NGHỆ SĨ/OA",
+        title: "NGHỆ SĨ",
         path: "/tim-kiem/artist",
     },
 ];

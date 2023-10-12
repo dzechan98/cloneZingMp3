@@ -3,7 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     title: "Gần đây",
     isAddRecently: false,
-    recently: [],
+    recently: [
+        "6BC7Z8EC",
+        "6BC8ODZ6",
+        "ZU6A7FIU",
+        "6WDIW7BB",
+        "Z6BO9EOA",
+        "ZWZB969E",
+        "ZOCIIUWW",
+    ],
 };
 
 const playlistRecentlySlice = createSlice({

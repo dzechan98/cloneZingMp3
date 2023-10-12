@@ -13,8 +13,12 @@ const Artist = ({ data, q, link, title = " Nghệ Sĩ/OA", active }) => {
                 {title}
             </HeadingSearchComponent>
             <div
-                className={`w-full grid sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-6 ${
-                    width > 368 && width < 640 ? "grid-cols-2" : "grid-cols-1"
+                className={`w-full grid gap-3 lg:gap-6 ${
+                    width > 468 && width < 640
+                        ? "grid-cols-3"
+                        : width <= 468 && width > 368
+                        ? "grid-cols-2"
+                        : "grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
                 }`}
             >
                 {data?.artists?.length > 0 &&
@@ -41,7 +45,7 @@ const Artist = ({ data, q, link, title = " Nghệ Sĩ/OA", active }) => {
                                     Number(item.totalFollow)
                                 )} quan tâm`}
                             </span>
-                            <Button className="bg-b-button dark:bg-b-button-dark text-at rounded-full border border-t-border">
+                            <Button className="bg-b-button dark:bg-b-button-dark text-dark dark:text-main-100-dark rounded-full border border-t-border">
                                 QUAN TÂM
                             </Button>
                         </div>

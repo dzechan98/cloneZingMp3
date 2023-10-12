@@ -8,7 +8,7 @@ import Top from "./Top";
 
 const SlideRanking = ({ item, index }) => {
     const dispatch = useDispatch();
-    const { width } = useSelector((state) => state.width);
+    const { theme } = useSelector((state) => state.theme);
     const { isPlaying } = useSelector((state) => state.player);
 
     const handleClick = () => {
@@ -36,7 +36,11 @@ const SlideRanking = ({ item, index }) => {
                     />
                 </div>
                 <div className="w-full flex justify-between items-end">
-                    <Top index={index} show />
+                    <Top
+                        index={index}
+                        show
+                        color={theme === "dark" ? "#fff" : "#6b3483"}
+                    />
                     <span className="text-main-100 dark:text-main-100-dark">
                         {moment(item?.releaseDate * 1000).format("DD.MM.YYYY")}
                     </span>

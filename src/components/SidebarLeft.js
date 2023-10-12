@@ -26,11 +26,11 @@ const SidebarLeft = ({ open, setOpen, width }) => {
     return (
         <div
             className={`bg-sb dark:bg-sb-dark min-h-[calc(100vh-80px)] transition-all duration-500 lg:w-[240px] fixed z-[10001] shadow-2xl ${
-                !open ? "w-[60px]" : "w-[240px]"
+                !open ? "w-[50px] sm:w-[70px]" : "w-[240px]"
             }`}
         >
             <div
-                className={`w-full h-[60px] flex items-center ${
+                className={`w-full h-[50px] flex items-center ${
                     width > 1023 || open
                         ? "justify-start py-[15px] px-[25px]"
                         : "justify-center"

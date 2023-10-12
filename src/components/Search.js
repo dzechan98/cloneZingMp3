@@ -4,6 +4,7 @@ import Zingmp3Api from "../apis/Zingmp3Api";
 import { useDispatch } from "react-redux";
 import { setSearchData } from "../features/playerSlice";
 import { useNavigate, createSearchParams } from "react-router-dom";
+import { setLoading } from "../features/loadingSlice";
 
 const { AiOutlineSearch, AiOutlineClose } = icons;
 const Search = () => {
@@ -16,6 +17,7 @@ const Search = () => {
     const handleSearch = async (e) => {
         if (e.keyCode === 13) {
             try {
+                dispatch(setLoading(true));
                 const response = await Zingmp3Api.search(searchValue);
                 if (response?.err === 0) {
                     dispatch(setSearchData(response?.data));
@@ -28,6 +30,7 @@ const Search = () => {
                         q: searchValue,
                     }).toString(),
                 });
+                dispatch(setLoading(false));
             } catch (error) {
                 dispatch(setSearchData([]));
             }

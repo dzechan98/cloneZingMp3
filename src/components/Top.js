@@ -4,7 +4,6 @@ const Top = ({
     index,
     color = "#fff",
     show = false,
-    size,
     opacity = 0.4,
     className = "",
 }) => {

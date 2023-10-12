@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
     Outlet,
     NavLink,
@@ -7,17 +8,19 @@ import {
 } from "react-router-dom";
 
 const active =
-    "relative text-dark dark:text-light cursor-pointer h-full font-semibold before:absolute before:h-[2px] before:w-full before:bg-b-button before:bottom-[-22px]";
+    "relative text-dark dark:text-light cursor-pointer h-full font-semibold before:absolute before:h-[2px] before:w-full before:bg-b-button before:bottom-0";
 const notActive =
-    "text-dark hover:text-dark dark:text-light dark:hover:text-light cursor-pointer h-full font-semibold ";
+    "text-dark hover:text-dark dark:text-main-100-dark dark:hover:text-light cursor-pointer h-full font-semibold ";
 const Filter = ({ title, filter, searchData, data = false, children }) => {
     const [searchParams] = useSearchParams();
     const q = searchParams.get("q");
     return (
         <div className="w-full">
-            <div className="flex pb-4 mb-10 items-center gap-5 h-[50px] text-sm border-b border-t-border">
-                <h2 className="text-[18px] font-semibold">{title}</h2>
-                <div className="flex items-center gap-8 text-[18px]">
+            <div className="flex mb-10 items-center gap-5 h-8 lg:h-[50px] text-sm border-b border-t-border">
+                <h2 className="text-dark dark:text-light hidden sm:block h-full text-[12px] sm:text-sm lg:text-lg font-semibold">
+                    {title}
+                </h2>
+                <div className="h-full flex items-center gap-2 sm:gap-8 text-[12px] sm:text-sm lg:text-lg">
                     {filter.map((item, index) => (
                         <NavLink
                             to={{

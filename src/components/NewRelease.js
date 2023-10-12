@@ -48,8 +48,6 @@ const NewRelease = () => {
                                 releaseDate={item.releaseDate}
                                 thumbnail={item.thumbnail}
                                 imgSize="w-[60px]"
-                                height="h-[60px]"
-                                width={width}
                                 onClick={() => handleClick(item)}
                             />
                         ))}
