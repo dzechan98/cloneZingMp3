@@ -30,7 +30,7 @@ const SectionItem = ({ data, artists, hAlbum }) => {
     const listArtists = data?.artists?.map((item) => item.name).join(",");
     return (
         <div className="w-full flex flex-col gap-2">
-            <Image data={data} onClick={handleClickPlaySong} size={40} />
+            <Image data={data} onClick={handleClickPlaySong} size={35} />
             <div className="w-full">
                 {artists ? (
                     <ThirdHeading

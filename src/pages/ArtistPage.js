@@ -28,7 +28,7 @@ const ArtistPage = () => {
                                     />
                                 </div>
                                 <div className="w-full">
-                                    <Heading text="lg:text-5xl md:text-4xl sm:text-3xl text-2xl mb-1 sm:mb-2 text-light">
+                                    <Heading text="lg:text-5xl md:text-4xl sm:text-3xl text-xl mb-1 sm:mb-2 text-light">
                                         {infoArtist.name}
                                     </Heading>
                                     <div className="text-[12px] sm:text-sm flex sm:items-center flex-col sm:flex-row gap-1 sm:gap-3 text-light">

@@ -8,6 +8,8 @@ const initialState = {
     isRandomSong: false,
     listSong: [],
     searchData: {},
+    autoPlay: false,
+    msg: "",
 };
 
 const playerSlice = createSlice({
@@ -35,6 +37,12 @@ const playerSlice = createSlice({
         setSearchData: (state, action) => {
             state.searchData = action.payload;
         },
+        setMsg: (state, action) => {
+            state.msg = action.payload;
+        },
+        setAutoPlay: (state, action) => {
+            state.autoPlay = action.payload;
+        },
     },
 });
 
@@ -46,5 +54,7 @@ export const {
     setIsRandomSong,
     setSongData,
     setSearchData,
+    setMsg,
+    setAutoPlay,
 } = playerSlice.actions;
 export default playerSlice.reducer;

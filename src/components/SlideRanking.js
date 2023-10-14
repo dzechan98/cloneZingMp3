@@ -3,21 +3,21 @@ import ThirdHeading from "./ThirdHeading";
 import moment from "moment";
 import Image from "./Image";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsPlaying, setSongId } from "../features/playerSlice";
+import { setAutoPlay, setIsPlaying, setSongId } from "../features/playerSlice";
 import Top from "./Top";
 
 const SlideRanking = ({ item, index }) => {
     const dispatch = useDispatch();
     const { theme } = useSelector((state) => state.theme);
-    const { isPlaying } = useSelector((state) => state.player);
+    const { isPlaying, songId } = useSelector((state) => state.player);
 
     const handleClick = () => {
-        if (isPlaying) {
-            dispatch(setIsPlaying(false));
+        if (songId === item?.encodeId) {
+            dispatch(setAutoPlay(true));
+            dispatch(setIsPlaying(isPlaying ? false : true));
             return null;
         }
         dispatch(setSongId(item?.encodeId));
-        dispatch(setIsPlaying(true));
     };
     return (
         <div className="flex gap-2 bg-b-active dark:bg-b-active-dark rounded-lg p-[10px] m-[10px]">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, SongItem } from "./";
-import { setIsPlaying, setSongId } from "../features/playerSlice";
+import { setAutoPlay, setIsPlaying, setSongId } from "../features/playerSlice";
 import { toast } from "react-toastify";
 
 const SidebarRight = () => {
@@ -18,16 +18,16 @@ const SidebarRight = () => {
         if (!playlistActive) {
             if (item.streamingStatus === 1) {
                 setPlaylistActive(true);
+                dispatch(setAutoPlay(true));
                 dispatch(setSongId(item.encodeId));
-                dispatch(setIsPlaying(true));
             } else {
                 toast.warning("Bài hát chỉ dành cho tài khoản VIP, PRI");
             }
             return null;
         }
         if (item.streamingStatus === 1) {
+            dispatch(setAutoPlay(true));
             dispatch(setSongId(item.encodeId));
-            dispatch(setIsPlaying(true));
         } else {
             toast.warning("Bài hát chỉ dành cho tài khoản VIP, PRI");
         }
@@ -57,10 +57,11 @@ const SidebarRight = () => {
         }
     }, [songData]);
 
-    const { thumbnail, title, artistsNames, encodeId } = songData;
+    const { thumbnail, title, artistsNames, encodeId, streamingStatus } =
+        songData;
     return (
         <div
-            className={`w-[320px] fixed transition-all duration-500 overflow-y-scroll h-screen z-[10001] bg-sbr dark:bg-sbr-dark ${
+            className={`w-[320px] fixed transition-all duration-500 overflow-y-scroll h-screen z-[1009] bg-sbr dark:bg-sbr-dark shadow-2xl ${
                 isOpen ? "right-0" : "right-[-120%]"
             }`}
         >
@@ -70,7 +71,7 @@ const SidebarRight = () => {
                         <Button
                             className={`rounded-full !p-2 font-semibold transition-all ${
                                 playlistActive
-                                    ? "text-dark bg-main dark:bg-[#6a6474] dark:text-light"
+                                    ? "text-light bg-main dark:bg-[#6a6474]"
                                     : "hover:text-dark dark:hover:text-light"
                             }`}
                             text="text-[12px]"
@@ -81,7 +82,7 @@ const SidebarRight = () => {
                         <Button
                             className={`rounded-full !p-2 font-semibold transition-all ${
                                 !playlistActive
-                                    ? "text-dark bg-main dark:bg-[#6a6474] dark:text-light"
+                                    ? "text-light bg-main dark:bg-[#6a6474]"
                                     : "hover:text-dark dark:hover:text-light"
                             }`}
                             text="text-[12px]"
@@ -99,6 +100,7 @@ const SidebarRight = () => {
                                 bgDark="bg-b-button-dark"
                                 thumbnail={thumbnail}
                                 title={title}
+                                status={streamingStatus}
                                 artists={songData.artists}
                                 artistsNames={artistsNames}
                                 encodeId={encodeId}
@@ -108,7 +110,7 @@ const SidebarRight = () => {
                                 <h2 className="font-semibold mb-2">
                                     Tiếp theo
                                 </h2>
-                                <p className="text-main-100 dark:text-main-100-dark font-meidum">
+                                <p className="text-dark dark:text-main-100-dark font-meidum">
                                     Từ playlist{" "}
                                     <span className="text-main-hv dark:text-main-hv-dark">
                                         #zingchart
@@ -131,6 +133,7 @@ const SidebarRight = () => {
                                     key={index}
                                     thumbnail={item.thumbnail}
                                     title={item.title}
+                                    status={item.streamingStatus}
                                     artists={item.artists}
                                     artistsNames={item.artistsNames}
                                     encodeId={item.encodeId}

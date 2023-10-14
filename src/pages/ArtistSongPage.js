@@ -11,7 +11,7 @@ const ArtistSongPage = () => {
                 <>
                     <Heading
                         className="mb-5"
-                        text="text-2xl"
+                        text="text-sm sm:text-xl lg:text-2xl"
                     >{`${infoArtist?.name} - Tất Cả Bài Hát`}</Heading>
                     <div className="w-full">
                         {dataSongs?.items?.length > 0 &&

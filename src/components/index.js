@@ -26,3 +26,4 @@ export { default as Artist } from "./Artist";
 export { default as FilterNewRelease } from "./FilterNewRelease";
 export { default as Top } from "./Top";
 export { default as Loading } from "./Loading";
+export { default as PlayerSkeleton } from "./PlayerSkeleton";

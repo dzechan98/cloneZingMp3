@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsPlaying, setSongId, setListSong } from "../features/playerSlice";
+import {
+    setIsPlaying,
+    setSongId,
+    setListSong,
+    setAutoPlay,
+} from "../features/playerSlice";
 import { Modal, Icons, TogglePlaySong, ThirdHeading } from "./";
 import moment from "moment";
 
@@ -36,8 +41,8 @@ const Song = ({
         }
 
         if (id !== songId) {
+            dispatch(setAutoPlay(true));
             dispatch(setSongId(id));
-            dispatch(setIsPlaying(true));
             dispatch(setListSong(songs));
             return null;
         }
@@ -48,10 +53,10 @@ const Song = ({
     };
 
     useEffect(() => {
-        if (songId === encodeId) {
+        if (songId === encodeId && isPlaying) {
             songRef.current.scrollIntoView();
         }
-    }, [songId]);
+    }, [isPlaying]);
     return (
         <div
             ref={songRef}
@@ -72,7 +77,7 @@ const Song = ({
                         className="w-10 h-10 rounded-lg"
                     />
                     <div
-                        className={`text-dark dark:text-light overlay rounded-lg transition-all items-center justify-center absolute inset-0 bg-overlay cursor-pointer ${
+                        className={`text-light overlay rounded-lg transition-all items-center justify-center absolute inset-0 bg-overlay cursor-pointer ${
                             songId === encodeId
                                 ? "flex"
                                 : "hidden group-hover:flex"

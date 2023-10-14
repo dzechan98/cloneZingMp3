@@ -6,7 +6,12 @@ import moment from "moment";
 import icons from "../ultis/icons";
 import PlayingIc from "../assets/icon-playing.gif";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsPlaying, setListSong, setSongId } from "../features/playerSlice";
+import {
+    setAutoPlay,
+    setIsPlaying,
+    setListSong,
+    setSongId,
+} from "../features/playerSlice";
 import {
     addPlaylistRecently,
     setIsAddRecentyly,
@@ -72,7 +77,7 @@ const PlaylistPage = () => {
     useEffect(() => {
         if (isAddRecently && Object.keys(playlist).length > 0) {
             if (playlist?.song?.items[0].streamingStatus === 1) {
-                dispatch(setIsPlaying(true));
+                dispatch(setAutoPlay(true));
                 dispatch(setSongId(playlist?.song?.items[0]?.encodeId));
                 dispatch(setListSong(playlist?.song?.items));
                 dispatch(addPlaylistRecently(playlist));

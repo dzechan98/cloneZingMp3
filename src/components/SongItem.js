@@ -12,6 +12,7 @@ const SongItem = ({
     releaseDate,
     artistsNames,
     thumbnail,
+    status,
     active,
     type,
     artists,
@@ -37,7 +38,7 @@ const SongItem = ({
                     className={`${imgSize} h-full object-cover rounded-lg`}
                 />
                 <span
-                    className={`overlay rounded-lg bg-overlay absolute inset-0 items-center justify-center cursor-pointer ${
+                    className={`text-light overlay rounded-lg bg-overlay absolute inset-0 items-center justify-center cursor-pointer ${
                         encodeId === songId ? "flex" : "hidden group-hover:flex"
                     }`}
                     onClick={onClick}
@@ -65,6 +66,7 @@ const SongItem = ({
                     }
                     description={artistsNames}
                     sizeDesc={20}
+                    status={status}
                     fontSizeTitle="lg:text-sm text-[12px]"
                     fontSizeDesc="text-[12px]"
                     artists={artists}

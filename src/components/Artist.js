@@ -45,7 +45,7 @@ const Artist = ({ data, q, link, title = " Nghệ Sĩ/OA", active }) => {
                                     Number(item.totalFollow)
                                 )} quan tâm`}
                             </span>
-                            <Button className="bg-b-button dark:bg-b-button-dark text-dark dark:text-main-100-dark rounded-full border border-t-border">
+                            <Button className="bg-b-button dark:bg-b-button-dark text-light rounded-full shadow-2xl ">
                                 QUAN TÂM
                             </Button>
                         </div>

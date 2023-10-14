@@ -7,6 +7,7 @@ const ThirdHeading = ({
     sizeDesc = 20,
     fontSizeDesc = "text-[12px] lg:text-sm ",
     height,
+    status,
     artists,
     hideArtist = false,
     fontSizeTitle = "lg:text-sm text-[12px]",
@@ -18,7 +19,11 @@ const ThirdHeading = ({
             {title && (
                 <div className="text-left max-w-max relative">
                     <h2
-                        className={`${fontSizeTitle}  text-left font-bold inline-block text-dark dark:text-light ${
+                        className={`${fontSizeTitle} text-left font-bold inline-block ${
+                            status === 2
+                                ? "dark:text-main-100-dark"
+                                : "text-dark dark:text-light"
+                        } ${
                             onClick
                                 ? "hover:text-main-hv dark:hover:text-main-hv-dark cursor-pointer"
                                 : ""

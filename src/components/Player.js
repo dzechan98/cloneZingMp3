@@ -8,8 +8,10 @@ import {
     setIsRepeating,
     setIsRandomSong,
     setSongData,
+    setMsg,
+    setAutoPlay,
 } from "../features/playerSlice";
-import { Icons, ThirdHeading } from "./";
+import { Icons, PlayerSkeleton, ThirdHeading } from "./";
 import moment from "moment";
 import { toast } from "react-toastify";
 import IconsLoading from "../assets/loading-gif.gif";
@@ -28,11 +30,18 @@ const {
 
 const Player = ({ width }) => {
     const dispatch = useDispatch();
-    const { songId, isPlaying, listSong, isRandomSong, isRepeating } =
-        useSelector((state) => state.player);
+    const {
+        songId,
+        isPlaying,
+        listSong,
+        isRandomSong,
+        isRepeating,
+        msg,
+        autoPlay,
+    } = useSelector((state) => state.player);
+    const { loadingComponents } = useSelector((state) => state.loading);
 
     const { isOpen } = useSelector((state) => state.sidebarRight);
-    const [msg, setMsg] = useState("");
     const [loading, setLoading] = useState(false);
     const [audio, setAudio] = useState(new Audio());
     const [currentTime, setCurrentTime] = useState(0);
@@ -125,6 +134,7 @@ const Player = ({ width }) => {
     //Call api
     useEffect(() => {
         const fecthDetailSong = async () => {
+            audio.pause();
             try {
                 setLoading(true);
                 const [res1, res2] = await Promise.all([
@@ -138,12 +148,11 @@ const Player = ({ width }) => {
                     dispatch(setListSongRecently(res1?.data));
                 }
                 if (res2?.err === 0) {
-                    audio.pause();
-                    setMsg("");
+                    dispatch(setMsg(""));
                     setAudio(new Audio(res2.data["128"]));
                 } else {
-                    audio.pause();
-                    setMsg(res2.msg);
+                    dispatch(setMsg(res2.msg));
+                    dispatch(setIsPlaying(false));
                 }
             } catch (error) {
                 console.log(error);
@@ -206,148 +215,163 @@ const Player = ({ width }) => {
 
     useEffect(() => {
         if (audio.src) {
+            if (autoPlay) {
+                dispatch(setAutoPlay(false));
+                dispatch(setIsPlaying(true));
+            }
             isPlaying ? audio.play() : audio.pause();
         }
     }, [isPlaying, audio]);
     return (
-        <div className="w-full h-full flex items-center px-[21px]">
-            {width > 520 && (
-                <div className={`flex items-center gap-2 w-[30%]`}>
-                    <img
-                        src={song?.thumbnail}
-                        alt=""
-                        className={`rounded-lg ${
-                            width > 768 ? "h-12 w-12" : "h-10 w-10"
-                        }`}
-                    />
-                    <div className="flex items-center gap-2">
-                        <div className="text-sm">
-                            <ThirdHeading
-                                title={song?.title}
-                                artists={song?.artists}
-                                description={song?.artistsNames}
-                            />
-                        </div>
-                        {width > 768 && <Icons song={song} />}
-                    </div>
-                </div>
-            )}
-            <div
-                className={`flex flex-col items-center justify-center ${
-                    width <= 520 ? "w-full" : "w-[60%] lg:w-[40%]"
-                }`}
-            >
-                <div className="w-full flex items-center justify-center gap-2">
-                    <span
-                        onClick={handleRandomSong}
-                        className={`p-2 cursor-pointer rounded-full transition-all ${
-                            isRandomSong
-                                ? "text-main-hv dark:text-main-hv-dark"
-                                : "hover:bg-b-active dark:hover:bg-b-active-dark"
-                        }`}
-                    >
-                        <BiShuffle size={15} />
-                    </span>
-                    <span
-                        className="p-2 cursor-pointer hover:bg-b-active dark:hover:bg-b-active-dark rounded-full"
-                        onClick={() => handlePrevSong(songId)}
-                    >
-                        <BiSkipPrevious size={15} />
-                    </span>
-                    <span
-                        className="cursor-pointer hover:text-main-hv dark:hover:text-main-hv-dark rounded-full"
-                        onClick={handleTogglePlayMusic}
-                    >
-                        {loading ? (
+        <>
+            {!loadingComponents && (
+                <div className="w-full h-full flex items-center px-[21px]">
+                    {width > 520 && (
+                        <div className={`flex items-center gap-2 w-[30%]`}>
                             <img
-                                src={IconsLoading}
+                                src={song?.thumbnail}
                                 alt=""
-                                className="w-4 h-4"
+                                className={`rounded-lg ${
+                                    width > 768 ? "h-12 w-12" : "h-10 w-10"
+                                }`}
                             />
-                        ) : !isPlaying ? (
-                            <BsPlayCircle size={width > 768 ? 30 : 25} />
-                        ) : (
-                            <BsPauseCircle size={width > 768 ? 30 : 25} />
-                        )}
-                    </span>
-                    <span
-                        onClick={() => handleNextSong(songId)}
-                        className="p-2 hover:bg-b-active dark:hover:bg-b-active-dark rounded-full cursor-pointer"
-                    >
-                        <BiSkipNext size={15} />
-                    </span>
-                    <span
-                        onClick={handleRepeatSong}
-                        className={`p-2 cursor-pointer rounded-full transition-all ${
-                            isRepeating
-                                ? "text-main-hv dark:text-main-hv-dark"
-                                : "hover:bg-b-active dark:hover:bg-b-active-dark"
+                            <div className="flex items-center gap-2">
+                                <div className="text-sm">
+                                    <ThirdHeading
+                                        title={song?.title}
+                                        artists={song?.artists}
+                                        description={song?.artistsNames}
+                                    />
+                                </div>
+                                {width > 768 && <Icons song={song} />}
+                            </div>
+                        </div>
+                    )}
+                    <div
+                        className={`flex flex-col items-center justify-center ${
+                            width <= 520 ? "w-full" : "w-[60%] lg:w-[40%]"
                         }`}
                     >
-                        <PiRepeat size={15} />
-                    </span>
-                </div>
-                <div className="flex items-center justify-center gap-2 w-full text-[12px] font-bold text-main-100 dark:text-main-100-dark">
-                    <span className="">
-                        {moment.utc(currentTime * 1000).format("mm:ss")}
-                    </span>
-                    <div
-                        className="progress relative w-[70%] h-[3px] bg-b-active dark:bg-b-active-dark rounded-lg overflow-hidden cursor-pointer hover:h-[6px] group"
-                        onClick={handleChangeProgress}
-                        ref={trackRef}
-                    >
-                        <div
-                            ref={thumbRef}
-                            className={`absolute bottom-0 top-0 left-0 bg-dark dark:bg-light`}
-                        ></div>
-                    </div>
-                    <span className="">
-                        {moment.utc(song?.duration * 1000).format("mm:ss")}
-                    </span>
-                </div>
-                {width <= 520 && (
-                    <h2 className="text-sm font-bold dark:text-main-hv-dark text-main-hv">
-                        {song?.title?.length > 45
-                            ? `${song?.title.slice(0, 45)}...`
-                            : song?.title}
-                    </h2>
-                )}
-            </div>
-            {width > 520 && (
-                <div className="w-[10%] lg:w-[30%] flex items-center justify-end">
-                    <div className="lg:w-1/2 flex justify-center gap-[16px]">
-                        {width > 1023 && (
-                            <div className="w-full flex items-center gap-2">
-                                <span className="cursor-pointer peer">
-                                    <FiVolume2 size={20} />
-                                </span>
+                        <div className="w-full flex items-center justify-center gap-2">
+                            <span
+                                onClick={handleRandomSong}
+                                className={`p-2 cursor-pointer rounded-full transition-all ${
+                                    isRandomSong
+                                        ? "text-main-hv dark:text-main-hv-dark"
+                                        : "hover:bg-b-active dark:hover:bg-b-active-dark"
+                                }`}
+                            >
+                                <BiShuffle size={15} />
+                            </span>
+                            <span
+                                className="p-2 cursor-pointer hover:bg-b-active dark:hover:bg-b-active-dark rounded-full"
+                                onClick={() => handlePrevSong(songId)}
+                            >
+                                <BiSkipPrevious size={15} />
+                            </span>
+                            <span
+                                className="cursor-pointer hover:text-main-hv dark:hover:text-main-hv-dark rounded-full"
+                                onClick={handleTogglePlayMusic}
+                            >
+                                {loading ? (
+                                    <img
+                                        src={IconsLoading}
+                                        alt=""
+                                        className="w-4 h-4"
+                                    />
+                                ) : !isPlaying ? (
+                                    <BsPlayCircle
+                                        size={width > 768 ? 30 : 25}
+                                    />
+                                ) : (
+                                    <BsPauseCircle
+                                        size={width > 768 ? 30 : 25}
+                                    />
+                                )}
+                            </span>
+                            <span
+                                onClick={() => handleNextSong(songId)}
+                                className="p-2 hover:bg-b-active dark:hover:bg-b-active-dark rounded-full cursor-pointer"
+                            >
+                                <BiSkipNext size={15} />
+                            </span>
+                            <span
+                                onClick={handleRepeatSong}
+                                className={`p-2 cursor-pointer rounded-full transition-all ${
+                                    isRepeating
+                                        ? "text-main-hv dark:text-main-hv-dark"
+                                        : "hover:bg-b-active dark:hover:bg-b-active-dark"
+                                }`}
+                            >
+                                <PiRepeat size={15} />
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-center gap-2 w-full text-[12px] font-bold text-main-100 dark:text-main-100-dark">
+                            <span className="">
+                                {moment.utc(currentTime * 1000).format("mm:ss")}
+                            </span>
+                            <div
+                                className="progress relative w-[70%] h-[3px] bg-b-active dark:bg-b-active-dark rounded-lg overflow-hidden cursor-pointer hover:h-[6px] group"
+                                onClick={handleChangeProgress}
+                                ref={trackRef}
+                            >
                                 <div
-                                    className="progress w-[100px] relative h-[3px] bg-b-active dark:bg-b-active-dark rounded-lg overflow-hidden cursor-pointer hover:h-[6px] peer-hover:h-[6px] group"
-                                    ref={volumeTrackRef}
-                                    onClick={handleChangeVolume}
+                                    ref={thumbRef}
+                                    className={`absolute bottom-0 top-0 left-0 bg-dark dark:bg-light`}
+                                ></div>
+                            </div>
+                            <span className="">
+                                {moment
+                                    .utc(song?.duration * 1000)
+                                    .format("mm:ss")}
+                            </span>
+                        </div>
+                        {width <= 520 && (
+                            <h2 className="text-sm font-bold dark:text-main-hv-dark text-main-hv">
+                                {song?.title?.length > 45
+                                    ? `${song?.title.slice(0, 45)}...`
+                                    : song?.title}
+                            </h2>
+                        )}
+                    </div>
+                    {width > 520 && (
+                        <div className="w-[10%] lg:w-[30%] flex items-center justify-end">
+                            <div className="lg:w-1/2 flex justify-center gap-[16px]">
+                                {width > 1023 && (
+                                    <div className="w-full flex items-center gap-2">
+                                        <span className="cursor-pointer peer">
+                                            <FiVolume2 size={20} />
+                                        </span>
+                                        <div
+                                            className="progress w-[100px] relative h-[3px] bg-b-active dark:bg-b-active-dark rounded-lg overflow-hidden cursor-pointer hover:h-[6px] peer-hover:h-[6px] group"
+                                            ref={volumeTrackRef}
+                                            onClick={handleChangeVolume}
+                                        >
+                                            <div
+                                                className={`absolute bottom-0 top-0 left-0 right-0 bg-dark dark:bg-light`}
+                                                ref={volumeThumbRef}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div
+                                    className={`p-2 rounded-lg cursor-pointer ${
+                                        isOpen
+                                            ? "bg-b-button dark:bg-b-button-dark"
+                                            : "bg-b-active dark:bg-b-active-dark"
+                                    }`}
+                                    onClick={() => dispatch(setIsOpen())}
                                 >
-                                    <div
-                                        className={`absolute bottom-0 top-0 left-0 right-0 bg-dark dark:bg-light`}
-                                        ref={volumeThumbRef}
-                                    ></div>
+                                    <BsMusicNoteList size={20} />
                                 </div>
                             </div>
-                        )}
-
-                        <div
-                            className={`p-2 rounded-lg cursor-pointer ${
-                                isOpen
-                                    ? "bg-b-button dark:bg-b-button-dark"
-                                    : "bg-b-active dark:bg-b-active-dark"
-                            }`}
-                            onClick={() => dispatch(setIsOpen())}
-                        >
-                            <BsMusicNoteList size={20} />
                         </div>
-                    </div>
+                    )}
                 </div>
             )}
-        </div>
+            {loadingComponents && <PlayerSkeleton />}
+        </>
     );
 };
 

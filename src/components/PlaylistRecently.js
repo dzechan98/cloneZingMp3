@@ -56,7 +56,7 @@ const PlaylistRecently = ({ title, recently }) => {
                         <div className="p-[10px]" key={index}>
                             <Image
                                 data={item}
-                                size={40}
+                                size={30}
                                 onClick={() => handleClickPlaySong(item)}
                             />
                         </div>

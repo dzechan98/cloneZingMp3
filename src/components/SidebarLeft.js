@@ -25,7 +25,7 @@ const SidebarLeft = ({ open, setOpen, width }) => {
     };
     return (
         <div
-            className={`bg-sb dark:bg-sb-dark min-h-[calc(100vh-80px)] transition-all duration-500 lg:w-[240px] fixed z-[10001] shadow-2xl ${
+            className={`bg-sb dark:bg-sb-dark min-h-[calc(100vh-80px)] transition-all duration-500 lg:w-[240px] fixed z-[1009] shadow-2xl ${
                 !open ? "w-[50px] sm:w-[70px]" : "w-[240px]"
             }`}
         >

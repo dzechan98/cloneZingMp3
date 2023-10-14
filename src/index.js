@@ -7,15 +7,17 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./store";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import { SkeletonTheme } from "react-loading-skeleton";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <Router>
-                    <App />
-                </Router>
+                <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+                    <Router>
+                        <App />
+                    </Router>
+                </SkeletonTheme>
             </PersistGate>
         </Provider>
     </React.StrictMode>

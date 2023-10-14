@@ -49,7 +49,7 @@ const Search = () => {
                     ref={inputRef}
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    className="py-2 bg-[transparent] flex-auto peer sm:pr-12 text-sm"
+                    className="dark:text-light text-dark py-2 bg-[transparent] flex-auto peer sm:pr-12 text-sm"
                     onKeyUp={handleSearch}
                     placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
                 />

@@ -6,7 +6,7 @@ const Image = ({ data, onClick = () => {}, size = "20" }) => {
     const { isPlaying, songId } = useSelector((state) => state.player);
 
     return (
-        <div className="group w-full h-full">
+        <div className="text-light group w-full h-full">
             <div className="relative w-full h-full rounded-lg overflow-hidden">
                 <img
                     src={data?.thumbnailM}
