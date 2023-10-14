@@ -15,7 +15,7 @@ const Modal = ({ title, desc, titleButton, setOpenModal }) => {
                     onClick={() => {
                         setOpenModal(false);
                     }}
-                    className="absolute top-2 right-2 cursor-pointer"
+                    className="text-light absolute top-2 right-2 cursor-pointer"
                 >
                     <AiOutlineClose size={20} />
                 </span>

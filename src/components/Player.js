@@ -39,8 +39,7 @@ const Player = ({ width }) => {
         msg,
         autoPlay,
     } = useSelector((state) => state.player);
-    const { loadingComponents } = useSelector((state) => state.loading);
-
+    const [loadingPlayer, setLoadingPlayer] = useState(false);
     const { isOpen } = useSelector((state) => state.sidebarRight);
     const [loading, setLoading] = useState(false);
     const [audio, setAudio] = useState(new Audio());
@@ -104,10 +103,9 @@ const Player = ({ width }) => {
 
         //Check VIP
         if (listSong[index]?.streamingStatus === 1) {
-            dispatch(setIsPlaying(true));
-        } else {
-            dispatch(setIsPlaying(false));
+            dispatch(setAutoPlay(true));
         }
+
         thumbRef.current.style.right = `100%`;
 
         setCurrentTime(0);
@@ -121,10 +119,9 @@ const Player = ({ width }) => {
             index = curSong - 1;
         }
         if (listSong[index]?.streamingStatus === 1) {
-            dispatch(setIsPlaying(true));
-        } else {
-            dispatch(setIsPlaying(false));
+            dispatch(setAutoPlay(true));
         }
+
         thumbRef.current.style.right = `100%`;
 
         setCurrentTime(0);
@@ -214,8 +211,18 @@ const Player = ({ width }) => {
     }, [isPlaying, audio]);
 
     useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoadingPlayer(false);
+        }, 3000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
+
+    useEffect(() => {
         if (audio.src) {
-            if (autoPlay) {
+            if (autoPlay && !msg) {
                 dispatch(setAutoPlay(false));
                 dispatch(setIsPlaying(true));
             }
@@ -224,7 +231,7 @@ const Player = ({ width }) => {
     }, [isPlaying, audio]);
     return (
         <>
-            {!loadingComponents && (
+            {!loadingPlayer && (
                 <div className="w-full h-full flex items-center px-[21px]">
                     {width > 520 && (
                         <div className={`flex items-center gap-2 w-[30%]`}>
@@ -370,7 +377,7 @@ const Player = ({ width }) => {
                     )}
                 </div>
             )}
-            {loadingComponents && <PlayerSkeleton />}
+            {loadingPlayer && <PlayerSkeleton />}
         </>
     );
 };

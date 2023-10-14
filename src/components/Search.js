@@ -30,7 +30,7 @@ const Search = () => {
                         q: searchValue,
                     }).toString(),
                 });
-                dispatch(setLoading(false));
+                //dispatch(setLoading(false));
             } catch (error) {
                 dispatch(setSearchData([]));
             }

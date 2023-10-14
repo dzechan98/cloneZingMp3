@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleNumber } from "../ultis/func";
 import { useSearchParams, createSearchParams, NavLink } from "react-router-dom";
@@ -12,6 +12,7 @@ import {
     Loading,
 } from "../components";
 import { setIsPlaying, setSongId } from "../features/playerSlice";
+import { setLoading } from "../features/loadingSlice";
 
 const SearchAll = () => {
     const dispatch = useDispatch();
@@ -30,6 +31,9 @@ const SearchAll = () => {
             }
         }
     };
+    useEffect(() => {
+        dispatch(setLoading(false));
+    }, [searchData]);
     return (
         <>
             {!loadingComponents && (

@@ -21,7 +21,7 @@ const ThirdHeading = ({
                     <h2
                         className={`${fontSizeTitle} text-left font-bold inline-block ${
                             status === 2
-                                ? "dark:text-main-100-dark"
+                                ? "text-[#5a5a5a] dark:text-main-100-dark"
                                 : "text-dark dark:text-light"
                         } ${
                             onClick
