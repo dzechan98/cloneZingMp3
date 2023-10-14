@@ -212,7 +212,7 @@ const Player = ({ width }) => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setLoadingPlayer(false);
+            setLoadingPlayer(true);
         }, 3000);
 
         return () => {
@@ -231,7 +231,7 @@ const Player = ({ width }) => {
     }, [isPlaying, audio]);
     return (
         <>
-            {!loadingPlayer && (
+            {loadingPlayer && (
                 <div className="w-full h-full flex items-center px-[21px]">
                     {width > 520 && (
                         <div className={`flex items-center gap-2 w-[30%]`}>
@@ -377,7 +377,7 @@ const Player = ({ width }) => {
                     )}
                 </div>
             )}
-            {loadingPlayer && <PlayerSkeleton />}
+            {!loadingPlayer && <PlayerSkeleton />}
         </>
     );
 };
